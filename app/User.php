@@ -10,13 +10,17 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    public const user = "USER";
+    public const user = "CLIENTE";
 
-    public const admin = "ADMIN";
+    public const admin = "WEBMASTER";
 
     public function getReservas() {
         return $this->hasMany('App\Reserva');
     }
+
+    protected $attributes = [
+        'rol' => "CLIENTE",
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'nombre', 'apellidos', 'telefono', 'email', 'password',
     ];
 
     /**

@@ -143,13 +143,13 @@
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
-                                <a class="nav-link" href="#">Temporadas</a>
+                                <a class="nav-link" href="/temporadas">Temporadas</a>
                             </li>
                             <li>
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
-                                <a class="nav-link" href="#">Bloqueos</a>
+                                <a class="nav-link" href="/bloqueos">Bloqueos</a>
                             </li>
                         @endif
                     </ul>

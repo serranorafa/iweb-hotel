@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <h1 style="text-align: center">{{ __('Registro') }}</h1>
             <div class="card">
-                <div class="card-body">
+                <div class="card-body text-center">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -90,9 +90,9 @@
                             </div>
                         </div>
                         <br>
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                        <div class="form-group row" style="text-align: center">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-secondary">
                                     {{ __('Darme de alta') }}
                                 </button>
                             </div>

@@ -53,7 +53,7 @@
                         -->
                         <div class="form-group row" style="text-align: center">
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary" style="text-align: center"> 
+                                <button type="submit" class="btn btn-secondary" style="text-align: center"> 
                                     {{ __('Iniciar sesión') }}
                                 </button>
                                 <!--

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Temporada;
 use Illuminate\Support\Facades\DB;
-class UserController extends Controller
+class TemporadaController extends Controller
 {
     /**
      * Show the user list
@@ -14,5 +14,5 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.list', ['users' =>  User::whereNotNull('id')->paginate(5)]);
+        return view('temporadas.list', ['temporadas' => Temporada::whereNotNull('id')->paginate(5)]);
     }}

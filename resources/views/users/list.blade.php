@@ -7,6 +7,7 @@
             <h1 style="text-align: center">{{ __('Usuarios') }}</h1>
             <div class="card" style="text-align: center">
                 <div class="card-body">
+                <h4 style="text-align: center">{{ __('Búsqueda') }}</h4>
                     <form method="POST">
                         @csrf
                         <div class="form-group row">

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bloqueo extends Model
 {
-    public function getEstancia() {
+    public function Estancia() {
         return $this->belongsTo('App\Estancia');
     }
 }

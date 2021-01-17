@@ -64,25 +64,25 @@
                         <li class="nav-item active" style="width:100%">
                             <a class="nav-link" href="#">Noticia y novedades</a>
                         </li>
-                        <li>
+                        <li class="d-none d-md-block">
                             <a class="nav-link">|</a>
                         </li>
                         <li class="nav-item active" style="width:100%">
                             <a class="nav-link" href="#">Galería</a>
                         </li>
-                        <li>
+                        <li class="d-none d-md-block">
                             <a class="nav-link">|</a>
                         </li>
                         <li class="nav-item active" style="width:100%">
                             <a class="nav-link" href="#">¿Quiénes somos?</a>
                         </li>
-                        <li>
+                        <li class="d-none d-md-block">
                             <a class="nav-link">|</a>
                         </li>
                         <li class="nav-item active" style="width:100%">
                             <a class="nav-link" href="#">Contacto</a>
                         </li>
-                        <li>
+                        <li class="d-none d-md-block">
                             <a class="nav-link">|</a>
                         </li>
                         <li class="nav-item active" style="width:100%">
@@ -92,19 +92,19 @@
                             <li class="nav-item active" style="width:100%">
                                 <a class="nav-link" href="#">Reservas</a>
                             </li>
-                            <li>
+                            <li class="d-none d-md-block">
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
                                 <a class="nav-link" href="#">Bloqueos</a>
                             </li>
-                            <li>
+                            <li class="d-none d-md-block">
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
                                 <a class="nav-link" href="#">Crear reserva</a>
                             </li>
-                            <li>
+                            <li class="d-none d-md-block">
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
@@ -114,37 +114,37 @@
                             <li class="nav-item active" style="width:100%">
                                 <a class="nav-link" href="#">Informes</a>
                             </li>
-                            <li>
+                            <li class="d-none d-md-block">
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
                                 <a class="nav-link" href="/users">Usuarios</a>
                             </li>
-                            <li>
+                            <li class="d-none d-md-block">
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
                                 <a class="nav-link" href="#">Estancias</a>
                             </li>
-                            <li>
+                            <li class="d-none d-md-block">
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
                                 <a class="nav-link" href="#">Reservas</a>
                             </li>
-                            <li>
+                            <li class="d-none d-md-block">
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
                                 <a class="nav-link" href="#">Servicios</a>
                             </li>
-                            <li>
+                            <li class="d-none d-md-block">
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
                                 <a class="nav-link" href="/temporadas">Temporadas</a>
                             </li>
-                            <li>
+                            <li class="d-none d-md-block">
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">

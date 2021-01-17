@@ -15,4 +15,19 @@ class TemporadaController extends Controller
     public function index()
     {
         return view('temporadas.list', ['temporadas' => Temporada::whereNotNull('id')->paginate(5)]);
-    }}
+    }
+    public function details($id)
+    {
+        $temporada = Temporada::find($id);
+        return view('temporadas.details', ['temporada' => $temporada]);
+    }
+    public function createForm()
+    {
+        return view('temporadas.create');
+    }
+    public function edit($id)
+    {
+        $temporada = Temporada::find($id);
+        return view('temporadas.edit', ['temporada' => $temporada]);
+    }
+}

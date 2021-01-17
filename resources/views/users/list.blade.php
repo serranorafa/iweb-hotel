@@ -70,6 +70,7 @@
                     <th scope="col">Correo electrónico</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,6 +81,7 @@
                         <td>{{$user->apellidos}}</td>
                         <td>{{$user->email}}</td>
                         <td><a href="/users/{{$user->id}}">Detalles</a></td>
+                        <td><a href="/users/{{$user->id}}/edit">Editar</a></td>
                         <td><a href="#">Eliminar</a></td>
                     </tr>
                     @endforeach

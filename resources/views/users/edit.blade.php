@@ -81,6 +81,9 @@
                 <a href="/users/{{$user->id}}" class="btn btn-secondary">
                     {{ __('Volver al perfil')}}
                 </a>
+                <a href="/users" class="btn btn-secondary">
+                    {{ __('Volver al listado')}}
+                </a>
             </div>
         </div>
     </div>

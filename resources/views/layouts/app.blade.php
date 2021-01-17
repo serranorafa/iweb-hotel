@@ -62,89 +62,89 @@
                     <ul class="navbar-nav" style="width:100%;text-align: center">
                         @if (!Auth::check() || Auth::user()->rol == "CLIENTE")
                         <li class="nav-item active" style="width:100%">
-                            <a class="nav-link" href="#">Noticia y novedades</a>
+                            <a class="nav-link" href="/news">Noticias y novedades</a>
                         </li>
-                        <li class="d-none d-md-block">
+                        <li>
                             <a class="nav-link">|</a>
                         </li>
                         <li class="nav-item active" style="width:100%">
-                            <a class="nav-link" href="#">Galería</a>
+                            <a class="nav-link" href="/gallery">Galería</a>
                         </li>
-                        <li class="d-none d-md-block">
+                        <li>
                             <a class="nav-link">|</a>
                         </li>
                         <li class="nav-item active" style="width:100%">
-                            <a class="nav-link" href="#">¿Quiénes somos?</a>
+                            <a class="nav-link" href="/whoarewe">¿Quiénes somos?</a>
                         </li>
-                        <li class="d-none d-md-block">
+                        <li>
                             <a class="nav-link">|</a>
                         </li>
                         <li class="nav-item active" style="width:100%">
-                            <a class="nav-link" href="#">Contacto</a>
+                            <a class="nav-link" href="/contact">Contacto</a>
                         </li>
-                        <li class="d-none d-md-block">
+                        <li>
                             <a class="nav-link">|</a>
                         </li>
                         <li class="nav-item active" style="width:100%">
-                            <a class="nav-link" href="#">¡Reserva ya!</a>
+                            <a class="nav-link" href="/reservas/create">¡Reserva ya!</a>
                         </li>
                         @elseif (Auth::user()->rol == "RECEPCIONISTA")
                             <li class="nav-item active" style="width:100%">
-                                <a class="nav-link" href="#">Reservas</a>
+                                <a class="nav-link" href="/reservas">Reservas</a>
                             </li>
-                            <li class="d-none d-md-block">
+                            <li>
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
-                                <a class="nav-link" href="#">Bloqueos</a>
+                                <a class="nav-link" href="/bloqueos">Bloqueos</a>
                             </li>
-                            <li class="d-none d-md-block">
+                            <li>
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
-                                <a class="nav-link" href="#">Crear reserva</a>
+                                <a class="nav-link" href="/reservas/create">Crear reserva</a>
                             </li>
-                            <li class="d-none d-md-block">
+                            <li>
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
-                                <a class="nav-link" href="#">Crear bloqueo</a>
+                                <a class="nav-link" href="/bloqueos/create">Crear bloqueo</a>
                             </li>
                         @elseif (Auth::user()->rol == "WEBMASTER")
                             <li class="nav-item active" style="width:100%">
                                 <a class="nav-link" href="#">Informes</a>
                             </li>
-                            <li class="d-none d-md-block">
+                            <li>
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
                                 <a class="nav-link" href="/users">Usuarios</a>
                             </li>
-                            <li class="d-none d-md-block">
+                            <li>
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
-                                <a class="nav-link" href="#">Estancias</a>
+                                <a class="nav-link" href="/estancias">Estancias</a>
                             </li>
-                            <li class="d-none d-md-block">
+                            <li>
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
-                                <a class="nav-link" href="#">Reservas</a>
+                                <a class="nav-link" href="/reservas">Reservas</a>
                             </li>
-                            <li class="d-none d-md-block">
+                            <li>
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
-                                <a class="nav-link" href="#">Servicios</a>
+                                <a class="nav-link" href="/servicios">Servicios</a>
                             </li>
-                            <li class="d-none d-md-block">
+                            <li>
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">
                                 <a class="nav-link" href="/temporadas">Temporadas</a>
                             </li>
-                            <li class="d-none d-md-block">
+                            <li>
                                 <a class="nav-link">|</a>
                             </li>
                             <li class="nav-item active" style="width:100%">

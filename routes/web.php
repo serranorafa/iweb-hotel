@@ -14,9 +14,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index');
+Route::get('/users', 'UserController@index')->middleware('auth', 'webmaster');
+Route::get('/bloqueos', 'BloqueoController@index')->middleware('auth', 'webmaster');
+Route::get('/temporadas', 'TemporadaController@index')->middleware('auth', 'webmaster');
 
 /*
 Route::get('/', function () {
     return view('welcome');
 });
 */
+
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');

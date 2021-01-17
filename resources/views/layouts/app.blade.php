@@ -34,8 +34,7 @@
                     <a class="btn btn-secondary" style="width:100%" href="{{ route('register') }}">{{ __('Registro') }}</a>
                 @endif
             @else
-                <a class="btn btn-secondary" style="width:100%" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                document.getElementById('logout-form').submit();">
+                <a class="btn btn-secondary" style="width:100%;pointer-events: none">
                                                     {{ Auth::user()->nombre }}
                 </a>
                 <br>

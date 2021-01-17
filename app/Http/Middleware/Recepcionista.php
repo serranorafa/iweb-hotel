@@ -15,7 +15,7 @@ class Recepcionista
      */
     public function handle($request, Closure $next)
     {
-        if($request->user()->rol === "RECEPCIONISTA"){
+        if($request->user()->rol === "RECEPCIONISTA" || $request->user()->rol === "WEBMASTER"){
             return $next($request);
         }else{
             abort(403);

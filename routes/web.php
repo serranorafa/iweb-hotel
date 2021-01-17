@@ -21,6 +21,9 @@ Route::get('/users/{id}/edit', 'UserController@edit')->middleware('auth', 'webma
 
 Route::get('/bloqueos', 'BloqueoController@index')->middleware('auth', 'webmaster');
 Route::get('/temporadas', 'TemporadaController@index')->middleware('auth', 'webmaster');
+Route::get('/temporadas/create', 'TemporadaController@createForm')->middleware('auth', 'webmaster');
+Route::get('/temporadas/{id}', 'TemporadaController@details')->middleware('auth', 'webmaster');
+Route::get('/temporadas/{id}/edit', 'TemporadaController@edit')->middleware('auth', 'webmaster');
 
 /*
 Route::get('/', function () {

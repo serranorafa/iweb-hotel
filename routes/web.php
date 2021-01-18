@@ -13,7 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// public
 Route::get('/', 'HomeController@index');
+Route::get('/contact', 'HomeController@contact');
+
 Route::get('/users', 'UserController@index')->middleware('auth', 'webmaster');
 Route::get('/users/create', 'UserController@createForm')->middleware('auth', 'webmaster');
 Route::get('/users/{id}', 'UserController@details')->middleware('auth', 'webmaster');

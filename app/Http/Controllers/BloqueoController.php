@@ -15,4 +15,19 @@ class BloqueoController extends Controller
     public function index()
     {
         return view('bloqueos.list', ['bloqueos' => Bloqueo::whereNotNull('id')->paginate(5)]);
-    }}
+    }
+    public function details($id)
+    {
+        $bloqueo = Bloqueo::find($id);
+        return view('bloqueos.details', ['bloqueo' => $bloqueo]);
+    }
+    public function createForm()
+    {
+        return view('bloqueos.create');
+    }
+    public function edit($id)
+    {
+        $bloqueo = Bloqueo::find($id);
+        return view('bloqueos.edit', ['bloqueo' => $bloqueo]);
+    }
+}

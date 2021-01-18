@@ -19,7 +19,11 @@ Route::get('/users/create', 'UserController@createForm')->middleware('auth', 'we
 Route::get('/users/{id}', 'UserController@details')->middleware('auth', 'webmaster');
 Route::get('/users/{id}/edit', 'UserController@edit')->middleware('auth', 'webmaster');
 
-Route::get('/bloqueos', 'BloqueoController@index')->middleware('auth', 'webmaster');
+Route::get('/bloqueos', 'BloqueoController@index')->middleware('auth', 'recepcionista');
+Route::get('/bloqueos/create', 'BloqueoController@createForm')->middleware('auth', 'recepcionista');
+Route::get('/bloqueos/{id}', 'BloqueoController@details')->middleware('auth', 'recepcionista');
+Route::get('/bloqueos/{id}/edit', 'BloqueoController@edit')->middleware('auth', 'recepcionista');
+
 Route::get('/temporadas', 'TemporadaController@index')->middleware('auth', 'webmaster');
 Route::get('/temporadas/create', 'TemporadaController@createForm')->middleware('auth', 'webmaster');
 Route::get('/temporadas/{id}', 'TemporadaController@details')->middleware('auth', 'webmaster');

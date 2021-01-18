@@ -18,6 +18,9 @@ Route::get('/users', 'UserController@index')->middleware('auth', 'webmaster');
 Route::get('/users/create', 'UserController@createForm')->middleware('auth', 'webmaster');
 Route::get('/users/{id}', 'UserController@details')->middleware('auth', 'webmaster');
 Route::get('/users/{id}/edit', 'UserController@edit')->middleware('auth', 'webmaster');
+Route::post('/usuariocreado', 'UserController@created')->middleware('auth', 'webmaster');
+Route::post('/usuarioeditado', 'UserController@edited')->middleware('auth', 'webmaster');
+Route::get('/borrarusuario/{id}', 'UserController@delete')->middleware('auth', 'webmaster');
 
 Route::get('/bloqueos', 'BloqueoController@index')->middleware('auth', 'recepcionista');
 Route::get('/bloqueos/create', 'BloqueoController@createForm')->middleware('auth', 'recepcionista');

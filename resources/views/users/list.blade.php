@@ -82,7 +82,7 @@
                         <td>{{$user->email}}</td>
                         <td><a href="/users/{{$user->id}}">Detalles</a></td>
                         <td><a href="/users/{{$user->id}}/edit">Editar</a></td>
-                        <td><a href="#">Eliminar</a></td>
+                        <td><a onclick="confirmar('{{ $user->id }}')" href="#">Eliminar</a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -95,4 +95,12 @@
         </div>
     </div>
 </div>
+<script>
+    function confirmar(usuario) {
+        if (confirm("¿Confirmar el borrado?")) {
+            window.location.href = "/borrarusuario/" + usuario;
+        } else {
+        }
+    }   
+</script>
 @endsection

@@ -7,7 +7,7 @@
             <h1 style="text-align: center">{{ __('Crear usuario') }}</h1>
             <div class="card">
                 <div class="card-body" style="text-align: left">
-                    <form method="POST">
+                    <form action="{{url('usuariocreado')}}" method="POST">
                         @csrf
 
                         <div class="form-group row">

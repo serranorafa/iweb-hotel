@@ -36,6 +36,9 @@ Route::get('/temporadas', 'TemporadaController@index')->middleware('auth', 'webm
 Route::get('/temporadas/create', 'TemporadaController@createForm')->middleware('auth', 'webmaster');
 Route::get('/temporadas/{id}', 'TemporadaController@details')->middleware('auth', 'webmaster');
 Route::get('/temporadas/{id}/edit', 'TemporadaController@edit')->middleware('auth', 'webmaster');
+Route::post('/temporadacreada', 'TemporadaController@created')->middleware('auth', 'webmaster');
+Route::post('/temporadaeditada', 'TemporadaController@edited')->middleware('auth', 'webmaster');
+Route::get('/borrartemporada/{id}', 'TemporadaController@delete')->middleware('auth', 'webmaster');
 
 /*
 Route::get('/', function () {

@@ -7,8 +7,9 @@
             <h1 style="text-align: center">{{ __('Editar') }} {{$temporada->nombre}}</h1>
             <div class="card">
                 <div class="card-body" style="text-align: left">
-                    <form method="POST">
+                    <form action="{{url('temporadaeditada')}}" method="POST">
                         @csrf
+                        <input type="hidden" name="id" value="{{$temporada->id}}">
                         <div class="form-group row">
                             <label for="nombre" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
 

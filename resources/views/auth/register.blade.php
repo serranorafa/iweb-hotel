@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <h1 style="text-align: center">{{ __('Registro') }}</h1>
             <div class="card">
-                <div class="card-body text-center">
+                <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 

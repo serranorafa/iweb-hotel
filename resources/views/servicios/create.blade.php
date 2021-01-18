@@ -7,7 +7,7 @@
             <h1 style="text-align: center">{{ __('Crear servicio') }}</h1>
             <div class="card">
                 <div class="card-body" style="text-align: left">
-                    <form method="POST">
+                    <form action="{{url('serviciocreado')}}" method="POST">
                         @csrf
                         <div class="form-group row">
                             <label for="nombre" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>

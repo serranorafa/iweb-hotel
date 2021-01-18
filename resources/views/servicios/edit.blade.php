@@ -41,7 +41,7 @@
 
                             <div class="col-md-6">
                                 <input id="tarifa" type="number" class="form-control @error('tarifa') is-invalid @enderror" name="tarifa" value="{{$servicio->tarifa}}" required autocomplete="tarifa" autofocus>
-                                @error('descripcion')
+                                @error('tarifa')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

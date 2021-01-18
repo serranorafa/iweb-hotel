@@ -18,7 +18,7 @@ class CreateTemporadasTable extends Migration
             $table->string('nombre');
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
-            $table->integer('mod_temporada');
+            $table->decimal('mod_temporada');
             $table->timestamps();
         });
     }

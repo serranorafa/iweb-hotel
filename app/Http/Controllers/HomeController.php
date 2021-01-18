@@ -45,4 +45,14 @@ class HomeController extends Controller
     {
         return view('whoarewe');
     }
+
+    /**
+     * Show the Gallery page
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function gallery()
+    {
+        return view('gallery');
+    }
 }

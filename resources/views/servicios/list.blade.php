@@ -71,7 +71,7 @@
                         <td>{{$servicio->tarifa}}€</td>
                         <td><a href="/servicios/{{$servicio->id}}">Detalles</a></td>
                         <td><a href="/servicios/{{$servicio->id}}/edit">Editar</a></td>
-                        <td><a href="#">Eliminar</a></td>
+                        <td><a onclick="confirmar('{{ $servicio->id }}')" href="#">Eliminar</a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -84,4 +84,12 @@
         </div>
     </div>
 </div>
+<script>
+    function confirmar(servicio) {
+        if (confirm("¿Confirmar el borrado?")) {
+            window.location.href = "/borrarservicio/" + servicio;
+        } else {
+        }
+    }   
+</script>
 @endsection

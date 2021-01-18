@@ -46,6 +46,14 @@ Route::post('/temporadacreada', 'TemporadaController@created')->middleware('auth
 Route::post('/temporadaeditada', 'TemporadaController@edited')->middleware('auth', 'webmaster');
 Route::get('/borrartemporada/{id}', 'TemporadaController@delete')->middleware('auth', 'webmaster');
 
+Route::get('/estancias', 'EstanciaController@index')->middleware('auth', 'webmaster');
+Route::get('/estancias/create', 'EstanciaController@createForm')->middleware('auth', 'webmaster');
+Route::get('/estancias/{id}', 'EstanciaController@details')->middleware('auth', 'webmaster');
+Route::get('/estancias/{id}/edit', 'EstanciaController@edit')->middleware('auth', 'webmaster');
+Route::post('/estanciacreada', 'EstanciaController@created')->middleware('auth', 'webmaster');
+Route::post('/estanciaeditada', 'EstanciaController@edited')->middleware('auth', 'webmaster');
+Route::get('/borrarestancia/{id}', 'EstanciaController@delete')->middleware('auth', 'webmaster');
+
 /*
 Route::get('/', function () {
     return view('welcome');

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <h1 style="text-align: center">{{ __('Inicio de sesión') }}</h1>
-            <div class="card" style="text-align: center">
+            <div class="card">
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

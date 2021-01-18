@@ -17,18 +17,71 @@ class BloqueoController extends Controller
     {
         return view('bloqueos.list', ['bloqueos' => Bloqueo::whereNotNull('id')->paginate(5)]);
     }
+
     public function details($id)
     {
         $bloqueo = Bloqueo::find($id);
         return view('bloqueos.details', ['bloqueo' => $bloqueo]);
     }
+
     public function createForm()
     {
         return view('bloqueos.create', ['estancias' => Estancia::whereNotNull('id')->get()]);
     }
+
+    public function created(Request $request) 
+    {
+        $bloqueo = new Bloqueo();
+
+        $fechaInicio = $request->input('fecha_inicio');
+        $horaInicio = $request->input('hora_inicio');
+        $fechaFin = $request->input('fecha_fin');
+        $horaFin = $request->input('hora_fin');
+        
+        $dateTimeInicio = date('Y-m-d H:i:s', strtotime("$fechaInicio $horaInicio"));
+        $dateTimeFin = date('Y-m-d H:i:s', strtotime("$fechaFin $horaFin"));
+
+        $bloqueo->setEstancia($request->input('estancia_id'));
+        $bloqueo->setFechaInicio($dateTimeInicio);
+        $bloqueo->setFechaFin($dateTimeFin);
+
+        $bloqueo->save();
+
+        return redirect()->action('BloqueoController@index', ['bloqueos' => Bloqueo::whereNotNull('id')->paginate(5)]);
+    }
+
     public function edit($id)
     {
         $bloqueo = Bloqueo::find($id);
         return view('bloqueos.edit', ['bloqueo' => $bloqueo, 'estancias' => Estancia::whereNotNull('id')->get()]);
+    }
+
+    public function edited(Request $request)
+    {
+        $bloqueo = Bloqueo::find($request->input('id'));
+
+        $fechaInicio = $request->input('fecha_inicio');
+        $horaInicio = $request->input('hora_inicio');
+        $fechaFin = $request->input('fecha_fin');
+        $horaFin = $request->input('hora_fin');
+        
+        $dateTimeInicio = date('Y-m-d H:i:s', strtotime("$fechaInicio $horaInicio"));
+        $dateTimeFin = date('Y-m-d H:i:s', strtotime("$fechaFin $horaFin"));
+
+        $bloqueo->setEstancia($request->input('estancia_id'));
+        $bloqueo->setFechaInicio($dateTimeInicio);
+        $bloqueo->setFechaFin($dateTimeFin);
+
+        $bloqueo->save();
+
+        return redirect()->action('BloqueoController@index', ['bloqueos' => Bloqueo::whereNotNull('id')->paginate(5)]);
+    }
+
+    public function delete($id)
+    {
+        $bloqueo = Bloqueo::find($id);
+        $bloqueo->delete();
+
+        return redirect()->action('BloqueoController@index', ['bloqueos' => Bloqueo::whereNotNull('id')->paginate(5)]);
     }
 }

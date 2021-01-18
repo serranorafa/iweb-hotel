@@ -75,7 +75,7 @@
                         <td>{{$bloqueo->estancia->numero}}</td>
                         <td><a href="/bloqueos/{{$bloqueo->id}}">Detalles</a></td>
                         <td><a href="/bloqueos/{{$bloqueo->id}}/edit">Editar</a></td>
-                        <td><a href="#">Eliminar</a></td>
+                        <td><a onclick="confirmar('{{ $bloqueo->id }}')" href="#">Eliminar</a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -88,4 +88,12 @@
         </div>
     </div>
 </div>
+<script>
+    function confirmar(bloqueo) {
+        if (confirm("¿Confirmar el borrado?")) {
+            window.location.href = "/borrarbloqueo/" + bloqueo;
+        } else {
+        }
+    }   
+</script>
 @endsection

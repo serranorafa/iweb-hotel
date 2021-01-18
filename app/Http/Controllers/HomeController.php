@@ -53,6 +53,12 @@ class HomeController extends Controller
      */
     public function gallery()
     {
-        return view('gallery');
+        $roomPhotos = \File::allFiles(public_path('/img/room'));
+        $restaurantPhotos = \File::allFiles(public_path('/img/restaurant'));
+        $salaPhotos = \File::allFiles(public_path('/img/sala'));
+        return view('gallery')
+                    ->with(array('roomPhotos'=>$roomPhotos))
+                    ->with(array('restaurantPhotos'=>$restaurantPhotos))
+                    ->with(array('salaPhotos'=>$salaPhotos));
     }
 }

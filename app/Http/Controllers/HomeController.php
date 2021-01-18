@@ -35,4 +35,14 @@ class HomeController extends Controller
     {
         return view('contact');
     }
+
+    /**
+     * Show the Who Are We page
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function whoarewe()
+    {
+        return view('whoarewe');
+    }
 }

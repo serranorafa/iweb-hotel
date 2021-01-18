@@ -29,14 +29,16 @@ class EstanciaController extends Controller
 
         if ($tipo == 'SALA') {
             $estancia->setAforo($request->input('aforo'));
+            $estancia->setPlazas(0);
+            $estancia->setVistas("");
         } else {
-            $estancia->setPlanta($request->input('planta'));
+            $estancia->setAforo(0);
             $estancia->setPlazas($request->input('plazas'));
             $estancia->setVistas($request->input('vistas'));
         }
-
+        $estancia->setPlanta($request->input('planta'));
+        $estancia->setFoto("");
         $estancia->save();
-
         return redirect()->action('EstanciaController@index', ['estancias' => Estancia::whereNotNull('id')->paginate(5)]);
     }
 
@@ -64,12 +66,15 @@ class EstanciaController extends Controller
 
         if ($tipo == 'SALA') {
             $estancia->setAforo($request->input('aforo'));
+            $estancia->setPlazas(0);
+            $estancia->setVistas("");
         } else {
-            $estancia->setPlanta($request->input('planta'));
+            $estancia->setAforo(0);
             $estancia->setPlazas($request->input('plazas'));
             $estancia->setVistas($request->input('vistas'));
         }
-
+        $estancia->setFoto("");
+        $estancia->setPlanta($request->input('planta'));
         $estancia->save();
 
         return redirect()->action('EstanciaController@index', ['estancias' => Estancia::whereNotNull('id')->paginate(5)]);

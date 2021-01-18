@@ -12,13 +12,13 @@
   </ol>
   <div class="carousel-inner" style="overflow:hidden" >
     <div class="carousel-item active">
-        <img src="{{ url('/img/home/home-1.jpeg') }}" style="height:600px; width:1000px;" />
+      <img src="{{ asset('/img/home/home-1.jpeg') }}" style="height:600px; width:1000px;" />
     </div>
     <div class="carousel-item">
-      <img src="{{ url('/img/home/home-2.jpeg') }}" style="height:600px; width:1000px;" />
+      <img src="{{ asset('/img/home/home-2.jpeg') }}" style="height:600px; width:1000px;" />
     </div>
     <div class="carousel-item">
-      <img src="{{ url('/img/home/home-3.jpeg') }}" style="height:600px; width:1000px;" />
+      <img src="{{ asset('/img/home/home-3.jpeg') }}" style="height:600px; width:1000px;" />
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselHome" role="button" data-slide="prev">

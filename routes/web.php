@@ -26,6 +26,9 @@ Route::get('/bloqueos', 'BloqueoController@index')->middleware('auth', 'recepcio
 Route::get('/bloqueos/create', 'BloqueoController@createForm')->middleware('auth', 'recepcionista');
 Route::get('/bloqueos/{id}', 'BloqueoController@details')->middleware('auth', 'recepcionista');
 Route::get('/bloqueos/{id}/edit', 'BloqueoController@edit')->middleware('auth', 'recepcionista');
+Route::post('/bloqueocreado', 'BloqueoController@created')->middleware('auth', 'webmaster');
+Route::post('/bloqueoeditado', 'BloqueoController@edited')->middleware('auth', 'webmaster');
+Route::get('/borrarbloqueo/{id}', 'BloqueoController@delete')->middleware('auth', 'webmaster');
 
 Route::get('/servicios', 'ServicioController@index')->middleware('auth', 'recepcionista');
 Route::get('/servicios/create', 'ServicioController@createForm')->middleware('auth', 'recepcionista');

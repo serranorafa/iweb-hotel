@@ -28,7 +28,8 @@ class TemporadaController extends Controller
         return view('temporadas.create');
     }
 
-    public function created(Request $request) {
+    public function created(Request $request) 
+    {
         $temporada = new Temporada();
 
         $temporada->setNombre($request->input('nombre'));
@@ -47,7 +48,8 @@ class TemporadaController extends Controller
         return view('temporadas.edit', ['temporada' => $temporada]);
     }
 
-    public function edited(Request $request) {
+    public function edited(Request $request) 
+    {
         $temporada = Temporada::find($request->input('id'));
 
         $temporada->setNombre($request->input('nombre'));
@@ -60,7 +62,8 @@ class TemporadaController extends Controller
         return redirect()->action('TemporadaController@index', ['temporadas' => Temporada::whereNotNull('id')->paginate(5)]);
     }
 
-    public function delete($id) {
+    public function delete($id) 
+    {
         $temporada = Temporada::find($id);
         $temporada->delete();
         

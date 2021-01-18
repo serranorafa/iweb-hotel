@@ -7,7 +7,7 @@
             <h1 style="text-align: center">{{ __('Crear bloqueo') }}</h1>
             <div class="card">
                 <div class="card-body" style="text-align: left">
-                    <form method="POST">
+                    <form action="{{url('bloqueocreado')}}" method="POST">
                         @csrf
                         <div class="form-group row">
                             <label for="estancia_id" class="col-md-4 col-form-label text-md-right">{{ __('Número de estancia') }}</label>

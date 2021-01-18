@@ -21,6 +21,10 @@ class EstanciaController extends Controller
     {
         $estancia = new Estancia();
 
+        $imagen = $request->file('foto');
+        $imagen->storeAs("/img/", $imagen->getClientOriginalName(), 'public');
+        $estancia->setFoto('/public/img/' . $imagen->getClientOriginalName());
+
         $tipo = $request->input('tipo');
         $estancia->setTipo($tipo);
         $estancia->setNumero($request->input('numero'));
@@ -37,7 +41,7 @@ class EstanciaController extends Controller
             $estancia->setVistas($request->input('vistas'));
         }
         $estancia->setPlanta($request->input('planta'));
-        $estancia->setFoto("");
+
         $estancia->save();
         return redirect()->action('EstanciaController@index', ['estancias' => Estancia::whereNotNull('id')->paginate(5)]);
     }

@@ -7,7 +7,7 @@
             <h1 style="text-align: center">{{ __('Crear estancia') }}</h1>
             <div class="card">
                 <div class="card-body" style="text-align: left">
-                    <form action="{{url('estanciacreada')}}" method="POST">
+                    <form action="{{url('estanciacreada')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
                             <label for="numero" class="col-md-4 col-form-label text-md-right">{{ __('Número') }}</label>
@@ -98,6 +98,19 @@
                             <div class="col-md-6">
                                 <input id="tarifa_base" type="number" class="form-control @error('tarifa_base') is-invalid @enderror" name="tarifa_base" required autocomplete="tarifa_base" autofocus>
                                 @error('tarifa_base')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <label for="foto" class="col-md-4 col-form-label text-md-right">{{ __('Imagen') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="foto" type="file" accept="image/jpeg, image/jpg, image/png" class="form-control @error('tarifa_base') is-invalid @enderror" name="foto" required autocomplete="foto" autofocus multiple>
+                                @error('foto')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

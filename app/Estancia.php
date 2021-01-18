@@ -70,6 +70,10 @@ class Estancia extends Model
         $this->descripcion = $descripcion;
     }
 
+    public function getFoto() {
+        return $this->foto;
+    }
+
     public function setFoto($foto) {
         $this->foto = $foto;
     }

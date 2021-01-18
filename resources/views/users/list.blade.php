@@ -13,11 +13,11 @@
                         <div class="form-group row">
                             <label for="nombre" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Nombre') }}</label>
 
-                            <div class="col-lg-4 col-12 mr-4" style="padding-right: 10%" >
+                            <div class="col-lg-4 col-12" style="padding-right: 10%" >
                                 <input id="nombre" class="form-control" type="text" name="nombre" autocomplete="nombre" autofocus>
                             </div>
                             <label for="apellidos" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Apellidos') }}</label>
-                            <div class="col-lg-4 col-12 mr-4" style="padding-right: 10%" >
+                            <div class="col-lg-4 col-12" style="padding-right: 10%" >
                                 <input id="apellidos" class="form-control" type="text" name="apellidos" autocomplete="apellidos" autofocus>
                             </div>
                         </div>
@@ -25,18 +25,18 @@
                         <div class="form-group row">
                             <label for="email" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Correo electrónico') }}</label>
 
-                            <div class="col-lg-4 col-12 mr-4" style="padding-right: 10%" >
+                            <div class="col-lg-4 col-12" style="padding-right: 10%" >
                                 <input id="email" class="form-control" type="email" name="email" autocomplete="email" autofocus>
                             </div>
                             <label for="telefono" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Teléfono de contacto') }}</label>
-                            <div class="col-lg-4 col-12 mr-4" style="padding-right: 10%" >
+                            <div class="col-lg-4 col-12" style="padding-right: 10%" >
                                 <input id="telefono" class="form-control" type="tel" name="telefono" autocomplete="telefono" autofocus>
                             </div>
                         </div>
                         <br>
                         <div class="form-group row">
                             <label for="rol" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Rol') }}</label>
-                            <div class="col-lg-4 col-12 mr-4" style="padding-right: 10%" >
+                            <div class="col-lg-4 col-12" style="padding-right: 10%" >
                                 <select id="rol" name="rol" autofocus>
                                     <option value="" selected>Cualquiera</option>
                                     <option value="CLIENTE">Cliente</option>

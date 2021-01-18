@@ -5,32 +5,32 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <h1 style="text-align: center">{{ __('Bloqueos') }}</h1>
-            <div class="card" style="text-align: center">
+            <div class="card" style="text-align: left">
                 <div class="card-body">
                 <h4 style="text-align: center">{{ __('Búsqueda') }}</h4>
                     <form method="POST">
                         @csrf
                         <div class="form-group row">
-                            <label for="id" class="col-lg-3 col-12 col-form-label text-md-right">{{ __('ID') }}</label>
+                            <label for="id" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('ID') }}</label>
 
-                            <div class="col-lg-3 col-12">
-                                <input id="id" type="text" name="id" autocomplete="id" autofocus>
+                            <div class="col-lg-4 col-12" style="padding-right: 10%">
+                                <input id="id" class="form-control" type="text" name="id" autocomplete="id" autofocus>
                             </div>
-                            <label for="fecha_inicio" class="col-lg-3 col-12 col-form-label text-md-right">{{ __('Fecha de inicio') }}</label>
-                            <div class="col-lg-3 col-12">
-                                <input id="fecha_inicio" type="date" name="fecha_inicio" autocomplete="fecha_inicio" autofocus>
+                            <label for="fecha_inicio" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Fecha de inicio') }}</label>
+                            <div class="col-lg-4 col-12" style="padding-right: 10%">
+                                <input id="fecha_inicio" class="form-control" type="date" name="fecha_inicio" autocomplete="fecha_inicio" autofocus>
                             </div>
                         </div>
                         <br>
                         <div class="form-group row">
-                            <label for="fecha_fin" class="col-lg-3 col-12 col-form-label text-md-right">{{ __('Fecha de fin') }}</label>
-                            <div class="col-lg-3 col-12">
-                                <input id="fecha_fin" type="date" name="fecha_fin" autocomplete="fecha_fin" autofocus>
+                            <label for="fecha_fin" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Fecha de fin') }}</label>
+                            <div class="col-lg-4 col-12" style="padding-right: 10%">
+                                <input id="fecha_fin" class="form-control" type="date" name="fecha_fin" autocomplete="fecha_fin" autofocus>
                             </div>
-                            <label for="estancia_numero" class="col-lg-3 col-12 col-form-label text-md-right">{{ __('Nº de estancia') }}</label>
+                            <label for="estancia_numero" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Nº de estancia') }}</label>
 
-                            <div class="col-lg-3 col-12">
-                                <input id="estancia_numero" type="text" name="estancia_numero" autocomplete="estancia_numero" autofocus>
+                            <div class="col-lg-4 col-12" style="padding-right: 10%">
+                                <input id="estancia_numero" class="form-control" type="text" name="estancia_numero" autocomplete="estancia_numero" autofocus>
                             </div>
                         </div>
                         <br>
@@ -47,7 +47,7 @@
             </div>
             <br>
             <div style="text-align: center">
-               <a class="btn btn-secondary">+ Nuevo bloqueo</a>
+               <a href="/bloqueos/create" class="btn btn-secondary">+ Nuevo bloqueo</a>
             </div>
             <br>
             <table class="table">
@@ -61,6 +61,7 @@
                     <th scope="col">Nº de estancia</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,7 +73,8 @@
                         <td>{{date('H:i', strtotime($bloqueo->fecha_inicio))}}</td>
                         <td>{{date('H:i', strtotime($bloqueo->fecha_fin))}}</td>
                         <td>{{$bloqueo->estancia->numero}}</td>
-                        <td><a href="#">Detalles</a></td>
+                        <td><a href="/bloqueos/{{$bloqueo->id}}">Detalles</a></td>
+                        <td><a href="/bloqueos/{{$bloqueo->id}}/edit">Editar</a></td>
                         <td><a href="#">Eliminar</a></td>
                     </tr>
                     @endforeach

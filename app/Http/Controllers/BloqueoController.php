@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Bloqueo;
+use App\Estancia;
 use Illuminate\Support\Facades\DB;
 class BloqueoController extends Controller
 {
@@ -23,11 +24,11 @@ class BloqueoController extends Controller
     }
     public function createForm()
     {
-        return view('bloqueos.create');
+        return view('bloqueos.create', ['estancias' => Estancia::whereNotNull('id')->get()]);
     }
     public function edit($id)
     {
         $bloqueo = Bloqueo::find($id);
-        return view('bloqueos.edit', ['bloqueo' => $bloqueo]);
+        return view('bloqueos.edit', ['bloqueo' => $bloqueo, 'estancias' => Estancia::whereNotNull('id')->get()]);
     }
 }

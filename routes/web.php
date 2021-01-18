@@ -24,6 +24,11 @@ Route::get('/bloqueos/create', 'BloqueoController@createForm')->middleware('auth
 Route::get('/bloqueos/{id}', 'BloqueoController@details')->middleware('auth', 'recepcionista');
 Route::get('/bloqueos/{id}/edit', 'BloqueoController@edit')->middleware('auth', 'recepcionista');
 
+Route::get('/servicios', 'ServicioController@index')->middleware('auth', 'recepcionista');
+Route::get('/servicios/create', 'ServicioController@createForm')->middleware('auth', 'recepcionista');
+Route::get('/servicios/{id}', 'ServicioController@details')->middleware('auth', 'recepcionista');
+Route::get('/servicios/{id}/edit', 'ServicioController@edit')->middleware('auth', 'recepcionista');
+
 Route::get('/temporadas', 'TemporadaController@index')->middleware('auth', 'webmaster');
 Route::get('/temporadas/create', 'TemporadaController@createForm')->middleware('auth', 'webmaster');
 Route::get('/temporadas/{id}', 'TemporadaController@details')->middleware('auth', 'webmaster');

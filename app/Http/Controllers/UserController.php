@@ -50,7 +50,6 @@ class UserController extends Controller
 
     public function edited(Request $request) {
         $usuario = User::find($request->input('id'));
-        echo $request->input('id');
 
         $usuario->setNombre($request->input('nombre'));
         $usuario->setApellidos($request->input('apellidos'));

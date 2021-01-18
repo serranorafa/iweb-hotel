@@ -33,7 +33,7 @@
                         <td>{{$temporada->mod_temporada}}</td>
                         <td><a href="/temporadas/{{$temporada->id}}">Detalles</a></td>
                         <td><a href="/temporadas/{{$temporada->id}}/edit">Editar</a></td>
-                        <td><a href="#">Eliminar</a></td>
+                        <td><a onclick="confirmar('{{ $temporada->id }}')" href="#">Eliminar</a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -46,4 +46,12 @@
         </div>
     </div>
 </div>
+<script>
+    function confirmar(temporada) {
+        if (confirm("¿Confirmar el borrado?")) {
+            window.location.href = "/borrartemporada/" + temporada;
+        } else {
+        }
+    }   
+</script>
 @endsection

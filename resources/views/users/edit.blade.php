@@ -66,6 +66,29 @@
                             </div>
                         </div>
                         <br>
+                        <br>
+                        <div class="form-group row">
+                            <label for="rol" class="col-md-4 col-form-label text-md-right">{{ __('Rol') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="rol" name="rol" autofocus>
+                                    @if($user->rol === "CLIENTE")
+                                    <option value="CLIENTE" selected>CLIENTE</option>
+                                    <option value="RECEPCIONISTA">RECEPCIONISTA</option>
+                                    <option value="WEBMASTER">WEBMASTER</option>
+                                    @elseif($user->rol === "RECEPCIONISTA")
+                                    <option value="CLIENTE">CLIENTE</option>
+                                    <option value="RECEPCIONISTA" selected>RECEPCIONISTA</option>
+                                    <option value="WEBMASTER">WEBMASTER</option>
+                                    @elseif($user->rol === "WEBMASTER")
+                                    <option value="CLIENTE">CLIENTE</option>
+                                    <option value="RECEPCIONISTA">RECEPCIONISTA</option>
+                                    <option value="WEBMASTER" selected>WEBMASTER</option>
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                        <br>
                         <div class="form-group row" style="text-align: center">
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-secondary">

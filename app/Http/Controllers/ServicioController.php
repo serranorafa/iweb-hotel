@@ -15,7 +15,18 @@ class ServicioController extends Controller
      */
     public function index()
     {
-        return view('servicios.list', ['servicios' => Servicio::whereNotNull('id')->paginate(5)]);
+        $listaResultado = Servicio::whereNotNull('id')
+            ->when(request()->input('id'), function($query) {
+                $query->where('id', request()->input('id'));
+            })
+            ->when(request()->input('nombre'), function($query) {
+                $query->where('nombre', 'LIKE', '%'.request()->input('nombre').'%');
+            })
+            ->when(request()->input('tarifa'), function($query) {
+                $query->where('tarifa', request()->input('comparacion'), request()->input('tarifa'));
+            })->paginate(5);
+            
+        return view('servicios.list', ['servicios' => $listaResultado]);
     }
 
     public function details($id)

@@ -34,15 +34,15 @@ Route::get('/bloqueos', 'BloqueoController@index')->middleware('auth', 'recepcio
 Route::get('/bloqueos/create', 'BloqueoController@createForm')->middleware('auth', 'recepcionista');
 Route::get('/bloqueos/{id}', 'BloqueoController@details')->middleware('auth', 'recepcionista');
 Route::get('/bloqueos/{id}/edit', 'BloqueoController@edit')->middleware('auth', 'recepcionista');
-Route::post('/bloqueocreado', 'BloqueoController@created')->middleware('auth', 'webmaster');
-Route::post('/bloqueoeditado', 'BloqueoController@edited')->middleware('auth', 'webmaster');
-Route::get('/borrarbloqueo/{id}', 'BloqueoController@delete')->middleware('auth', 'webmaster');
+Route::post('/bloqueocreado', 'BloqueoController@created')->middleware('auth', 'recepcionista');
+Route::post('/bloqueoeditado', 'BloqueoController@edited')->middleware('auth', 'recepcionista');
+Route::get('/borrarbloqueo/{id}', 'BloqueoController@delete')->middleware('auth', 'recepcionista');
 Route::post('/bloqueos', 'BloqueoController@index')->middleware('auth', 'recepcionista');
 
-Route::get('/servicios', 'ServicioController@index')->middleware('auth', 'recepcionista');
-Route::get('/servicios/create', 'ServicioController@createForm')->middleware('auth', 'recepcionista');
-Route::get('/servicios/{id}', 'ServicioController@details')->middleware('auth', 'recepcionista');
-Route::get('/servicios/{id}/edit', 'ServicioController@edit')->middleware('auth', 'recepcionista');
+Route::get('/servicios', 'ServicioController@index')->middleware('auth', 'webmaster');
+Route::get('/servicios/create', 'ServicioController@createForm')->middleware('auth', 'webmaster');
+Route::get('/servicios/{id}', 'ServicioController@details')->middleware('auth', 'webmaster');
+Route::get('/servicios/{id}/edit', 'ServicioController@edit')->middleware('auth', 'webmaster');
 Route::post('/serviciocreado', 'ServicioController@created')->middleware('auth', 'webmaster');
 Route::post('/servicioeditado', 'ServicioController@edited')->middleware('auth', 'webmaster');
 Route::get('/borrarservicio/{id}', 'ServicioController@delete')->middleware('auth', 'webmaster');
@@ -56,22 +56,22 @@ Route::post('/temporadacreada', 'TemporadaController@created')->middleware('auth
 Route::post('/temporadaeditada', 'TemporadaController@edited')->middleware('auth', 'webmaster');
 Route::get('/borrartemporada/{id}', 'TemporadaController@delete')->middleware('auth', 'webmaster');
 
-Route::get('/estancias', 'EstanciaController@index')->middleware('auth', 'webmaster');
+Route::get('/estancias', 'EstanciaController@index')->middleware('auth', 'recepcionista');
 Route::get('/estancias/create', 'EstanciaController@createForm')->middleware('auth', 'webmaster');
-Route::get('/estancias/{id}', 'EstanciaController@details')->middleware('auth', 'webmaster');
-Route::get('/estancias/{id}/edit', 'EstanciaController@edit')->middleware('auth', 'webmaster');
+Route::get('/estancias/{id}', 'EstanciaController@details')->middleware('auth');
+Route::get('/estancias/{id}/edit', 'EstanciaController@edit')->middleware('auth', 'recepcionista');
 Route::post('/estanciacreada', 'EstanciaController@created')->middleware('auth', 'webmaster');
-Route::post('/estanciaeditada', 'EstanciaController@edited')->middleware('auth', 'webmaster');
+Route::post('/estanciaeditada', 'EstanciaController@edited')->middleware('auth', 'recepcionista');
 Route::get('/borrarestancia/{id}', 'EstanciaController@delete')->middleware('auth', 'webmaster');
 Route::post('/estancias', 'EstanciaController@index')->middleware('auth', 'webmaster');
 
-Route::get('/reservas', 'ReservaController@index')->middleware('auth', 'webmaster');
-Route::get('/reservas/create', 'ReservaController@createForm')->middleware('auth', 'webmaster');
-Route::get('/reservas/{id}', 'ReservaController@details')->middleware('auth', 'webmaster');
-Route::get('/reservas/{id}/edit', 'ReservaController@edit')->middleware('auth', 'webmaster');
-Route::post('/reservacreada', 'ReservaController@created')->middleware('auth', 'webmaster');
-Route::post('/reservaeditada', 'ReservaController@edited')->middleware('auth', 'webmaster');
-Route::get('/borrarreserva/{id}', 'ReservaController@delete')->middleware('auth', 'webmaster');
+Route::get('/reservas', 'ReservaController@index')->middleware('auth');
+Route::get('/reservas/create', 'ReservaController@createForm')->middleware('auth');
+Route::get('/reservas/{id}', 'ReservaController@details')->middleware('auth'); //middleware para si soy CLIENTE, comprobar si es mía
+Route::get('/reservas/{id}/edit', 'ReservaController@edit')->middleware('auth', 'recepcionista'); 
+Route::post('/reservacreada', 'ReservaController@created')->middleware('auth');
+Route::post('/reservaeditada', 'ReservaController@edited')->middleware('auth', 'recepcionista');
+Route::get('/borrarreserva/{id}', 'ReservaController@delete')->middleware('auth', 'recepcionista');
 Route::post('/reservas', 'ReservaController@index')->middleware('auth', 'webmaster');
 
 Auth::routes();

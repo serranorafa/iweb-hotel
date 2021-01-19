@@ -69,10 +69,12 @@
                 </div>
             </div>
             <br>
+            @if(Auth::user()->rol == "WEBMASTER")
             <div style="text-align: center">
                <a href="/estancias/create" class="btn btn-secondary">+ Nueva estancia</a>
             </div>
             <br>
+            @endif
             <table class="table">
                 <thead>
                     <tr>
@@ -83,7 +85,9 @@
                     <th scope="col">Aforo</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
+                    @if(Auth::user()->rol == "WEBMASTER")
                     <th scope="col"></th>
+                    @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -104,7 +108,9 @@
                         @endif
                         <td><a href="/estancias/{{$estancia->id}}">Detalles</a></td>
                         <td><a href="/estancias/{{$estancia->id}}/edit">Editar</a></td>
+                        @if(Auth::user()->rol == "WEBMASTER")
                         <td><a onclick="confirmar('{{ $estancia->id }}')" href="#">Eliminar</a></td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>

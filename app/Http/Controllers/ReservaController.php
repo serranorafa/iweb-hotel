@@ -9,7 +9,21 @@ class ReservaController extends Controller
 {
     public function index()
     {
-        return view('reservas.list', ['reservas' => Reserva::whereNotNull('id')->paginate(5)]);
+        $listaResultado = Reserva::whereNotNull('id')
+            ->when(request()->input('id'), function($query) {
+                $query->where('id', request()->input('id'));
+            })
+            ->when(request()->input('precio_total'), function($query) {
+                $query->where('precio_total', request()->input('comparacion'), request()->input('precio_total'));
+            })
+            ->when(request()->input('fecha_inicio'), function($query) {
+                $query->whereDate('fecha_inicio', request()->input('fecha_inicio'));
+            })
+            ->when(request()->input('fecha_fin'), function($query) {
+                $query->whereDate('fecha_fin', request()->input('fecha_fin'));
+            })->paginate(5);
+
+        return view('reservas.list', ['reservas' => $listaResultado]);
     }
 
     public function createForm() 

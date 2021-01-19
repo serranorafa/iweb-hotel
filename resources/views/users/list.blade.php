@@ -6,8 +6,8 @@
         <div class="col-md-12">
             <h1 style="text-align: center">{{ __('Usuarios') }}</h1>
             <div class="card" >
+                <h4 class="card-header" style="text-align: center">{{ __('Búsqueda') }}</h4>
                 <div class="card-body">
-                <h4 style="text-align: center">{{ __('Búsqueda') }}</h4>
                     <form action="{{url('users')}}" method="POST">
                         @csrf
                         <div class="form-group row">
@@ -89,7 +89,7 @@
             </table>
             <div style="align-items: center">
             <div style="width:max-content; margin:auto">
-            {{$users->links()}}
+            {{$users->appends(Request::all())->links()}}
             </div>
             </div>
         </div>

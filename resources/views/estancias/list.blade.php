@@ -6,9 +6,9 @@
         <div class="col-md-12">
             <h1 style="text-align: center">{{ __('Estancias') }}</h1>
             <div class="card" style="text-align: left">
+                <h4 class="card-header" style="text-align: center">{{ __('Búsqueda') }}</h4>
                 <div class="card-body">
-                <h4 style="text-align: center">{{ __('Búsqueda') }}</h4>
-                    <form method="POST">
+                    <form action="{{url('estancias')}}" method="POST">
                         @csrf
                         <div class="form-group row">
                             <label for="numero" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Número') }}</label>
@@ -25,7 +25,7 @@
                         <div class="form-group row">
                             <label for="tipo" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Tipo') }}</label>
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                <select id="comparacion" name="comparacion" class="form-control"  autofocus>
+                                <select id="comparacion" name="comparacion" autofocus onchange="cambiarHabSala()">
                                     <option value="" selected>Cualquiera</option>
                                     <option value="HABITACION">Habitación</option>
                                     <option value="SALA">Sala</option>
@@ -34,15 +34,25 @@
                         </div>
                         <div class="row">
                             <div class="col-11 card" style="margin-left: 4.5%;margin-right: 5%; margin-top: 2%; padding-bottom:2%">
-                                <label for="plazas" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Plazas') }}</label>
-                                <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                    <input id="plazas" class="form-control" type="number" name="plazas" autocomplete="plazas" autofocus>
+                                <div id="tarifaInput">
+                                        <label for="tarifa_base" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Tarifa base') }}</label>
+                                        <div class="col-lg-4 col-12" style="padding-right: 10%">
+                                            <input id="tarifa_base" class="form-control" type="number" name="tarifa_base" autocomplete="tarifa_base" autofocus>
+                                        </div>
+                                    </div>
+                                <div id="plazasInput">
+                                    <label for="plazas" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Plazas (sólo habitaciones)') }}</label>
+                                    <div class="col-lg-4 col-12" style="padding-right: 10%">
+                                        <input id="plazas" class="form-control" type="number" name="plazas" autocomplete="plazas" autofocus>
+                                    </div>
                                 </div>
                                 <div class="col-lg-6 col-12">
-                                </div>
-                                <label for="tarifa_base" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Tarifa base') }}</label>
-                                <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                    <input id="tarifa_base" class="form-control" type="number" name="tarifa_base" autocomplete="tarifa_base" autofocus>
+                                </div>                                
+                                <div id="aforoInput">
+                                    <label for="aforo" class="col-lg-4 col-12 col-form-label text-md-right">{{ __('Aforo mínimo (sólo salas de conferencias)') }}</label>
+                                    <div class="col-lg-4 col-12" style="padding-right: 10%">
+                                        <input id="aforo" class="form-control" type="number" name="aforo" autocomplete="aforo" autofocus>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +117,7 @@
             </table>
             <div style="align-items: center">
             <div style="width:max-content; margin:auto">
-            {{$estancias->links()}}
+            {{ $estancias->appends(Request::all())->links() }}
             </div>
             </div>
         </div>
@@ -119,6 +129,23 @@
             window.location.href = "/borrarestancia/" + estancia;
         } else {
         }
-    }   
+    }  
+    
+    function cambiarHabSala() {
+        var tipoEstancia = document.getElementById("comparacion").value;
+        
+        if (tipoEstancia == "HABITACION") {
+            document.getElementById("plazasInput").style.display = "block";
+            document.getElementById("aforoInput").style.display = "none";
+        }
+        else if (tipoEstancia == "SALA") {
+            document.getElementById("plazasInput").style.display = "none";
+            document.getElementById("aforoInput").style.display = "block";
+        }
+        else {
+            document.getElementById("plazasInput").style.display = "block";
+            document.getElementById("aforoInput").style.display = "block";
+        }
+    }
 </script>
 @endsection

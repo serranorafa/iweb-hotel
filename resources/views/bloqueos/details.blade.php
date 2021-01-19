@@ -54,8 +54,10 @@
                     <div class="col-md-3 col-12" style="text-align: left">
                         {{date('H:i', strtotime($bloqueo->fecha_fin))}}
                     </div>
+                    <div style="clear: both; height: 2vh">
+                    </div>
                     <div class="col-12" style="text-align: center">
-                        <a class="btn btn-danger" style="text-align: center">
+                        <a onclick="confirmar('{{ $bloqueo->id }}')" class="btn btn-danger" style="text-align: center">
                             {{ __('Eliminar') }}
                         </a>
                         <a href="/bloqueos/{{$bloqueo->id}}/edit" class="btn btn-secondary" style="text-align: center">
@@ -73,4 +75,12 @@
         </div>
     </div>
 </div>
+<script>
+    function confirmar(bloqueo) {
+        if (confirm("¿Confirmar el borrado?")) {
+            window.location.href = "/borrarbloqueo/" + bloqueo;
+        } else {
+        }
+    }   
+</script>
 @endsection

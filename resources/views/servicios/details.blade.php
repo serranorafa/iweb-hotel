@@ -41,7 +41,7 @@
                         {{$servicio->tarifa}}€
                     </div>
                     <div class="col-12" style="text-align: center">
-                        <a class="btn btn-danger" style="text-align: center">
+                        <a onclick="confirmar('{{ $servicio->id }}')" class="btn btn-danger" style="text-align: center">
                             {{ __('Eliminar') }}
                         </a>
                         <a href="/servicios/{{$servicio->id}}/edit" class="btn btn-secondary" style="text-align: center">
@@ -59,4 +59,12 @@
         </div>
     </div>
 </div>
+<script>
+    function confirmar(servicio) {
+        if (confirm("¿Confirmar el borrado?")) {
+            window.location.href = "/borrarservicio/" + servicio;
+        } else {
+        }
+    }   
+</script>
 @endsection

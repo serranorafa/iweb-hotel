@@ -6,9 +6,9 @@
         <div class="col-md-12">
             <h1 style="text-align: center">{{ __('Servicios') }}</h1>
             <div class="card" style="text-align: left">
+                <h4 class="card-header" style="text-align: center">{{ __('Búsqueda') }}</h4>
                 <div class="card-body">
-                <h4 style="text-align: center">{{ __('Búsqueda') }}</h4>
-                    <form method="POST">
+                    <form action="{{url('servicios')}}" method="POST">
                         @csrf
                         <div class="form-group row">
                             <label for="id" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('ID') }}</label>
@@ -27,7 +27,7 @@
                             <div class="col-lg-2 col-12">
                                 <select id="comparacion" name="comparacion" class="form-control" autofocus>
                                     <option value="<=" selected>Hasta</option>
-                                    <option value="==">Igual a</option>
+                                    <option value="=">Igual a</option>
                                     <option value=">">Mayor a</option>
                                 </select>
                             </div>
@@ -78,7 +78,7 @@
             </table>
             <div style="align-items: center">
             <div style="width:max-content; margin:auto">
-            {{$servicios->links()}}
+            {{$servicios->appends(Request::all())->links()}}
             </div>
             </div>
         </div>

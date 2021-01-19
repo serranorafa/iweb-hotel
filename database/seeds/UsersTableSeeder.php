@@ -15,5 +15,27 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->delete();
 
         factory(App\User::class, 50)->create();
+
+        DB::table('users')->insert([
+            'nombre' => 'admin',
+            'apellidos' => 'García Smith',
+            'email' => 'admin@iweb.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('123'),
+            'telefono' => '666666666',
+            'rol' => "WEBMASTER",
+            'remember_token' => Str::random(10),
+        ]);
+
+        DB::table('users')->insert([
+            'nombre' => 'recepcionista',
+            'apellidos' => 'García Smith',
+            'email' => 'recep@iweb.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('123'),
+            'telefono' => '666666666',
+            'rol' => "RECEPCIONISTA",
+            'remember_token' => Str::random(10),
+        ]);
     }
 }

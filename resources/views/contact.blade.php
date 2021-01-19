@@ -10,10 +10,11 @@
                 </iframe>
             </div>
             <div class="col-md-6" style="float:right;">
-                <h4>{{ __('Teléfono') }}</h4>+34 666 666 666
+                <h4>{{ __('Dirección') }}</h4>Plaza Puerta del Mar, 3, 03001 Alicante
+                <h4 class="mt-4">{{ __('Teléfono') }}</h4>+34 666 666 666
                 <h4 class="mt-4">{{ __('Correo eléctrónico') }}</h4>info@iwebhotel.com
-                <h4 class="mt-4">{{ __('Horario de atención') }}</h4>{{ __('24 horas todos los días de la semana') }}
-                <div class="mt-5 row" style="text-align:center;">
+                <h4 class="mt-4">{{ __('Horario de atención') }}</h4>{{ __('Las 24 horas del día, todos los días de la semana') }}
+                <div class="mt-4 row" style="text-align:center;">
                     <a class="col-sm m-3" href=#>
                         <img alt="twitter" src="https://openvisualfx.com/wp-content/uploads/2019/10/pnglot.com-twitter-bird-logo-png-139932.png" width="75" height="75">
                     </a>                    

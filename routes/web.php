@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 // public
 Route::get('/', 'HomeController@index');
 Route::get('/contact', 'HomeController@contact');
+Route::get('/whoarewe', 'HomeController@whoarewe');
+Route::get('/roomGallery', 'HomeController@roomGallery');
+Route::get('/hallGallery', 'HomeController@hallGallery');
+Route::get('/restaurantGallery', 'HomeController@restaurantGallery');
 
 Route::get('/users', 'UserController@index')->middleware('auth', 'webmaster');
 Route::get('/users/create', 'UserController@createForm')->middleware('auth', 'webmaster');
@@ -56,6 +60,14 @@ Route::get('/estancias/{id}/edit', 'EstanciaController@edit')->middleware('auth'
 Route::post('/estanciacreada', 'EstanciaController@created')->middleware('auth', 'webmaster');
 Route::post('/estanciaeditada', 'EstanciaController@edited')->middleware('auth', 'webmaster');
 Route::get('/borrarestancia/{id}', 'EstanciaController@delete')->middleware('auth', 'webmaster');
+
+Route::get('/reservas', 'ReservaController@index')->middleware('auth', 'webmaster');
+Route::get('/reservas/create', 'ReservaController@createForm')->middleware('auth', 'webmaster');
+Route::get('/reservas/{id}', 'ReservaController@details')->middleware('auth', 'webmaster');
+Route::get('/reservas/{id}/edit', 'ReservaController@edit')->middleware('auth', 'webmaster');
+Route::post('/reservacreada', 'ReservaController@created')->middleware('auth', 'webmaster');
+Route::post('/reservaeditada', 'ReservaController@edited')->middleware('auth', 'webmaster');
+Route::get('/borrarreserva/{id}', 'ReservaController@delete')->middleware('auth', 'webmaster');
 
 /*
 Route::get('/', function () {

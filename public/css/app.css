@@ -1,0 +1,80 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  /* para poder posicionar bien los botones prev/next */
+  .container {
+    position: relative;
+  }
+  
+  /* fotos ocultas al principio */
+  .gallerySlides {
+    display: none;
+  }
+  
+  /* cursor dedo sobre miniaturas */
+  .cursor {
+    cursor: pointer;
+  }
+  
+  /* botones prev/next */
+  .prev,
+  .next {
+    cursor: pointer;
+    position: absolute;
+    top: 40%;
+    width: auto;
+    padding: 16px;
+    margin-top: -0px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+    text-decoration: none;
+  }
+  
+  /* para posicionar el botón siguiente en su sitio */
+  .next {
+    right: 12px;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  /* color de fondo sobre botones */
+  .prev:hover,
+  .next:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+  }
+  
+  .galleryRow:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* 6 columnas */
+  .galleryColumn {
+    float: left;
+    width: 16.66%;
+  }
+  
+  /* transparencia miniaturas */
+  .demo {
+    opacity: 0.6;
+  }
+  
+  .active,
+  .demo:hover {
+    opacity: 1;
+  }
+
+  .pestanyaActiva {
+      background-color: rgb(230, 230, 230);
+      border-radius: 3px 3px 0 0;
+  }
+
+  .oculto {
+      display: none;
+  }

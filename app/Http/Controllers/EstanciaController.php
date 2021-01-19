@@ -24,6 +24,9 @@ class EstanciaController extends Controller
                             })
                             ->when($request->input('tarifa_base'), function($query) {
                                 $query->where('tarifa_base', request()->input('tarifa_base'));
+                            })
+                            ->when($request->input('aforo'), function($query) {
+                                $query->where('aforo', '>=', request()->input('aforo'));
                             })->paginate(5);
         return view('estancias.list', ['estancias' => $listaResultado]);
     }

@@ -25,7 +25,7 @@ class BloqueoController extends Controller
             ->when(request()->input('fecha_fin'), function($query) {
                 $query->whereDate('fecha_fin', request()->input('fecha_fin'));
             })
-            ->whereHas('estancia', function($query) use($request) {
+            ->whereHas('getEstancia', function($query) use($request) {
                 if ($request->input('estancia_numero')) {
                     $query->where('numero', $request->input('estancia_numero'));
                 }

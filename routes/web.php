@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index');
 Route::get('/contact', 'HomeController@contact');
 Route::get('/whoarewe', 'HomeController@whoarewe');
+Route::get('/roomGallery', 'HomeController@roomGallery');
+Route::get('/hallGallery', 'HomeController@hallGallery');
+Route::get('/restaurantGallery', 'HomeController@restaurantGallery');
 
 Route::get('/users', 'UserController@index')->middleware('auth', 'webmaster');
 Route::get('/users/create', 'UserController@createForm')->middleware('auth', 'webmaster');

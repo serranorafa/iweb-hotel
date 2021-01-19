@@ -46,10 +46,12 @@
                 </div>
             </div>
             <br>
+            @if(Auth::user()->rol == "WEBMASTER")
             <div style="text-align: center">
                <a href="/bloqueos/create" class="btn btn-secondary">+ Nuevo bloqueo</a>
             </div>
             <br>
+            @endif
             <table class="table">
                 <thead>
                     <tr>

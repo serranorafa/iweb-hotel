@@ -52,10 +52,12 @@
                 </div>
             </div>
             <br>
+            @if(Auth::user()->rol == "WEBMASTER")
             <div style="text-align: center">
                <a href="/reservas/create" class="btn btn-secondary">+ Nueva reserva</a>
             </div>
             <br>
+            @endif
             <table class="table">
                 <thead>
                     <tr>

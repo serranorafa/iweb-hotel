@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Estancia;
+use App\Foto;
 use Illuminate\Http\Request;
 
 class EstanciaController extends Controller
@@ -20,10 +21,6 @@ class EstanciaController extends Controller
     public function created(Request $request) 
     {
         $estancia = new Estancia();
-
-        $imagen = $request->file('foto');
-        $imagen->storeAs("/img/", $imagen->getClientOriginalName(), 'public');
-        $estancia->setFoto('/public/img/' . $imagen->getClientOriginalName());
 
         $tipo = $request->input('tipo');
         $estancia->setTipo($tipo);
@@ -43,13 +40,30 @@ class EstanciaController extends Controller
         $estancia->setPlanta($request->input('planta'));
 
         $estancia->save();
+
+        $fotos = $request->file('fotos');
+
+        if ($request->hasFile('fotos')) {
+            foreach ($fotos as $foto) {
+                $foto->storeAs("/img/estancias/", $foto->getClientOriginalName(), 'public');
+
+                $nuevaFoto = new Foto();
+                $nuevaFoto->setEstancia($estancia->getId());
+                $nuevaFoto->setRuta($foto->getClientOriginalName());
+
+                $nuevaFoto->save();
+            }
+        }
         return redirect()->action('EstanciaController@index', ['estancias' => Estancia::whereNotNull('id')->paginate(5)]);
     }
 
     public function details($id)
     {
         $estancia = Estancia::find($id);
-        return view('estancias.details', ['estancia' => $estancia]);
+
+        $dir = '/img/estancias/';
+
+        return view('estancias.details', ['estancia' => $estancia, 'dir' => $dir]);
     }
 
     public function edit($id)
@@ -77,7 +91,7 @@ class EstanciaController extends Controller
             $estancia->setPlazas($request->input('plazas'));
             $estancia->setVistas($request->input('vistas'));
         }
-        $estancia->setFoto("");
+        
         $estancia->setPlanta($request->input('planta'));
         $estancia->save();
 

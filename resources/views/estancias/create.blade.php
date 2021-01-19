@@ -109,7 +109,7 @@
                             <label for="foto" class="col-md-4 col-form-label text-md-right">{{ __('Imagen') }}</label>
 
                             <div class="col-md-6">
-                                <input id="foto" type="file" accept="image/jpeg, image/jpg, image/png" class="form-control @error('tarifa_base') is-invalid @enderror" name="foto" required autocomplete="foto" autofocus multiple>
+                                <input id="foto" type="file" accept="image/jpeg, image/jpg, image/png" class="form-control @error('tarifa_base') is-invalid @enderror" name="fotos[]" required autocomplete="foto" autofocus multiple>
                                 @error('foto')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

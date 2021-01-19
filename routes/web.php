@@ -62,6 +62,14 @@ Route::post('/estanciacreada', 'EstanciaController@created')->middleware('auth',
 Route::post('/estanciaeditada', 'EstanciaController@edited')->middleware('auth', 'webmaster');
 Route::get('/borrarestancia/{id}', 'EstanciaController@delete')->middleware('auth', 'webmaster');
 
+Route::get('/reservas', 'ReservaController@index')->middleware('auth', 'webmaster');
+Route::get('/reservas/create', 'ReservaController@createForm')->middleware('auth', 'webmaster');
+Route::get('/reservas/{id}', 'ReservaController@details')->middleware('auth', 'webmaster');
+Route::get('/reservas/{id}/edit', 'ReservaController@edit')->middleware('auth', 'webmaster');
+Route::post('/reservacreada', 'ReservaController@created')->middleware('auth', 'webmaster');
+Route::post('/reservaeditada', 'ReservaController@edited')->middleware('auth', 'webmaster');
+Route::get('/borrarreserva/{id}', 'ReservaController@delete')->middleware('auth', 'webmaster');
+
 /*
 Route::get('/', function () {
     return view('welcome');

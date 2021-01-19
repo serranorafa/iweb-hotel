@@ -31,7 +31,7 @@
                 @if (Route::has('register'))
                 <br>
                 <br>
-                    <a class="btn btn-secondary" style="width:100%" href="{{ route('register') }}">{{ __('Registro') }}</a>
+                <a class="btn btn-secondary" style="width:100%" href="{{ route('register') }}">{{ __('Registro') }}</a>
                 @endif
             @else
                 <a class="btn btn-secondary" style="width:100%;pointer-events: none">
@@ -48,8 +48,8 @@
                                     </form>
         @endguest
             </div>
-            <div class="container">
-            <a href="/" style="color: black;text-decoration: none"><h1 href="/home" class="display-1" style="margin-left: 1%; margin-top:1%; padding-top:1%;">IWEBHotel</h1></a>
+            <div class="container" style="width:max-content">
+            <h1 class="display-1" style="margin-left: 1%; margin-top:1%; padding-top:1%"><a href="/" style="color: black;text-decoration: none">IWEBHotel</a></h1>
             </div>
             <div style="clear: both"></div>
         </div>

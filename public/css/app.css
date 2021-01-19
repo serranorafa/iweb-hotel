@@ -50,13 +50,12 @@
   
   .galleryRow:after {
     content: "";
-    display: table;
+    display: inline-block;
     clear: both;
   }
   
   /* 6 columnas */
   .galleryColumn {
-    float: left;
     width: 16.66%;
   }
   

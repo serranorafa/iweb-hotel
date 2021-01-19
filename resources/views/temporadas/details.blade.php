@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-6"></div>
                     <div class="col-12" style="text-align: center">
-                        <a class="btn btn-danger" style="text-align: center">
+                        <a onclick="confirmar('{{ $temporada->id }}')" class="btn btn-danger" style="text-align: center">
                             {{ __('Eliminar') }}
                         </a>
                         <a href="/temporadas/{{$temporada->id}}/edit" class="btn btn-secondary" style="text-align: center">
@@ -67,4 +67,12 @@
         </div>
     </div>
 </div>
+<script>
+    function confirmar(temporada) {
+        if (confirm("¿Confirmar el borrado?")) {
+            window.location.href = "/borrartemporada/" + temporada;
+        } else {
+        }
+    }   
+</script>
 @endsection

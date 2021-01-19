@@ -23,7 +23,6 @@ class CreateEstanciasTable extends Migration
             $table->integer('aforo');
             $table->string('descripcion');
             $table->integer('tarifa_base');
-            $table->string('foto');
             $table->timestamps();
         });
     }

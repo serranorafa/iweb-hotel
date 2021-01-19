@@ -6,8 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Estancia extends Model
 {
-    public function getBloqueos() {
+    public function Bloqueos() {
         return $this->hasMany('App\Bloqueo');
+    }
+
+    public function Fotos() {
+        return $this->hasMany('App\Foto');
     }
 
     public function getId() {
@@ -68,10 +72,6 @@ class Estancia extends Model
 
     public function setDescripcion($descripcion) {
         $this->descripcion = $descripcion;
-    }
-
-    public function setFoto($foto) {
-        $this->foto = $foto;
     }
     
     public function getTarifaBase() {

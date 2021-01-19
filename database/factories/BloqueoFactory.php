@@ -7,8 +7,8 @@ use Faker\Generator as Faker;
 
 $factory->define(Bloqueo::class, function (Faker $faker) {
     return [
-        'fecha_inicio' => $faker->dateTime($max = 'now'),
-        'fecha_fin' => $faker->dateTime($min = 'now'),
+        'fecha_inicio' => $faker->dateTimeInInterval($startDate = '-3 days', $interval = '+ 3 days', $timezone = null),
+        'fecha_fin' => $faker->dateTimeInInterval($startDate = '-0 days', $interval = '+ 3 days', $timezone = null),
         'estancia_id' => $faker->numberBetween($min = 1, $max = 49)
     ];
 });

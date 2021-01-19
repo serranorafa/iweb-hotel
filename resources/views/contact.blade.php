@@ -2,9 +2,10 @@
 
 @section('content')
 <div class="container">
-    <h1 style="text-align: center">{{ __('Contacta con nosostros') }}</h1>
+    
     <div class="card">
-        <div class="card-body row">            
+        <h1 class="card-header" style="text-align: center">{{ __('Contacta con nosostros') }}</h1>
+        <div class="card-body row">
             <div class="col-md-6" style="float:left" >
                 <iframe height="100%" width="100%" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d782.3124967187671!2d-0.4780088980260248!3d38.34319565332312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDIwJzM1LjYiTiAwwrAyOCc0NC4wIlc!5e0!3m2!1ses!2ses!4v1610987159709!5m2!1ses!2ses" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
                 </iframe>

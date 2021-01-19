@@ -4,7 +4,7 @@
 <div class="container">
     <!-- SELECTOR GALERÍA -->
     <nav class="navbar navbar-expand-md navbar-light bg-white" style="padding: 0px">
-        <ul class="navbar-nav" style="width:100%;text-align: center">
+        <ul class="navbar-nav" style="width:100%;text-align: center; background-color: rgb(245,245,245)">
             <li class="nav-item" style="width:100%">
                 <a href="/roomGallery" id="pestHabitaciones" class="nav-link">Habitaciones</a>
             </li>

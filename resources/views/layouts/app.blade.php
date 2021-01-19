@@ -22,7 +22,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body style="background-color: rgb(245,245,245)">
     <div id="app">
         <div class="jumbotron">
             <div style="float: right;margin-right: 10%; margin-top:0.5%;text-align: center">

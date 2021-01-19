@@ -6,8 +6,8 @@
         <div class="col-md-12">
             <h1 style="text-align: center">{{ __('Bloqueos') }}</h1>
             <div class="card" style="text-align: left">
+                <h4 class="card-header" style="text-align: center">{{ __('Búsqueda') }}</h4>
                 <div class="card-body">
-                <h4 style="text-align: center">{{ __('Búsqueda') }}</h4>
                     <form action="{{url('bloqueos')}}" method="POST">
                         @csrf
                         <div class="form-group row">

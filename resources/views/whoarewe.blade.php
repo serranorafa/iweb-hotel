@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1 style="text-align: center">{{ __('Conócenos') }}</h1>
+<div class="container">    
     <div class="card">
+        <h1 class="card-header" style="text-align: center">{{ __('Conócenos') }}</h1>
         <div class="card-body row"> 
             <h2>El hotel</h2>
             <p>Cerca del casco antiguo, este hotel tiene una privilegiada ubicación, entre el Puerto Deportivo y la Playa del Postiguet. Bien comunicado con el aeropuerto, la estación de tren y de autobús.</p>

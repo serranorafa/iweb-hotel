@@ -78,7 +78,7 @@
             </table>
             <div style="align-items: center">
             <div style="width:max-content; margin:auto">
-            {{$servicios->links()}}
+            {{$servicios->appends(Request::all())->links()}}
             </div>
             </div>
         </div>

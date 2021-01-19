@@ -13,9 +13,25 @@ class BloqueoController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('bloqueos.list', ['bloqueos' => Bloqueo::whereNotNull('id')->paginate(5)]);
+        $listaResultado = Bloqueo::whereNotNull('id')
+            ->when(request()->input('id'), function($query) {
+                $query->where('id', request()->input('id'));
+            })
+            ->when(request()->input('fecha_inicio'), function($query) {
+                $query->whereDate('fecha_inicio', request()->input('fecha_inicio'));
+            })
+            ->when(request()->input('fecha_fin'), function($query) {
+                $query->whereDate('fecha_fin', request()->input('fecha_fin'));
+            })
+            ->whereHas('estancia', function($query) use($request) {
+                if ($request->input('estancia_numero')) {
+                    $query->where('numero', $request->input('estancia_numero'));
+                }
+            })->paginate(5);
+
+        return view('bloqueos.list', ['bloqueos' => $listaResultado]);
     }
 
     public function details($id)

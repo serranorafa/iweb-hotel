@@ -50,12 +50,24 @@
   
   .galleryRow:after {
     content: "";
-    display: inline-block;
+    display: table;
     clear: both;
   }
   
   /* 6 columnas */
   .galleryColumn {
+    width: 16.66%;
+    float: left;
+  }
+
+  .galleryRow2:after {
+    content: "";
+    display: inline-block;
+    clear: both;
+  }
+  
+  /* 6 columnas */
+  .galleryColumn2 {
     width: 16.66%;
   }
   

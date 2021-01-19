@@ -14,9 +14,9 @@
                             </div>
                         @endforeach
 
-                        <div class="galleryRow col-12" style="text-align: center; display: inline; height: 7%">
+                        <div class="galleryRow2 col-12" style="text-align: center; display: inline; height: 7%">
                             @foreach($estancia->fotos as $foto)
-                                <div class="galleryColumn" style="display: inline">
+                                <div class="galleryColumn2" style="display: inline">
                                     <img class="demo cursor" src="{{ asset($dir . $foto->getRuta()) }}" style="width:7%; display: inline" onclick="currentSlide({{ $loop->index }})" alt="texto alt">
                                 </div>
                             @endforeach

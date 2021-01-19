@@ -7,9 +7,25 @@ use Illuminate\Http\Request;
 
 class EstanciaController extends Controller
 {
-    public function index() 
+    public function index(Request $request) 
     {
-        return view('estancias.list', ['estancias' => Estancia::whereNotNull('id')->paginate(5)]);
+        $listaResultado = Estancia::whereNotNull('id')
+                            ->when($request->input('numero'), function($query) {
+                                $query->where('numero', request()->input('numero'));
+                            })
+                            ->when($request->input('planta'), function($query) {
+                                $query->where('planta', request()->input('planta'));
+                            })
+                            ->when($request->input('comparacion'), function($query) {
+                                $query->where('tipo', request()->input('comparacion'));
+                            })
+                            ->when($request->input('plazas'), function($query) {
+                                $query->where('plazas', request()->input('plazas'));
+                            })
+                            ->when($request->input('tarifa_base'), function($query) {
+                                $query->where('tarifa_base', request()->input('tarifa_base'));
+                            })->paginate(5);
+        return view('estancias.list', ['estancias' => $listaResultado]);
     }
 
     public function createForm()

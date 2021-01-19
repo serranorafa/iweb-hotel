@@ -8,7 +8,7 @@
             <div class="card" style="text-align: left">
                 <div class="card-body">
                 <h4 style="text-align: center">{{ __('Búsqueda') }}</h4>
-                    <form method="POST">
+                    <form action="{{url('estancias')}}" method="POST">
                         @csrf
                         <div class="form-group row">
                             <label for="numero" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Número') }}</label>
@@ -101,7 +101,7 @@
             </table>
             <div style="align-items: center">
             <div style="width:max-content; margin:auto">
-            {{$estancias->links()}}
+            {{ $estancias->appends(Request::all())->links() }}
             </div>
             </div>
         </div>

@@ -89,7 +89,7 @@
             </table>
             <div style="align-items: center">
             <div style="width:max-content; margin:auto">
-            {{$users->links()}}
+            {{$users->appends(Request::all())->links()}}
             </div>
             </div>
         </div>

@@ -16,7 +16,7 @@
                             <div class="col-md-6">
                             <select id="estancia_id" name="estancia_id" autofocus>
                                 @foreach($estancias as $estancia)
-                                    @if($bloqueo->estancia->id === $estancia->id)
+                                    @if($bloqueo->getEstancia->id === $estancia->id)
                                     <option value="{{$estancia->id}}" selected>{{$estancia->numero}}</option>
                                     @else
                                     <option value="{{$estancia->id}}">{{$estancia->numero}}</option>

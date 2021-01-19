@@ -21,7 +21,7 @@
                         </h4>
                     </div>
                     <div class="col-md-3 col-12" style="text-align: left">
-                            {{$bloqueo->estancia->numero}}
+                            {{$bloqueo->getEstancia->numero}}
                     </div>                    <div class="col-md-3 col-12" style="text-align: left">
                         <h4 style="font-weight: 900">
                             Fecha de inicio:

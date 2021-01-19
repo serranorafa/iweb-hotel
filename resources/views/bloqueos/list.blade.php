@@ -72,7 +72,7 @@
                         <td>{{date('j/m/Y', strtotime($bloqueo->fecha_fin))}}</td>
                         <td>{{date('H:i', strtotime($bloqueo->fecha_inicio))}}</td>
                         <td>{{date('H:i', strtotime($bloqueo->fecha_fin))}}</td>
-                        <td>{{$bloqueo->estancia->numero}}</td>
+                        <td>{{$bloqueo->getEstancia->numero}}</td>
                         <td><a href="/bloqueos/{{$bloqueo->id}}">Detalles</a></td>
                         <td><a href="/bloqueos/{{$bloqueo->id}}/edit">Editar</a></td>
                         <td><a onclick="confirmar('{{ $bloqueo->id }}')" href="#">Eliminar</a></td>

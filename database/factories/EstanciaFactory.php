@@ -19,6 +19,5 @@ $factory->define(Estancia::class, function (Faker $faker) {
         'descripcion' => $faker->text($maxNbChars = 70),
         'tarifa_base' => $faker->numberBetween($min = 20, $max = 100),
         //'foto' => $faker->image()
-        'foto' => ""
     ];
 });

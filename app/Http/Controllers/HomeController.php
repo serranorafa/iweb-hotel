@@ -51,14 +51,24 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function gallery()
+    public function roomGallery()
     {
-        $roomPhotos = \File::allFiles(public_path('/img/room'));
-        $restaurantPhotos = \File::allFiles(public_path('/img/restaurant'));
-        $salaPhotos = \File::allFiles(public_path('/img/sala'));
-        return view('gallery')
-                    ->with(array('roomPhotos'=>$roomPhotos))
-                    ->with(array('restaurantPhotos'=>$restaurantPhotos))
-                    ->with(array('salaPhotos'=>$salaPhotos));
+        $photos = \File::allFiles(public_path('/img/room'));
+        $dir = '/img/room/';
+        return view('gallery', ['dir' => $dir])->with(array('photos'=>$photos));
+    }
+
+    public function hallGallery()
+    {
+        $photos = \File::allFiles(public_path('/img/sala'));
+        $dir = '/img/sala/';
+        return view('gallery', ['dir' => $dir])->with(array('photos'=>$photos));
+    }
+
+    public function restaurantGallery()
+    {
+        $photos = \File::allFiles(public_path('/img/restaurant'));
+        $dir = '/img/restaurant/';
+        return view('gallery', ['dir' => $dir])->with(array('photos'=>$photos));
     }
 }

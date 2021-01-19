@@ -3,24 +3,24 @@
 @section('content')
 <div class="container">
     <!-- SELECTOR GALERÍA -->
-    <nav class="navbar navbar-expand-md navbar-light bg-white">
+    <nav class="navbar navbar-expand-md navbar-light bg-white" style="padding: 0px">
         <ul class="navbar-nav" style="width:100%;text-align: center">
-            <li class="nav-item active" style="width:100%">
-                <a href="#" class="nav-link" onclick="prueba()">Habitaciones</a>
+            <li class="nav-item" style="width:100%">
+                <a href="/roomGallery" id="pestHabitaciones" class="nav-link">Habitaciones</a>
             </li>
-            <li class="nav-item active" style="width:100%">
-                <a href="#" class="nav-link" onclick="prueba()">Salas de conferencias</a>
+            <li class="nav-item" style="width:100%">
+                <a href="/hallGallery" id="pestSalas" class="nav-link">Salas de conferencias</a>
             </li>
-            <li class="nav-item active" style="width:100%">
-                <a href="#" class="nav-link" onclick="prueba()">Restaurante</a>
+            <li class="nav-item" style="width:100%">
+                <a href="/restaurantGallery" id="pestRestaurante" class="nav-link">Restaurante</a>
             </li>
         </ul>        
     </nav>
 
     <!-- FOTOS -->
-    @foreach($salaPhotos as $salaPhoto)
+    @foreach($photos as $photo)
         <div class="gallerySlides">
-            <img src="{{ asset('/img/sala/' . $salaPhoto->getFilename()) }}" style="width:100%">
+            <img src="{{ asset($dir . $photo->getFilename()) }}" style="width:100%">
         </div>
     @endforeach
 
@@ -30,15 +30,28 @@
 
     <!-- MINIATURAS -->
     <div class="galleryRow">
-        @foreach($salaPhotos as $salaPhoto)
+        @foreach($photos as $photo)
             <div class="galleryColumn">
-                <img class="demo cursor" src="{{ asset('/img/sala/' . $salaPhoto->getFilename()) }}" style="width:100%" onclick="currentSlide({{ $loop->index }})" alt="texto alt">
+                <img class="demo cursor" src="{{ asset($dir . $photo->getFilename()) }}" style="width:100%" onclick="currentSlide({{ $loop->index }})" alt="texto alt">
             </div>
         @endforeach
     </div>
 </div>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var url = window.location.href;
+        if (url.endsWith('roomGallery')) {
+            document.getElementById("pestHabitaciones").classList.add("pestanyaActiva");
+        }
+        else if (url.endsWith('hallGallery')) {
+            document.getElementById("pestSalas").classList.add("pestanyaActiva");
+        }
+        else if (url.endsWith('restaurantGallery')) {
+            document.getElementById("pestRestaurante").classList.add("pestanyaActiva");
+        }
+    })
+
     var slideIndex = 1;
         showSlides(slideIndex);
 
@@ -66,10 +79,6 @@
         }
         slides[slideIndex-1].style.display = "block";
         dots[slideIndex-1].className += " active";
-    }
-
-    function prueba() {
-        console.log('HOLAAAAAAAAAAAAAAAAAAAAAAAAA')
     }
 </script>
 @endsection

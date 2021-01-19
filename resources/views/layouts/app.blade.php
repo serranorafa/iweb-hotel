@@ -68,7 +68,7 @@
                             <a class="nav-link">|</a>
                         </li>
                         <li class="nav-item active" style="width:100%">
-                            <a class="nav-link" href="/gallery">Galería</a>
+                            <a class="nav-link" href="/roomGallery">Galería</a>
                         </li>
                         <li class="d-none d-md-block">
                             <a class="nav-link">|</a>

@@ -8,7 +8,7 @@
             <div class="card" style="text-align: left">
                 <div class="card-body">
                 <h4 style="text-align: center">{{ __('Búsqueda') }}</h4>
-                    <form method="POST">
+                    <form action="{{url('servicios')}}" method="POST">
                         @csrf
                         <div class="form-group row">
                             <label for="id" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('ID') }}</label>
@@ -27,7 +27,7 @@
                             <div class="col-lg-2 col-12">
                                 <select id="comparacion" name="comparacion" class="form-control" autofocus>
                                     <option value="<=" selected>Hasta</option>
-                                    <option value="==">Igual a</option>
+                                    <option value="=">Igual a</option>
                                     <option value=">">Mayor a</option>
                                 </select>
                             </div>

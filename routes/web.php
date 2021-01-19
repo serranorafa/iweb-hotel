@@ -45,6 +45,7 @@ Route::get('/servicios/{id}/edit', 'ServicioController@edit')->middleware('auth'
 Route::post('/serviciocreado', 'ServicioController@created')->middleware('auth', 'webmaster');
 Route::post('/servicioeditado', 'ServicioController@edited')->middleware('auth', 'webmaster');
 Route::get('/borrarservicio/{id}', 'ServicioController@delete')->middleware('auth', 'webmaster');
+Route::post('/servicios', 'ServicioController@index')->middleware('auth', 'recepcionista');
 
 Route::get('/temporadas', 'TemporadaController@index')->middleware('auth', 'webmaster');
 Route::get('/temporadas/create', 'TemporadaController@createForm')->middleware('auth', 'webmaster');

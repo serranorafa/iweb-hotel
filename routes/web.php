@@ -72,13 +72,6 @@ Route::get('/reservas/{id}/edit', 'ReservaController@edit')->middleware('auth', 
 Route::post('/reservacreada', 'ReservaController@created')->middleware('auth', 'webmaster');
 Route::post('/reservaeditada', 'ReservaController@edited')->middleware('auth', 'webmaster');
 Route::get('/borrarreserva/{id}', 'ReservaController@delete')->middleware('auth', 'webmaster');
-
-/*
-Route::get('/', function () {
-    return view('welcome');
-});
-*/
+Route::post('/reservas', 'ReservaController@index')->middleware('auth', 'webmaster');
 
 Auth::routes();
-
-//Route::get('/home', 'HomeController@index')->name('home');

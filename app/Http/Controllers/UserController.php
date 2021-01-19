@@ -9,13 +9,33 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
-     * Show the user list
+     * Show the user list filtered
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        return view('users.list', ['users' =>  User::whereNotNull('id')->paginate(5)]);
+        $listaResultado = User::whereNotNull('id')
+                            ->when(request()->input('nombre'), function($query) {
+                                $query->where('nombre', 'LIKE', '%'.request()->input('nombre').'%');
+                            })
+                            ->when(request()->input('apellidos'), function($query) {
+                                $query->where('apellidos', 'LIKE', '%'.request()->input('apellidos').'%');
+                            })
+                            ->when(request()->input('email'), function($query) {
+                                $query->where('email', 'LIKE', '%'.request()->input('email').'%');
+                            })
+                            ->when(request()->input('telefono'), function($query) {
+                                $query->where('telefono', 'LIKE', '%'.request()->input('telefono').'%');
+                            })
+                            ->when(request()->input('telefono'), function($query) {
+                                $query->where('telefono', 'LIKE', '%'.request()->input('telefono').'%');
+                            })
+                            ->when(request()->input('rol'), function($query) {
+                                $query->where('rol', request()->input('rol'));
+                            });
+
+        return view('users.list', ['users' =>  $listaResultado->paginate(5)]);
     }
 
     public function createForm()
@@ -74,4 +94,5 @@ class UserController extends Controller
 
         return redirect()->action('UserController@index', ['users' => User::whereNotNull('id')->paginate(5)]);
     }
+
 }

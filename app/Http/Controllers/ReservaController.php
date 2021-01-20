@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Reserva;
 use App\Estancia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReservaController extends Controller
 {
@@ -64,32 +65,19 @@ class ReservaController extends Controller
                             ->when(request()->input('vistas'), function($query) {
                                 $query->where('vistas', request()->input('vistas'));
                             })
-                            /* DESCOMENTAR ESTO 
                             ->whereNotIn('id', function($query) use($dateTimeInicio, $dateTimeFin) {
                                 $query->from('bloqueos')
                                     ->select('estancia_id')
                                     ->where('fecha_inicio', '<=', $dateTimeFin)
                                     ->where('fecha_fin', '>=', $dateTimeInicio);
-                            })*/
+                            })
                             ->whereNotIn('id', function($query) use($dateTimeInicio, $dateTimeFin) {
-                                $query->fromRaw('estancia_reserva, reservas')
-                                    ->select('estancia_reserva.estancia_id')
-                                    ->where('estancia_reserva.reserva_id', '=', 'reservas.id')
-                                    ->where('reservas.fecha_inicio', '<=', $dateTimeFin)
-                                    ->where('reservas.fecha_fin123', '>=', $dateTimeInicio);
-                            })->get();
-
-        //$habitaciones2 = $habitaciones->where('id', 3)
-/*
-        $reserva = Reserva::where('fecha_inicio', '<=', $dateTimeFin)
-                            ->where('fecha_fin', '>=', $dateTimeInicio)
-                            ->whereIn('id', function($query) {
-                                $query->from('estancia_reserva')
-                                    ->select()
-                            })->get();*/
-
-        
-
+                                $query->from('reservas')
+                                    ->select('estancia_id')
+                                    ->where('fecha_inicio', '<=', $dateTimeFin)
+                                    ->where('fecha_fin', '>=', $dateTimeInicio);
+                            })
+                            ->get();
 
         return view('reservas.createRoom', ['habitaciones' => $habitaciones]);
     }
@@ -98,7 +86,14 @@ class ReservaController extends Controller
     {
         $reserva = new Reserva();
 
+        $reserva->setFechaInicio($request->input('fecha_inicio'));
+        $reserva->setFechaFin($request->input('fecha_fin'));
+        $reserva->setEstancia($request->input('estancia_id'));
+        $reserva->setTemporada("asdf");
+        $reserva->setUsuario(Auth::user()->id);
+        $reserva->setPrecioTotal(1234);
 
+        $reserva->save();
 
         return redirect()->action('ReservaController@index', ['reservas' => Reserva::whereNotNull('id')->paginate(5)]);
     }

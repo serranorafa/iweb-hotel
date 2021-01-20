@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         DB::table('bloqueos')->delete();
         DB::table('servicios')->delete();
         DB::table('reservas')->delete();
-        DB::table('estancia_reserva')->delete();
+        //DB::table('estancia_reserva')->delete();
         DB::table('reserva_servicio')->delete();
 
         $this->call(UsersTableSeeder::class);
@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BloqueosTableSeeder::class);
         $this->call(ServiciosTableSeeder::class);
         $this->call(ReservasTableSeeder::class);
-        $this->call(EstanciaReservaTableSeeder::class);
+        //$this->call(EstanciaReservaTableSeeder::class);
         $this->call(ReservaServicioTableSeeder::class);
     }
 }

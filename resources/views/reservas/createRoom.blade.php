@@ -36,6 +36,31 @@
                         <br><hr />
                         <!-- HABITACIONES -->
                         <h4 class="pb-3" style="text-align: center">{{__('Elige habitaciones')}}</h4>
+                        <div id="habitacionesElegidas" style="display: none">
+                            <table id="listaHabitacionesElegidas" class="table">
+                                <thead>
+                                    <tr>   
+                                    <th></th>
+                                    <th scope="col">Plazas</th> 
+                                    <th></th>
+                                    <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="filasHabitaciones">
+                                
+                                </tbody>
+                            </table>
+                            
+                            <div class="form-group row" style="text-align: center">
+                                <div class="col-md-12">
+                                    <button type="button" onclick="hacerReserva()" class="btn btn-secondary">
+                                        {{ __('Hacer reserva') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        </div>
                         <div class="form-group row">
                             <label for="plazas" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Huéspedes') }}</label>
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
@@ -73,18 +98,20 @@
                             <th scope="col">Plazas</th>
                             <th scope="col">Tarifa base/noche</th>
                             <th scope="col">Vistas</th>                         
+                            <th scope="col"></th>                      
                             <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($habitaciones as $habitacion)
-                            <tr>  
+                            <tr id="{{$habitacion->id}}">  
                                 <td>{{$habitacion->id}}</td>                             
                                 <td>{{$habitacion->planta}}</td>                                
                                 <td>{{$habitacion->plazas}}</td>
                                 <td>{{$habitacion->tarifa_base}} €</td>
                                 <td>{{$habitacion->vistas}}</td>                                 
-                                <td><a href="/estancias/{{$habitacion->id}}">Detalles</a></td> 
+                                <td><a href="/estancias/{{$habitacion->id}}" target="_blank" rel="noopener noreferrer">Detalles</a></td> 
+                                <td><a href="#" onclick="anyadirHabitacion('{{$habitacion}}')">Elegir</a></td> 
                             </tr>
                             @endforeach
                         </tbody>
@@ -97,4 +124,59 @@
         </div>
     </div>
 </div>
+<script>
+    function anyadirHabitacion(habitacion) {
+        var objHabitacion = JSON.parse(habitacion);
+        console.log(document.getElementById('2').style.display)
+
+        var tabla = document.getElementById('filasHabitaciones');
+        document.getElementById('habitacionesElegidas').style.display = 'block';
+        document.getElementById(objHabitacion.id).style.display = 'none';
+
+        var fila = tabla.insertRow(-1); 
+        fila.setAttribute("id", "fila" + objHabitacion.id)
+        var numHabitacion = fila.insertCell(0);
+        var plazas = fila.insertCell(1);
+        var btnDetalles = fila.insertCell(2);
+        var btnEliminar = fila.insertCell(3);
+
+        console.log(tabla.childNodes.length -1)
+        
+        numHabitacion.innerHTML = "Habitación " + (tabla.childNodes.length - 1);
+        plazas.innerHTML = objHabitacion.plazas;
+        btnDetalles.innerHTML = '<a href="/estancias/{{$habitacion->id}}" target="_blank" rel="noopener noreferrer">Detalles</a>';
+        btnEliminar.innerHTML = '<a href="#" onclick="eliminarHabitacion(' + objHabitacion.id + ')">Eliminar</a>';
+    }
+
+    function eliminarHabitacion(id) {
+        document.getElementById('fila' + id).remove();
+        document.getElementById(id).style.display = 'table-row';
+
+        if (document.getElementById('filasHabitaciones').childNodes.length == 1) {
+            document.getElementById('habitacionesElegidas').style.display = 'none'
+        }
+    }
+
+    function hacerReserva() {
+        var habitaciones = document.getElementById('filasHabitaciones').childNodes;
+        var _fecha_inicio = document.getElementById('fecha_inicio').value;
+        var _fecha_fin = document.getElementById('fecha_fin').value;
+
+        var i = 0;
+        habitaciones.forEach(habitacion => {
+            if (i != 0) {               
+                var estancia = habitacion.getAttribute("id").slice(4, 6);
+                console.log(estancia);/*
+
+                $.post('http://localhost/reservacreada', 
+                {
+                    fecha_inicio: _fecha_inicio,
+                    fecha_fin: _fecha_fin,
+                    estancia_id: 
+                })*/
+            }
+            i++;
+        })
+    }
+</script>
 @endsection

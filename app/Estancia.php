@@ -83,7 +83,7 @@ class Estancia extends Model
     }
 
     public function getReservas() {
-        return $this->belongsToMany('App\Reserva');
+        return $this->hasMany('App\Reserva');
     }
 
     public function disponible($fecha_inicio, $fecha_fin) {

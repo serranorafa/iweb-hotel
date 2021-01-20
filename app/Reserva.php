@@ -73,25 +73,11 @@ class Reserva extends Model
         }
     }
 
-    public function getEstancias() { 
-        return $this->belongsToMany('App\Estancia');
+    public function getEstancia() {
+        return $this->belongsTo('App\Estancia', 'estancia_id');
     }
 
-    public function setEstancias($estancias) {
-        $i = 0;
-
-        foreach ($estancias as $estancia) {
-            if ($i == count($estancias) - 1) {
-                break;
-            }
-            // REVISTAR ESTO
-            $e = Estancia::find($estancia);
-
-            DB::table('estancia_reserva')->insert([
-                'estancia_id' => $e->id,
-                'reserva_id' => $this->id
-            ]);
-            $i++;
-        }
+    public function setEstancia($estancia_id) {
+        $this->estancia_id = $estancia_id;
     }
 }

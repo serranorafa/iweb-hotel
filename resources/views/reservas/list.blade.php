@@ -46,6 +46,9 @@
                                 <button type="submit" class="btn btn-secondary" style="text-align: center"> 
                                     {{ __('Aplicar filtros') }}
                                 </button>
+                                <button type="button" class="btn btn-danger" style="text-align: center" onclick="borrarFiltros()"> 
+                                    {{ __('Borrar filtros') }}
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -102,6 +105,13 @@
             window.location.href = "/borrarreserva/" + reserva;
         } else {
         }
-    }   
+    }
+
+    function borrarFiltros() {
+        document.getElementById("id").value = "";
+        document.getElementById("fecha_inicio").value = "";
+        document.getElementById("precio_total").value = "";
+        document.getElementById("fecha_fin").value = "";    
+    }
 </script>
 @endsection

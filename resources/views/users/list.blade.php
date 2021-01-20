@@ -51,6 +51,9 @@
                                 <button type="submit" class="btn btn-secondary" style="text-align: center"> 
                                     {{ __('Aplicar filtros') }}
                                 </button>
+                                <button type="button" class="btn btn-danger" style="text-align: center" onclick="borrarFiltros()"> 
+                                    {{ __('Borrar filtros') }}
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -101,6 +104,14 @@
             window.location.href = "/borrarusuario/" + usuario;
         } else {
         }
-    }   
+    }
+
+    function borrarFiltros() {
+        document.getElementById("nombre").value = "";
+        document.getElementById("apellidos").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("telefono").value = "";
+        document.getElementById("rol").value = "";
+    }
 </script>
 @endsection

@@ -35,11 +35,11 @@
                         <div class="row">
                             <div class="col-11 card" style="margin-left: 4.5%;margin-right: 5%; margin-top: 2%; padding-bottom:2%">
                                 <div id="tarifaInput">
-                                        <label for="tarifa_base" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Tarifa base') }}</label>
-                                        <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                            <input id="tarifa_base" class="form-control" type="number" name="tarifa_base" autocomplete="tarifa_base" autofocus>
-                                        </div>
+                                    <label for="tarifa_base" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Tarifa base') }}</label>
+                                    <div class="col-lg-4 col-12" style="padding-right: 10%">
+                                        <input id="tarifa_base" class="form-control" type="number" name="tarifa_base" autocomplete="tarifa_base" autofocus>
                                     </div>
+                                </div>
                                 <div id="plazasInput">
                                     <label for="plazas" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Plazas (sólo habitaciones)') }}</label>
                                     <div class="col-lg-4 col-12" style="padding-right: 10%">
@@ -62,6 +62,9 @@
                             <div class="col-12">
                                 <button type="submit" class="btn btn-secondary" style="text-align: center"> 
                                     {{ __('Aplicar filtros') }}
+                                </button>
+                                <button type="button" class="btn btn-danger" style="text-align: center" onclick="borrarFiltros()"> 
+                                    {{ __('Borrar filtros') }}
                                 </button>
                             </div>
                         </div>
@@ -146,6 +149,16 @@
             document.getElementById("plazasInput").style.display = "block";
             document.getElementById("aforoInput").style.display = "block";
         }
+    }
+
+    function borrarFiltros() {
+        document.getElementById("numero").value = "";
+        document.getElementById("planta").value = "";
+        document.getElementById("comparacion").value = "";
+        document.getElementById("tarifa_base").value = "";
+        document.getElementById("plazas").value = "";
+        document.getElementById("aforo").value = "";
+        cambiarHabSala();       
     }
 </script>
 @endsection

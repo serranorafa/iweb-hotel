@@ -42,6 +42,7 @@ Route::post('/bloqueos', 'BloqueoController@index')->middleware('auth', 'recepci
 Route::get('/servicios', 'ServicioController@index')->middleware('auth', 'webmaster');
 Route::get('/servicios/create', 'ServicioController@createForm')->middleware('auth', 'webmaster');
 Route::get('/servicios/{id}', 'ServicioController@details')->middleware('auth', 'webmaster');
+Route::get('/servicios/{nombre}/descripcion', 'ServicioController@descripcion')->middleware('auth');
 Route::get('/servicios/{id}/edit', 'ServicioController@edit')->middleware('auth', 'webmaster');
 Route::post('/serviciocreado', 'ServicioController@created')->middleware('auth', 'webmaster');
 Route::post('/servicioeditado', 'ServicioController@edited')->middleware('auth', 'webmaster');

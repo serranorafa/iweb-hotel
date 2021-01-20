@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Reserva;
 use App\Estancia;
+use App\Servicio;
+use App\Temporada;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -85,22 +88,18 @@ class ReservaController extends Controller
     public function buscarHabitacionesAjax(Request $request) 
     {
         $contenido = $request->getContent();
-        error_log($contenido);
         $array = explode("&", $contenido);
 
         $fechaInicio = explode("=", $array[0])[1];
         $fechaFin = explode("=", $array[1])[1];
         $plazas = explode('=', $array[2])[1];
-        error_log($plazas);
         $vistas = explode('=', $array[3])[1];
-        error_log($vistas);
         $vistasString = "";
         $vistasArray = [];
         if ($vistas != "") {
             $vistasArray = explode('+', $vistas);
             $vistasString = $vistasArray[0] . " " . $vistasArray[1] . " " . $vistasArray[2];
         }
-        error_log("asdf");
 
         $dateTimeInicio = date('Y-m-d 17:00:00', strtotime("$fechaInicio"));
         $dateTimeFin = date('Y-m-d 12:00:00', strtotime("$fechaFin"));
@@ -140,6 +139,26 @@ class ReservaController extends Controller
         $fechaInicio = explode("=", $array[0])[1];
         $fechaFin = explode("=", $array[1])[1];
         $estancia = explode('=', $array[2])[1];
+        $servicio = explode('=', $array[3])[1];
+
+        $fechaInicioComparacion = "2020" . substr($fechaInicio, 4);
+        $fechaInicioComparacionDate = new DateTime($fechaInicioComparacion);
+        $temporadas = Temporada::all();
+
+        $temporadaReserva = 1;
+
+        $FI = strtotime($fechaInicio);
+        $FF = strtotime($fechaFin);
+
+        $numDias = ($FF - $FI) / (60 * 60 * 24);
+
+        foreach ($temporadas as $temporada) {
+            if (($fechaInicioComparacionDate->format('Y-m-d') >= $temporada->getFechaInicio()) && ($fechaInicioComparacionDate->format('Y-m-d') <= $temporada->getFechaFin())) {
+                $temporadaReserva = $temporada->getId();
+            }
+        }
+
+        $idServicio = Servicio::where('nombre', $servicio)->firstOrFail()->getId();
 
         $dateTimeInicio = date('Y-m-d 17:00:00', strtotime("$fechaInicio"));
         $dateTimeFin = date('Y-m-d 12:00:00', strtotime("$fechaFin"));
@@ -147,9 +166,14 @@ class ReservaController extends Controller
         $reserva->setFechaInicio($dateTimeInicio);
         $reserva->setFechaFin($dateTimeFin);
         $reserva->setEstancia($estancia);
-        $reserva->setTemporada(1);
+        $reserva->setServicio($idServicio);
+        $reserva->setTemporada($temporadaReserva);
         $reserva->setUsuario(Auth::user()->id);
-        $reserva->setPrecioTotal(1234);
+        $tarifaBase = Estancia::find($estancia)->getTarifaBase();
+        $tarifaServicio = Servicio::find($idServicio)->getTarifa();
+        $modTemporada = Temporada::find($temporadaReserva)->getModificador();
+        $precioTotal = $numDias * ($tarifaBase + $tarifaServicio) * $modTemporada;
+        $reserva->setPrecioTotal($precioTotal);
 
         $reserva->save();
     }

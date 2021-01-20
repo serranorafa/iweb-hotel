@@ -51,26 +51,12 @@ class Reserva extends Model
         $this->temporada_id = $temporada;
     }
 
-    public function getServicios() { 
-        return $this->belongsToMany('App\Servicio');
+    public function getServicio() {
+        return $this->belongsTo('App\Servicio', 'servicio_id');
     }
 
-    public function setServicios($servicios) {
-        $i = 0;
-        
-        foreach ($servicios as $servicio) {
-            if ($i == count($servicios) -1) {
-                break;
-            }
-            // REVISAR ESTO
-            $s = Servicio::find($servicio);
-
-            DB::table('reserva_servicio')->insert([
-                'reserva_id' => $this->id,
-                'servicio_id' => $s->id
-            ]);
-            $i++;
-        }
+    public function setServicio($servicio_id) {
+        $this->servicio_id = $servicio_id;
     }
 
     public function getEstancia() {

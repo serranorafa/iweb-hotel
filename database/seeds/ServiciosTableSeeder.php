@@ -45,17 +45,5 @@ class ServiciosTableSeeder extends Seeder
             'descripcion' => 'Alojamiento en el hotel con derecho a desayuno, comida y cena en el restaurante del hotel, ademas de bebidas y aperitivos gratis en el chiringuito del hotel',
             'tarifa' => 25
         ]);
-
-        DB::table('servicios')->insert([
-            'nombre' => 'Minibar', 
-            'descripcion' => 'Servicio de minibar incluido en la habitacion del hotel',
-            'tarifa' => 25
-        ]);
-
-        DB::table('servicios')->insert([
-            'nombre' => 'Parking', 
-            'descripcion' => 'Aparcamiento bajo techo en el parking privado del hotel',
-            'tarifa' => 25
-        ]);
     }
 }

@@ -33,12 +33,14 @@
                         </div>
                         <br><hr />
                         <!-- HABITACIONES -->
-                        <h4 class="pb-3" style="text-align: center">{{__('Elige habitaciones')}}</h4>
+                        <h4 class="pb-3" style="text-align: center">{{__('Mis habitaciones')}}</h4>
                         <div id="habitacionesElegidas" style="display: none">
                             <table id="listaHabitacionesElegidas" class="table">
                                 <thead>
                                     <tr>   
                                     <th></th>
+                                    <th scope="col">Planta</th> 
+                                    <th scope="col">Tarifa base/noche</th> 
                                     <th scope="col">Plazas</th> 
                                     <th></th>
                                     <th></th>
@@ -59,7 +61,7 @@
                                         <option value="TI">Todo incluido</option>
                                     </select>                          
                                 </div>
-                            <label class="col-md-8 col-12" id="descripcion" style="text-align: left">Alojamiento en el hotel sin desayunos, comidas o cenas incluidas</label>
+                            <label class="col-md-8 col-12" id="descripcion" style="text-align: left"></label>
                             </div>
                             <div style="clear: both; height: 2vh">
                             </div>
@@ -81,7 +83,7 @@
                             </div>
                             <label for="vistas" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Vistas') }}</label>
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                <select id="vistas" name="vistas" autofocus>
+                                <select class="form-control" id="vistas" name="vistas" autofocus>
                                     <option value="">Cualquiera</option>
                                     <option value="Vistas al jardin">Vistas al jardín</option>
                                     <option value="Vistas a piscina">Vistas a piscina</option>
@@ -101,6 +103,7 @@
                         </div>
                     </form>
                     <br>
+                    <h4 id="eligehabitaciones" class="pb-3" style="text-align: center; display: none">{{__('Elige habitaciones')}}</h4>
                     <table id="listaHabitaciones" class="table" style="display: none">
                         <thead>
                             <tr>   
@@ -124,6 +127,8 @@
     </div>
 </div>
 <script>
+    document.addEventListener("DOMContentLoaded", descripcionPension());
+
     function anyadirHabitacion(habitacion) {
         var objHabitacion = habitacion;
 
@@ -134,12 +139,16 @@
         var fila = tabla.insertRow(-1); 
         fila.setAttribute("id", "fila" + objHabitacion.id)
         var numHabitacion = fila.insertCell(0);
-        var plazas = fila.insertCell(1);
-        var btnDetalles = fila.insertCell(2);
-        var btnEliminar = fila.insertCell(3);
+        var planta = fila.insertCell(1);
+        var tarifa = fila.insertCell(2);
+        var plazas = fila.insertCell(3);
+        var btnDetalles = fila.insertCell(4);
+        var btnEliminar = fila.insertCell(5);
         
         numHabitacion.innerHTML = "Habitación " + (tabla.childNodes.length - 1);
         plazas.innerHTML = objHabitacion.plazas;
+        tarifa.innerHTML = objHabitacion.tarifa_base + "€";
+        planta.innerHTML = objHabitacion.planta;
         btnDetalles.innerHTML = '<a href="/estancias/' + objHabitacion.id + '" target="_blank" rel="noopener noreferrer">Detalles</a>';
         btnEliminar.innerHTML = '<a href="#" onclick="eliminarHabitacion(' + objHabitacion.id + ')">Eliminar</a>';
     }
@@ -157,13 +166,14 @@
         var habitaciones = document.getElementById('filasHabitaciones').childNodes;
         var _fecha_inicio = document.getElementById('fecha_inicio').value;
         var _fecha_fin = document.getElementById('fecha_fin').value;
+        var servicio = document.getElementById('pension').value;
 
         var i = 0;
         habitaciones.forEach(habitacion => {            
             if (i != 0) {               
                 var estancia = habitacion.getAttribute("id").slice(4);
                 var token = '{{csrf_token()}}';
-                var data = { fecha_inicio: _fecha_inicio, fecha_fin: _fecha_fin, estancia_id: estancia, _token: token}
+                var data = { fecha_inicio: _fecha_inicio, fecha_fin: _fecha_fin, estancia_id: estancia, servicio: servicio, _token: token };
 
                 $.ajax({
                     type: "post",
@@ -212,6 +222,7 @@
             success: function (_response) {
 
                 if (_response.habitaciones.length > 0) {
+                    document.getElementById('eligehabitaciones').style.display = 'block';
                     document.getElementById('listaHabitaciones').style.display = 'table';
                     var tabla = document.getElementById('filasBusqueda');
 
@@ -251,7 +262,7 @@
             type: "get",
             url: "{{url('servicios')}}" + '/' + pension + '/descripcion',
             success: function(_response) {
-                document.getElementById('descripcion').innerHTML = _response;
+                document.getElementById('descripcion').innerHTML = _response.descripcion + " (+" + _response.tarifa + "€/noche)";
             }
         })
     }

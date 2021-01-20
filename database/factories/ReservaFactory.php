@@ -12,6 +12,7 @@ $factory->define(Reserva::class, function (Faker $faker) {
         'fecha_inicio' => $faker->dateTimeInInterval($startDate = '-3 days', $interval = '+ 3 days', $timezone = null),
         'fecha_fin' => $faker->dateTimeInInterval($startDate = '-0 days', $interval = '+ 3 days', $timezone = null),
         'precio_total' => $faker->numberBetween($min = 30, $max = 1000),
-        'estancia_id' => $faker->numberBetween($min = 1, $max = 50)
+        'estancia_id' => $faker->numberBetween($min = 1, $max = 50),
+        'servicio_id' => $faker->numberBetween($min = 1, $max = 5)
     ];
 });

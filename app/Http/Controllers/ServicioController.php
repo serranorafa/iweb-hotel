@@ -55,7 +55,7 @@ class ServicioController extends Controller
 
     public function descripcion($nombre) 
     {
-        return Servicio::where('nombre', $nombre)->firstOrFail()->getDescripcion();
+        return Servicio::where('nombre', $nombre)->firstOrFail();
     }
 
     public function edit($id)

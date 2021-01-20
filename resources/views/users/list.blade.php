@@ -1,6 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -30,7 +43,7 @@
                             </div>
                             <label for="telefono" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Teléfono de contacto') }}</label>
                             <div class="col-lg-4 col-12" style="padding-right: 10%" >
-                                <input id="telefono" class="form-control" type="tel" name="telefono" autocomplete="telefono" autofocus value=<?php if(isset($_POST['telefono'])){ echo $_POST['telefono']; } ?>>
+                                <input id="telefono" class="form-control" type="number" name="telefono" autocomplete="telefono" autofocus value=<?php if(isset($_POST['telefono'])){ echo $_POST['telefono']; } ?>>
                             </div>
                         </div>
                         <br>

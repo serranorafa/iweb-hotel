@@ -14,7 +14,7 @@
                             <label for="id" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('ID') }}</label>
 
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                <input id="id" class="form-control" type="text" name="id" autocomplete="id" autofocus value=<?php if(isset($_POST['id'])){ echo $_POST['id']; } ?>>
+                                <input id="id" class="form-control" type="number" name="id" autocomplete="id" autofocus value=<?php if(isset($_POST['id'])){ echo $_POST['id']; } ?>>
                             </div>
                             <label for="fecha_inicio" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Fecha de inicio') }}</label>
                             <div class="col-lg-4 col-12" style="padding-right: 10%">

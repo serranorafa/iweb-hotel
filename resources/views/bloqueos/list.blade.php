@@ -14,7 +14,7 @@
                             <label for="id" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('ID') }}</label>
 
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                <input id="id" class="form-control" type="text" name="id" autocomplete="id" autofocus value=<?php if(isset($_POST['id'])){ echo $_POST['id']; } ?>>
+                                <input id="id" class="form-control" type="number" name="id" autocomplete="id" autofocus value=<?php if(isset($_POST['id'])){ echo $_POST['id']; } ?>>
                             </div>
                             <label for="fecha_inicio" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Fecha de inicio') }}</label>
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
@@ -30,7 +30,7 @@
                             <label for="estancia_numero" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Nº de estancia') }}</label>
 
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                <input id="estancia_numero" class="form-control" type="text" name="estancia_numero" autocomplete="estancia_numero" autofocus value=<?php if(isset($_POST['estancia_numero'])){ echo $_POST['estancia_numero']; } ?>>
+                                <input id="estancia_numero" class="form-control" type="number" name="estancia_numero" autocomplete="estancia_numero" autofocus value=<?php if(isset($_POST['estancia_numero'])){ echo $_POST['estancia_numero']; } ?>>
                             </div>
                         </div>
                         <br>

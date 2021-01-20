@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'telefono' => ['numeric', 'digits:9'],
+            'email' => ['string', 'email', 'max:255', 'unique:users'],
+        ]);
+    }
+
     /**
      * Show the user list filtered
      *

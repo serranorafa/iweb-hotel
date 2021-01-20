@@ -14,11 +14,11 @@
                             <label for="id" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('ID') }}</label>
 
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                <input id="id" class="form-control" type="text" name="id" autocomplete="id" autofocus>
+                                <input id="id" class="form-control" type="text" name="id" autocomplete="id" autofocus value=<?php if(isset($_POST['id'])){ echo $_POST['id']; } ?>>
                             </div>
                             <label for="nombre" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Nombre') }}</label>
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                <input id="nombre" class="form-control" type="text" name="nombre" autocomplete="nombre" autofocus>
+                                <input id="nombre" class="form-control" type="text" name="nombre" autocomplete="nombre" autofocus value=<?php if(isset($_POST['nombre'])){ echo $_POST['nombre']; } ?>>
                             </div>
                         </div>
                         <br>
@@ -26,13 +26,13 @@
                             <label for="tarifa" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Tarifa') }}</label>
                             <div class="col-lg-2 col-12">
                                 <select id="comparacion" name="comparacion" class="form-control" autofocus>
-                                    <option value="<=" selected>Hasta</option>
-                                    <option value="=">Igual a</option>
-                                    <option value=">">Mayor a</option>
+                                    <option value="<=">Hasta</option>
+                                    <option value="=" <?php if(isset($_POST['comparacion']) && $_POST['comparacion'] == "="){ echo "selected"; } ?>>Igual a</option>
+                                    <option value=">" <?php if(isset($_POST['comparacion']) && $_POST['comparacion'] == ">"){ echo "selected"; } ?>>Mayor a</option>
                                 </select>
                             </div>
                             <div class="col-lg-2 col-12" style="padding-right: 10%">
-                                <input id="tarifa" class="form-control" type="number" name="tarifa" autocomplete="tarifa" autofocus>
+                                <input id="tarifa" class="form-control" type="number" name="tarifa" autocomplete="tarifa" autofocus value=<?php if(isset($_POST['tarifa'])){ echo $_POST['tarifa']; } ?>>
                             </div>
                         </div>
                         <br>

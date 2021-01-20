@@ -14,11 +14,11 @@
                             <label for="numero" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Número') }}</label>
 
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                <input id="numero" class="form-control" type="number" name="numero" autocomplete="numero" autofocus>
+                                <input id="numero" class="form-control" type="number" name="numero" autocomplete="numero" autofocus value=<?php if(isset($_POST['numero'])){ echo $_POST['numero']; } ?>>
                             </div>
                             <label for="planta" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Planta') }}</label>
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                <input id="planta" class="form-control" type="number" name="planta" autocomplete="planta" autofocus>
+                                <input id="planta" class="form-control" type="number" name="planta" autocomplete="planta" autofocus value=<?php if(isset($_POST['planta'])){ echo $_POST['planta']; } ?>>
                             </div>
                         </div>
                         <br>
@@ -26,9 +26,9 @@
                             <label for="tipo" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Tipo') }}</label>
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
                                 <select id="comparacion" name="comparacion" autofocus onchange="cambiarHabSala()">
-                                    <option value="" selected>Cualquiera</option>
-                                    <option value="HABITACION">Habitación</option>
-                                    <option value="SALA">Sala</option>
+                                    <option value="">Cualquiera</option>
+                                    <option value="HABITACION" <?php if(isset($_POST['comparacion']) && $_POST['comparacion'] == "HABITACION"){ echo "selected"; } ?>>Habitación</option>
+                                    <option value="SALA" <?php if(isset($_POST['comparacion']) && $_POST['comparacion'] == "SALA"){ echo "selected"; } ?>>Sala</option>
                                 </select>
                             </div>
                         </div>
@@ -37,13 +37,13 @@
                                 <div id="tarifaInput">
                                     <label for="tarifa_base" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Tarifa base') }}</label>
                                     <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                        <input id="tarifa_base" class="form-control" type="number" name="tarifa_base" autocomplete="tarifa_base" autofocus>
+                                        <input id="tarifa_base" class="form-control" type="number" name="tarifa_base" autocomplete="tarifa_base" autofocus value=<?php if(isset($_POST['tarifa_base'])){ echo $_POST['tarifa_base']; } ?>>
                                     </div>
                                 </div>
                                 <div id="plazasInput">
                                     <label for="plazas" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Plazas (sólo habitaciones)') }}</label>
                                     <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                        <input id="plazas" class="form-control" type="number" name="plazas" autocomplete="plazas" autofocus>
+                                        <input id="plazas" class="form-control" type="number" name="plazas" autocomplete="plazas" autofocus value=<?php if(isset($_POST['plazas'])){ echo $_POST['plazas']; } ?>>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-12">
@@ -51,7 +51,7 @@
                                 <div id="aforoInput">
                                     <label for="aforo" class="col-lg-4 col-12 col-form-label text-md-right">{{ __('Aforo mínimo (sólo salas de conferencias)') }}</label>
                                     <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                        <input id="aforo" class="form-control" type="number" name="aforo" autocomplete="aforo" autofocus>
+                                        <input id="aforo" class="form-control" type="number" name="aforo" autocomplete="aforo" autofocus value=<?php if(isset($_POST['aforo'])){ echo $_POST['aforo']; } ?>>
                                     </div>
                                 </div>
                             </div>
@@ -127,6 +127,7 @@
     </div>
 </div>
 <script>
+    
     function confirmar(estancia) {
         if (confirm("¿Confirmar el borrado?")) {
             window.location.href = "/borrarestancia/" + estancia;
@@ -160,5 +161,9 @@
         document.getElementById("aforo").value = "";
         cambiarHabSala();       
     }
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+        cambiarHabSala();
+    })
 </script>
 @endsection

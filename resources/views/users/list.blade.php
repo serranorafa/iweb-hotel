@@ -14,11 +14,11 @@
                             <label for="nombre" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Nombre') }}</label>
 
                             <div class="col-lg-4 col-12" style="padding-right: 10%" >
-                                <input id="nombre" class="form-control" type="text" name="nombre" autocomplete="nombre" autofocus>
+                                <input id="nombre" class="form-control" type="text" name="nombre" autocomplete="nombre" autofocus value=<?php if(isset($_POST['nombre'])){ echo $_POST['nombre']; } ?>>
                             </div>
                             <label for="apellidos" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Apellidos') }}</label>
                             <div class="col-lg-4 col-12" style="padding-right: 10%" >
-                                <input id="apellidos" class="form-control" type="text" name="apellidos" autocomplete="apellidos" autofocus>
+                                <input id="apellidos" class="form-control" type="text" name="apellidos" autocomplete="apellidos" autofocus value=<?php if(isset($_POST['apellidos'])){ echo $_POST['apellidos']; } ?>>
                             </div>
                         </div>
                         <br>
@@ -26,11 +26,11 @@
                             <label for="email" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Correo electrónico') }}</label>
 
                             <div class="col-lg-4 col-12" style="padding-right: 10%" >
-                                <input id="email" class="form-control" type="email" name="email" autocomplete="email" autofocus>
+                                <input id="email" class="form-control" type="email" name="email" autocomplete="email" autofocus value=<?php if(isset($_POST['email'])){ echo $_POST['email']; } ?>>
                             </div>
                             <label for="telefono" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Teléfono de contacto') }}</label>
                             <div class="col-lg-4 col-12" style="padding-right: 10%" >
-                                <input id="telefono" class="form-control" type="tel" name="telefono" autocomplete="telefono" autofocus>
+                                <input id="telefono" class="form-control" type="tel" name="telefono" autocomplete="telefono" autofocus value=<?php if(isset($_POST['telefono'])){ echo $_POST['telefono']; } ?>>
                             </div>
                         </div>
                         <br>
@@ -38,10 +38,10 @@
                             <label for="rol" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Rol') }}</label>
                             <div class="col-lg-4 col-12" style="padding-right: 10%" >
                                 <select id="rol" name="rol" autofocus>
-                                    <option value="" selected>Cualquiera</option>
-                                    <option value="CLIENTE">Cliente</option>
-                                    <option value="RECEPCIONISTA">Recepcionista</option>
-                                    <option value="WEBMASTER">Webmaster</option>
+                                    <option value="">Cualquiera</option>
+                                    <option value="CLIENTE" <?php if(isset($_POST['rol']) && $_POST['rol'] == "CLIENTE"){ echo "selected"; } ?>>Cliente</option>
+                                    <option value="RECEPCIONISTA" <?php if(isset($_POST['rol']) && $_POST['rol'] == "RECEPCIONISTA"){ echo "selected"; } ?>>Recepcionista</option>
+                                    <option value="WEBMASTER" <?php if(isset($_POST['rol']) && $_POST['rol'] == "WEBMASTER"){ echo "selected"; } ?>>Webmaster</option>
                                 </select>
                             </div>
                         </div>

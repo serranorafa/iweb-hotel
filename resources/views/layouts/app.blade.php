@@ -86,7 +86,7 @@
                             <a class="nav-link">|</a>
                         </li>
                         <li class="nav-item active" style="width:100%">
-                            <a class="nav-link" href="/reservas/create">¡Reserva ya!</a>
+                            <a class="nav-link" href="/reservas/habitacion">¡Reserva ya!</a>
                         </li>
                         @elseif (Auth::user()->rol == "RECEPCIONISTA")
                         <li class="nav-item active" style="width:100%">

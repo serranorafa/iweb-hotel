@@ -86,16 +86,24 @@ class ReservaController extends Controller
     {
         $reserva = new Reserva();
 
-        $reserva->setFechaInicio($request->input('fecha_inicio'));
-        $reserva->setFechaFin($request->input('fecha_fin'));
-        $reserva->setEstancia($request->input('estancia_id'));
-        $reserva->setTemporada("asdf");
+        $contenido = $request->getContent();
+        $array = explode("&", $contenido);
+
+        $fechaInicio = explode("=", $array[0])[1];
+        $fechaFin = explode("=", $array[1])[1];
+        $estancia = explode('=', $array[2])[1];
+
+        $dateTimeInicio = date('Y-m-d 17:00:00', strtotime("$fechaInicio"));
+        $dateTimeFin = date('Y-m-d 12:00:00', strtotime("$fechaFin"));
+
+        $reserva->setFechaInicio($dateTimeInicio);
+        $reserva->setFechaFin($dateTimeFin);
+        $reserva->setEstancia($estancia);
+        $reserva->setTemporada(1);
         $reserva->setUsuario(Auth::user()->id);
         $reserva->setPrecioTotal(1234);
 
         $reserva->save();
-
-        return redirect()->action('ReservaController@index', ['reservas' => Reserva::whereNotNull('id')->paginate(5)]);
     }
 
     public function details($id)

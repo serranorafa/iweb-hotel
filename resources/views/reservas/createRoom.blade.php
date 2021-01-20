@@ -50,14 +50,13 @@
                                 
                                 </tbody>
                             </table>
-                            
-                            <div class="form-group row" style="text-align: center">
-                                <div class="col-md-12">
-                                    <button type="button" onclick="hacerReserva()" class="btn btn-secondary">
-                                        {{ __('Hacer reserva') }}
-                                    </button>
-                                </div>
+                        <div class="form-group row" style="text-align: center">
+                            <div class="col-md-12">
+                                <button type="button" onclick="hacerReserva()" class="btn btn-secondary">
+                                    {{ __('Hacer reserva') }}
+                                </button>
                             </div>
+                        </div>
                         </div>
                         <br>
                         </div>
@@ -127,7 +126,6 @@
 <script>
     function anyadirHabitacion(habitacion) {
         var objHabitacion = JSON.parse(habitacion);
-        console.log(document.getElementById('2').style.display)
 
         var tabla = document.getElementById('filasHabitaciones');
         document.getElementById('habitacionesElegidas').style.display = 'block';
@@ -139,12 +137,10 @@
         var plazas = fila.insertCell(1);
         var btnDetalles = fila.insertCell(2);
         var btnEliminar = fila.insertCell(3);
-
-        console.log(tabla.childNodes.length -1)
         
         numHabitacion.innerHTML = "Habitación " + (tabla.childNodes.length - 1);
         plazas.innerHTML = objHabitacion.plazas;
-        btnDetalles.innerHTML = '<a href="/estancias/{{$habitacion->id}}" target="_blank" rel="noopener noreferrer">Detalles</a>';
+        btnDetalles.innerHTML = '<a href="/estancias/' + objHabitacion.id + '" target="_blank" rel="noopener noreferrer">Detalles</a>';
         btnEliminar.innerHTML = '<a href="#" onclick="eliminarHabitacion(' + objHabitacion.id + ')">Eliminar</a>';
     }
 
@@ -157,26 +153,32 @@
         }
     }
 
-    function hacerReserva() {
+    async function hacerReserva() {
         var habitaciones = document.getElementById('filasHabitaciones').childNodes;
         var _fecha_inicio = document.getElementById('fecha_inicio').value;
         var _fecha_fin = document.getElementById('fecha_fin').value;
 
         var i = 0;
-        habitaciones.forEach(habitacion => {
+        habitaciones.forEach(habitacion => {            
             if (i != 0) {               
                 var estancia = habitacion.getAttribute("id").slice(4, 6);
-                console.log(estancia);/*
+                console.log(estancia);
+                var token = '{{csrf_token()}}';
+                var data = { fecha_inicio: _fecha_inicio, fecha_fin: _fecha_fin, estancia_id: estancia, _token: token}
 
-                $.post('http://localhost/reservacreada', 
-                {
-                    fecha_inicio: _fecha_inicio,
-                    fecha_fin: _fecha_fin,
-                    estancia_id: 
-                })*/
+                $.ajax({
+                    type: "post",
+                    url: "{{url('reservacreada')}}",
+                    data: data,
+                    success: function(msg) {
+                        console.log('asdf')
+                    },
+                    async: false
+                })
             }
             i++;
         })
+        window.location.href = "/reservas/habitacion";
     }
 </script>
 @endsection

@@ -47,6 +47,14 @@
                     <div class="col-md-3 col-12" style="text-align: left">
                             {{$user->rol}}
                     </div>
+                    <div class="col-md-3 col-12" style="text-align: left">
+                        <h4 style="font-weight: 900">
+                            Teléfono:
+                        </h4>
+                    </div>
+                    <div class="col-md-3 col-12" style="text-align: left">
+                            {{$user->telefono}}
+                    </div>
                     <div class="col-6"></div>
                     <div class="col-12" style="text-align: center">
                         <a onclick="confirmar('{{ $user->id }}')" class="btn btn-danger" style="text-align: center">

@@ -6,16 +6,11 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use App\Providers\CustomValidationServiceProvider;
+
 class UserController extends Controller
 {
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'telefono' => ['numeric', 'digits:9'],
-            'email' => ['string', 'email', 'max:255', 'unique:users'],
-        ]);
-    }
-
     /**
      * Show the user list filtered
      *
@@ -53,6 +48,25 @@ class UserController extends Controller
 
     public function created(Request $request) 
     {
+        $rules = [
+            'password' => ['required', 'confirmed'],
+            'telefono' => ['required', 'numeric', 'digits:9'],
+            'nombre' => ['required', 'string', 'max:255'],
+            'apellidos' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255']
+        ];
+
+        $customMessages = [
+            'confirmed' => 'Las contraseñas no coinciden.',
+            'numeric' => 'Este campo debe contener números.',
+            'digits' => 'El teléfono debe contener 9 números.',
+            'required' => 'Campo obligatorio.',
+            'max' => 'Ha sobrepasado el número máximo de caracteres.',
+            'email' => 'Introduzca una dirección de correo válida'
+        ];
+
+        $this->validate($request, $rules, $customMessages);
+
         $usuario = new User();
 
         $usuario->setNombre($request->input('nombre'));

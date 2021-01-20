@@ -50,13 +50,13 @@
                                 
                                 </tbody>
                             </table>
-                        <div class="form-group row" style="text-align: center">
-                            <div class="col-md-12">
-                                <button type="button" onclick="hacerReserva()" class="btn btn-secondary">
-                                    {{ __('Hacer reserva') }}
-                                </button>
+                            <div class="form-group row" style="text-align: center">
+                                <div class="col-md-12">
+                                    <button type="button" onclick="hacerReserva()" class="btn btn-secondary">
+                                        {{ __('Hacer reserva') }}
+                                    </button>
+                                </div>
                             </div>
-                        </div>
                         </div>
                         <br>
                         </div>
@@ -81,15 +81,14 @@
                         <br>
                         <div class="form-group row" style="text-align: center">
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-secondary">
+                                <button onclick="buscarHabitaciones()" type="button" class="btn btn-secondary">
                                     {{ __('Buscar habitaciones') }}
                                 </button>
                             </div>
                         </div>
                     </form>
-                    @if($habitaciones != [])
                     <br>
-                    <table id="listaHabitaciones" class="table">
+                    <table id="listaHabitaciones" class="table" style="display: none">
                         <thead>
                             <tr>   
                             <th scope="col">ID</th>                        
@@ -101,21 +100,9 @@
                             <th scope="col"></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach($habitaciones as $habitacion)
-                            <tr id="{{$habitacion->id}}">  
-                                <td>{{$habitacion->id}}</td>                             
-                                <td>{{$habitacion->planta}}</td>                                
-                                <td>{{$habitacion->plazas}}</td>
-                                <td>{{$habitacion->tarifa_base}} €</td>
-                                <td>{{$habitacion->vistas}}</td>                                 
-                                <td><a href="/estancias/{{$habitacion->id}}" target="_blank" rel="noopener noreferrer">Detalles</a></td> 
-                                <td><a href="#" onclick="anyadirHabitacion('{{$habitacion}}')">Elegir</a></td> 
-                            </tr>
-                            @endforeach
+                        <tbody id="filasBusqueda">
                         </tbody>
                     </table>
-                    @endif
                     
 
                 </div> <!-- card body -->
@@ -125,7 +112,8 @@
 </div>
 <script>
     function anyadirHabitacion(habitacion) {
-        var objHabitacion = JSON.parse(habitacion);
+        console.log(habitacion);
+        var objHabitacion = habitacion;
 
         var tabla = document.getElementById('filasHabitaciones');
         document.getElementById('habitacionesElegidas').style.display = 'block';
@@ -179,6 +167,52 @@
             i++;
         })
         window.location.href = "/reservas/habitacion";
+    }
+
+    function buscarHabitaciones() {
+        var fecha_inicio = document.getElementById('fecha_inicio').value;
+        var fecha_fin = document.getElementById('fecha_fin').value;
+        var plazas = document.getElementById('plazas').value;
+        var vistas = document.getElementById('vistas').value;
+        var token = '{{csrf_token()}}';
+
+        var data = { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, plazas: plazas, vistas: vistas, _token: token };
+
+        $.ajax({
+            type: "post",
+            url: "{{url('reservas/buscarhabitacion')}}",
+            data: data,
+            success: function (_response) {
+
+                if (_response.habitaciones.length > 0) {
+                    document.getElementById('listaHabitaciones').style.display = 'table';
+                    var tabla = document.getElementById('filasBusqueda');
+
+                    _response.habitaciones.forEach(habitacion => {
+                        console.log(habitacion);
+                        var fila = tabla.insertRow(-1); 
+                        fila.setAttribute("id", habitacion.id)
+                        var idHabitacion = fila.insertCell(0);
+                        var plantaHabitacion = fila.insertCell(1);
+                        var plazasHabitacion = fila.insertCell(2);
+                        var tarifaHabitacion = fila.insertCell(3);
+                        var vistasHabitacion = fila.insertCell(4);
+                        var btnDetalles = fila.insertCell(5);
+                        var btnEliminar = fila.insertCell(6);
+
+                        idHabitacion.innerHTML = habitacion.id;
+                        plantaHabitacion.innerHTML = habitacion.planta;
+                        plazasHabitacion.innerHTML = habitacion.plazas;
+                        tarifaHabitacion.innerHTML = habitacion.tarifa_base + "€";
+                        vistasHabitacion.innerHTML = habitacion.vistas;
+                        btnDetalles.innerHTML = '<a href="/estancias/' + habitacion.id + '" target="_blank" rel="noopener noreferrer">Detalles</a>';
+                        btnEliminar.innerHTML = '<a href="#" onclick="anyadirHabitacion(' + habitacion + ')">Elegir</a>';
+                    })
+                }
+            }
+        })
+
+        
     }
 </script>
 @endsection

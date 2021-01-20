@@ -75,5 +75,6 @@ Route::get('/borrarreserva/{id}', 'ReservaController@delete')->middleware('auth'
 Route::post('/reservas', 'ReservaController@index')->middleware('auth', 'webmaster');
 //Route::get('/reservas/habitacion', 'ReservaController@createRoomForm')->middleware('auth');
 Route::post('/reservas/habitacion', 'ReservaController@buscarHabitacionesPRUEBA')->middleware('auth');
+Route::post('/reservas/buscarhabitacion', 'ReservaController@buscarHabitacionesAjax')->middleware('auth');
 
 Auth::routes();

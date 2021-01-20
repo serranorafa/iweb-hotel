@@ -10,15 +10,10 @@ use Illuminate\Support\Facades\Validator;
 use App\Providers\CustomValidationServiceProvider;
 
 class UserController extends Controller
-{
-    public $rules = [
-        'password' => ['required', 'confirmed'],
-        'telefono' => ['required', 'numeric', 'digits:9'],
-        'nombre' => ['required', 'string', 'max:255'],
-        'apellidos' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'email', 'max:255']
-    ];
-
+{ 
+    /**
+     * Mensajes de error
+     */
     public $customMessages = [
         'confirmed' => 'Las contraseñas no coinciden.',
         'numeric' => 'Este campo debe contener números.',
@@ -27,7 +22,7 @@ class UserController extends Controller
         'max' => 'Ha sobrepasado el número máximo de caracteres.',
         'email' => 'Introduzca una dirección de correo válida'
     ];
-    
+
     /**
      * Show the user list filtered
      *
@@ -65,7 +60,15 @@ class UserController extends Controller
 
     public function created(Request $request) 
     { 
-        $this->validate($request, $this->rules, $this->customMessages);
+        $rules = [
+            'password' => ['required', 'confirmed'],
+            'telefono' => ['required', 'string', 'max:30'],
+            'nombre' => ['required', 'string', 'max:255'],
+            'apellidos' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255']
+        ];
+
+        $this->validate($request, $rules, $this->customMessages);
 
         $usuario = new User();
 
@@ -95,7 +98,14 @@ class UserController extends Controller
 
     public function edited(Request $request) 
     {
-        $this->validate($request, $this->rules, $this->customMessages);
+        $rules = [
+            'telefono' => ['required', 'string', 'max:30'],
+            'nombre' => ['required', 'string', 'max:255'],
+            'apellidos' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255']
+        ];
+
+        $this->validate($request, $rules, $this->customMessages);
         
         $usuario = User::find($request->input('id'));
 

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
         <div class="card">
-            <h1 class="card-head" style="text-align: center">{{$user->nombre}} {{$user->apellidos}}</h1>
+            <h1 class="card-header" style="text-align: center">{{$user->nombre}} {{$user->apellidos}}</h1>
                 <div class="row card-body" style="text-align: center">
                     <div class="col-md-3 col-12" style="text-align: left">
                         <h4 style="font-weight: 900">

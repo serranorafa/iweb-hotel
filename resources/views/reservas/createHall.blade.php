@@ -238,6 +238,31 @@
         return false;
     }
 
+    function fechaFinDespues() {
+        var fecha_inicio = document.getElementById('fecha_inicio').value;
+        var fecha_fin = document.getElementById('fecha_fin').value;
+
+        if (fecha_inicio == fecha_fin) {
+            var hora_inicio = document.getElementById('hora_inicio').value;
+            var hora_fin = document.getElementById('hora_fin').value;
+            return hora_inicio <= hora_fin;
+        }   
+
+        return fecha_inicio <= fecha_fin;
+    }
+
+    Date.prototype.toDateInputValue = (function() {
+        var local = new Date(this);
+        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+        return local.toJSON().slice(0,10);
+    });
+
+    function fechaInicioPosteriorAHoy() {
+        var fecha_inicio = document.getElementById('fecha_inicio').value;
+        var hoy = new Date().toDateInputValue();
+        return fecha_inicio >= hoy;
+    }
+
     function buscarSalas() {
         if (document.getElementById('misala').style.display == 'block') {
             alert("Ya hay una sala elegida");
@@ -248,6 +273,14 @@
             document.getElementById('hora_inicio').value == '' ||
             document.getElementById('hora_fin').value == '') {
             alert("Faltan fechas por rellenar");
+            return;
+        }
+        if (!fechaFinDespues()) {
+            alert("El momento de salida debe ser posterior al de entrada.");
+            return;
+        }
+        if (!fechaInicioPosteriorAHoy()) {
+            alert("La fecha de entrada debe ser posterior a hoy.");
             return;
         }
         document.getElementById('filasBusqueda').innerHTML = "";

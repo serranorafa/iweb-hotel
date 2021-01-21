@@ -86,7 +86,6 @@
                         <td>{{date('H:i', strtotime($reserva->fecha_fin))}}</td>
                         <td>{{$reserva->precio_total}}€</td>
                         <td><a href="/reservas/{{$reserva->id}}">Detalles</a></td>
-                        <td><a href="/reservas/{{$reserva->id}}/edit">Editar</a></td>
                         <td><a onclick="confirmar('{{ $reserva->id }}')" href="#">Eliminar</a></td>
                     </tr>
                     @endforeach

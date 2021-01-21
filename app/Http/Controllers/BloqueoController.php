@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\DB;
 class BloqueoController extends Controller
 {
     /**
+     * Mensajes de error
+     */
+    public $customMessages = [
+        'after' => 'La fecha de fin debe ser posterior a la de inicio.',
+        'after_or_equal' => 'La fecha de fin debe ser igual o posterior a la de inicio.'
+    ];
+
+    /**
      * Show the user list
      *
      * @return \Illuminate\Contracts\Support\Renderable
@@ -47,6 +55,11 @@ class BloqueoController extends Controller
 
     public function created(Request $request) 
     {
+        $rules = [
+            'fecha_fin' => 'after_or_equal:fecha_inicio',
+        ];
+        $this->validate($request, $rules, $this->customMessages);
+
         $bloqueo = new Bloqueo();
 
         $fechaInicio = $request->input('fecha_inicio');
@@ -74,6 +87,11 @@ class BloqueoController extends Controller
 
     public function edited(Request $request)
     {
+        $rules = [
+            'fecha_fin' => 'after_or_equal:fecha_inicio',
+        ];
+        $this->validate($request, $rules, $this->customMessages);
+        
         $bloqueo = Bloqueo::find($request->input('id'));
 
         $fechaInicio = $request->input('fecha_inicio');

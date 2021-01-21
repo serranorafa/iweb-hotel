@@ -14,11 +14,11 @@
                             <label for="id" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('ID') }}</label>
 
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                <input id="id" class="form-control" type="text" name="id" autocomplete="id" autofocus>
+                                <input id="id" class="form-control" type="number" name="id" autocomplete="id" autofocus value=<?php if(isset($_POST['id'])){ echo $_POST['id']; } ?>>
                             </div>
                             <label for="fecha_inicio" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Fecha de inicio') }}</label>
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                <input id="fecha_inicio" class="form-control" type="date" name="fecha_inicio" autocomplete="fecha_inicio" autofocus>
+                                <input id="fecha_inicio" class="form-control" type="date" name="fecha_inicio" autocomplete="fecha_inicio" autofocus value=<?php if(isset($_POST['fecha_inicio'])){ echo $_POST['fecha_inicio']; } ?>>
                             </div>
                         </div>
                         <br>
@@ -26,17 +26,17 @@
                             <label for="precio_total" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Precio') }}</label>
                             <div class="col-lg-2 col-12">
                                 <select id="comparacion" name="comparacion" class="form-control" autofocus>
-                                    <option value="<=" selected>Hasta</option>
-                                    <option value="=">Igual que</option>
-                                    <option value=">">Mayor que</option>
+                                    <option value="<=" >Hasta</option>
+                                    <option value="=" <?php if(isset($_POST['comparacion']) && $_POST['comparacion'] == "="){ echo "selected"; } ?>>Igual que</option>
+                                    <option value=">" <?php if(isset($_POST['comparacion']) && $_POST['comparacion'] == ">"){ echo "selected"; } ?>>Mayor que</option>
                                 </select>
                             </div>
                             <div class="col-lg-2 col-12" style="padding-right: 10%">
-                                <input id="precio_total" class="form-control" type="number" name="precio_total" autocomplete="precio_total" autofocus>
+                                <input id="precio_total" class="form-control" type="number" name="precio_total" autocomplete="precio_total" autofocus value=<?php if(isset($_POST['precio_total'])){ echo $_POST['precio_total']; } ?>>
                             </div>
                             <label for="fecha_fin" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Fecha de fin') }}</label>
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                <input id="fecha_fin" class="form-control" type="date" name="fecha_fin" autocomplete="fecha_fin" autofocus>
+                                <input id="fecha_fin" class="form-control" type="date" name="fecha_fin" autocomplete="fecha_fin" autofocus value=<?php if(isset($_POST['fecha_fin'])){ echo $_POST['fecha_fin']; } ?>>
                             </div>
                         </div>
                         <br>
@@ -45,6 +45,9 @@
                             <div class="col-12">
                                 <button type="submit" class="btn btn-secondary" style="text-align: center"> 
                                     {{ __('Aplicar filtros') }}
+                                </button>
+                                <button type="button" class="btn btn-danger" style="text-align: center" onclick="borrarFiltros()"> 
+                                    {{ __('Borrar filtros') }}
                                 </button>
                             </div>
                         </div>
@@ -103,6 +106,13 @@
             window.location.href = "/borrarreserva/" + reserva;
         } else {
         }
-    }   
+    }
+
+    function borrarFiltros() {
+        document.getElementById("id").value = "";
+        document.getElementById("fecha_inicio").value = "";
+        document.getElementById("precio_total").value = "";
+        document.getElementById("fecha_fin").value = "";    
+    }
 </script>
 @endsection

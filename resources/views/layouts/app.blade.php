@@ -63,12 +63,6 @@
                     <ul class="navbar-nav" style="width:100%;text-align: center">
                         @if (!Auth::check() || Auth::user()->rol == "CLIENTE")
                         <li class="nav-item active" style="width:100%">
-                            <a class="nav-link" href="/news">Noticias y novedades</a>
-                        </li>
-                        <li class="d-none d-md-block">
-                            <a class="nav-link">|</a>
-                        </li>
-                        <li class="nav-item active" style="width:100%">
                             <a class="nav-link" href="/roomGallery">Galería</a>
                         </li>
                         <li class="d-none d-md-block">

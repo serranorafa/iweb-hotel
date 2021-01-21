@@ -55,6 +55,15 @@ class RegisterController extends Controller
             'telefono' => ['required', 'numeric', 'digits:9'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ],
+        [
+            'confirmed' => 'Las contraseñas no coinciden.',
+            'unique' => 'Este correo electrónico ya está registrado.',
+            'digits' => 'El teléfono debe tener 9 dígitos.',
+            'required' => 'Campo obligatorio.',
+            'min' => 'La contraseña debe tener al menos 8 caracteres.',
+            'max' => 'Este campo debe contener menos de 255 caracteres.',
+            'numeric' => 'El teléfono sólo puede contener números.'
         ]);
     }
 

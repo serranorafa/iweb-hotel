@@ -6,8 +6,24 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use App\Providers\CustomValidationServiceProvider;
+
 class UserController extends Controller
-{
+{ 
+    /**
+     * Mensajes de error
+     */
+    public $customMessages = [
+        'confirmed' => 'Las contraseñas no coinciden.',
+        'numeric' => 'Este campo debe contener números.',
+        'digits' => 'El teléfono debe contener 9 números.',
+        'required' => 'Campo obligatorio.',
+        'max' => 'Ha sobrepasado el número máximo de caracteres.',
+        'email' => 'Introduzca una dirección de correo válida',
+        'unique' => 'Ya existe un usuario con el correo electrónico indicado.'
+    ];
+
     /**
      * Show the user list filtered
      *
@@ -44,7 +60,17 @@ class UserController extends Controller
     }
 
     public function created(Request $request) 
-    {
+    { 
+        $rules = [
+            'password' => ['required', 'confirmed'],
+            'telefono' => ['required', 'string', 'max:30'],
+            'nombre' => ['required', 'string', 'max:255'],
+            'apellidos' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
+        ];
+
+        $this->validate($request, $rules, $this->customMessages);
+
         $usuario = new User();
 
         $usuario->setNombre($request->input('nombre'));
@@ -73,10 +99,28 @@ class UserController extends Controller
 
     public function edited(Request $request) 
     {
+        $rules = [
+            'telefono' => ['required', 'string', 'max:30'],
+            'nombre' => ['required', 'string', 'max:255'],
+            'apellidos' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255']
+        ];
+
+        $this->validate($request, $rules, $this->customMessages);
+        
         $usuario = User::find($request->input('id'));
 
         $usuario->setNombre($request->input('nombre'));
         $usuario->setApellidos($request->input('apellidos'));
+
+        // Comprueba que el email nuevo no está en la BD
+        $ruleEmail = [
+            'email' => ['unique:users']
+        ];
+        if ($usuario->email != $request->input('email')) {
+            $this->validate($request, $ruleEmail, $this->customMessages);
+        }
+        
         $usuario->setEmail($request->input('email'));
         $usuario->setPassword(Hash::make($request->input('password')));
         $usuario->setTelefono($request->input('telefono'));

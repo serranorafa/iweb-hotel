@@ -40,7 +40,7 @@
                                     <tr>   
                                     <th></th>
                                     <th scope="col">Planta</th> 
-                                    <th scope="col">Tarifa base/noche</th>
+                                    <th scope="col">Precio/noche</th>
                                     <th scope="col">Plazas</th> 
                                     <th></th>
                                     <th></th>
@@ -126,7 +126,7 @@
                             <th scope="col">ID</th>                        
                             <th scope="col">Planta</th>
                             <th scope="col">Plazas</th>
-                            <th scope="col">Tarifa base/noche</th>
+                            <th scope="col">Precio/noche</th>
                             <th scope="col">Vistas</th>                         
                             <th scope="col"></th>                      
                             <th scope="col"></th>
@@ -148,6 +148,7 @@
     var numDias = 0;
     var precioServicio = 0;
     var tarifaHabitaciones = 0;
+    var numHabitaciones = 0;
     document.addEventListener("DOMContentLoaded", descripcionPension());
 
     function anyadirHabitacion(habitacion) {
@@ -170,9 +171,11 @@
         var btnDetalles = fila.insertCell(4);
         var btnEliminar = fila.insertCell(5);
         
+        numHabitaciones++;
         numHabitacion.innerHTML = "Habitación " + (tabla.childNodes.length - 1);
         plazas.innerHTML = objHabitacion.plazas;
-        tarifa.innerHTML = objHabitacion.tarifa_base + "€";
+        tarifaFinal = habitacion.tarifa_base * modTemporada;
+        tarifa.innerHTML = tarifaFinal.toFixed(2) + "€";
         planta.innerHTML = objHabitacion.planta;
         btnDetalles.innerHTML = '<a href="/estancias/' + objHabitacion.id + '" target="_blank" rel="noopener noreferrer">Detalles</a>';
         btnEliminar.innerHTML = '<a href="#">Eliminar</a>';
@@ -187,6 +190,7 @@
         document.getElementById('btnReserva').innerHTML = "Hacer reserva por " + precioTotal.toFixed(2) + "€";
         document.getElementById('fila' + habitacion.id).remove();
         document.getElementById(habitacion.id).style.display = 'table-row';
+        numHabitaciones--;
 
         if (document.getElementById('filasHabitaciones').childNodes.length == 1) {
             document.getElementById('habitacionesElegidas').style.display = 'none'
@@ -280,6 +284,8 @@
         }
         document.getElementById('filasBusqueda').innerHTML = "";
         var fecha_inicio = document.getElementById('fecha_inicio').value;
+        document.getElementById('fecha_inicio').setAttribute("disabled", true);
+        document.getElementById('fecha_fin').setAttribute("disabled", true);
         var fecha_fin = document.getElementById('fecha_fin').value;
         var plazas = document.getElementById('plazas').value;
         var vistas = document.getElementById('vistas').value;
@@ -323,7 +329,8 @@
                         idHabitacion.innerHTML = habitacion.id;
                         plantaHabitacion.innerHTML = habitacion.planta;
                         plazasHabitacion.innerHTML = habitacion.plazas;
-                        tarifaHabitacion.innerHTML = habitacion.tarifa_base + "€";
+                        tarifaFinal = habitacion.tarifa_base * modTemporada;
+                        tarifaHabitacion.innerHTML = tarifaFinal.toFixed(2) + "€";
                         vistasHabitacion.innerHTML = habitacion.vistas;
                         btnDetalles.innerHTML = '<a href="/estancias/' + habitacion.id + '" target="_blank" rel="noopener noreferrer">Detalles</a>';
                         btnAynadir.innerHTML = '<a href="#">Elegir</a>';
@@ -345,7 +352,8 @@
             type: "get",
             url: "{{url('servicios')}}" + '/' + pension + '/descripcion',
             success: function(_response) {
-                document.getElementById('descripcion').innerHTML = _response.descripcion + " (+" + _response.tarifa + "€/noche)";
+                tarifaServicio = _response.tarifa * modTemporada;
+                document.getElementById('descripcion').innerHTML = _response.descripcion + " (+" + tarifaServicio.toFixed(2) + "€/noche y habitación)";
                 precioServicio = _response.tarifa;
                 precioTotal = (numDias * (tarifaHabitaciones + precioServicio) * modTemporada);
                 

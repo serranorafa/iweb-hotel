@@ -208,7 +208,6 @@
     async function hacerReserva() {
         if (confirm("¿Confirmar la reserva?")) {
             var sala = document.getElementById('filasSalas').childNodes[1];
-            console.log(sala);
             var _fecha_inicio = document.getElementById('fecha_inicio').value;
             var _fecha_fin = document.getElementById('fecha_fin').value;
             var _hora_inicio = document.getElementById('hora_inicio').value;
@@ -334,7 +333,6 @@
                     var tabla = document.getElementById('filasBusqueda');
 
                     _response.salas.forEach(sala => {
-                        console.log(sala);
                         var fila = tabla.insertRow(-1); 
                         fila.setAttribute("id", sala.id)
                         var idSala = fila.insertCell(0);

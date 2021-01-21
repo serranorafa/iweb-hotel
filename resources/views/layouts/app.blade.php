@@ -81,8 +81,22 @@
                             <a class="nav-link">|</a>
                         </li>
                         <li class="nav-item active" style="width:100%">
-                            <a class="nav-link" href="/reservas/habitacion">¡Reserva ya!</a>
+                            <a class="nav-link" href="/reservas/habitacion">Reserva habitación</a>
                         </li>
+                        <li class="d-none d-md-block">
+                            <a class="nav-link">|</a>
+                        </li>
+                        <li class="nav-item active" style="width:100%">
+                            <a class="nav-link" href="/reservas/sala">Reserva sala</a>
+                        </li>                        
+                            @auth
+                            <li class="d-none d-md-block">
+                                <a class="nav-link">|</a>
+                            </li>
+                            <li class="nav-item active" style="width:100%">
+                                <a class="nav-link" href="/reservas">Mi historial</a>
+                            </li>
+                            @endauth
                         @elseif (Auth::user()->rol == "RECEPCIONISTA")
                         <li class="nav-item active" style="width:100%">
                                 <a class="nav-link" href="/estancias">Estancias</a>

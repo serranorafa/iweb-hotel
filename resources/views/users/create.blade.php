@@ -96,9 +96,9 @@
 
                             <div class="col-md-6">
                                 <select id="rol" name="rol" autofocus>
-                                    <option value="CLIENTE" selected>CLIENTE</option>
-                                    <option value="RECEPCIONISTA">RECEPCIONISTA</option>
-                                    <option value="WEBMASTER">WEBMASTER</option>
+                                    <option value="CLIENTE" @if("CLIENTE"==old('rol')) selected @endif>CLIENTE</option>
+                                    <option value="RECEPCIONISTA" @if("RECEPCIONISTA"==old('rol')) selected @endif>RECEPCIONISTA</option>
+                                    <option value="WEBMASTER" @if("WEBMASTER"==old('rol')) selected @endif>WEBMASTER</option>
                                 </select>
                             </div>
                         </div>

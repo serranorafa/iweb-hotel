@@ -51,7 +51,7 @@ class EstanciaController extends Controller
             'fotos.*' => 'mimes:jpg,png,jpeg,gif,svg,webp',
         ];
         $this->validate($request, $rules, $this->customMessages);
-        error_log('asdfasgd');
+        
         $estancia = new Estancia();
 
         $tipo = $request->input('tipo');

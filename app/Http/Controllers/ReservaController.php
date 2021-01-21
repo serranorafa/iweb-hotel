@@ -6,6 +6,7 @@ use App\Reserva;
 use App\Estancia;
 use App\Servicio;
 use App\Temporada;
+use App\User;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,12 +34,16 @@ class ReservaController extends Controller
 
     public function createRoomForm() 
     {
-        return view('reservas.createRoom');
+        $usuarios = User::orderBy('email', 'ASC')->get();
+
+        return view('reservas.createRoom', ['usuarios' => $usuarios]);
     }
 
     public function createHallForm() 
     {
-        return view('reservas.createHall');
+        $usuarios = User::orderBy('email', 'ASC')->get();
+
+        return view('reservas.createHall', ['usuarios' => $usuarios]);
     }
 
     public function buscarHabitaciones() 
@@ -188,9 +193,10 @@ class ReservaController extends Controller
         $fechaInicio = explode("=", $array[0])[1];
         $fechaFin = explode("=", $array[1])[1];
 
-        if (count($array) == 5) {
+        if (count($array) == 6) {
             $estancia = explode('=', $array[2])[1];
             $servicio = explode('=', $array[3])[1];
+            $usuario = explode('=', $array[4])[1];
 
             $fechaInicioComparacion = "2020" . substr($fechaInicio, 4);
             $fechaInicioComparacionDate = new DateTime($fechaInicioComparacion);
@@ -214,6 +220,8 @@ class ReservaController extends Controller
             $dateTimeInicio = date('Y-m-d 17:00:00', strtotime("$fechaInicio"));
             $dateTimeFin = date('Y-m-d 12:00:00', strtotime("$fechaFin"));
 
+            
+            
             $reserva->setFechaInicio($dateTimeInicio);
             $reserva->setFechaFin($dateTimeFin);
             $reserva->setEstancia($estancia);
@@ -225,6 +233,7 @@ class ReservaController extends Controller
             $horaFin = explode("=", $array[3])[1];
             $estancia = explode('=', $array[4])[1];
             $servicio = explode('=', $array[5])[1];
+            $usuario = explode('=', $array[6])[1];
             $idServicio = Servicio::where('nombre', $servicio)->firstOrFail()->getId();
 
             $horaInicioHora = explode("%3A", $horaInicio)[0];
@@ -249,10 +258,15 @@ class ReservaController extends Controller
             $reserva->setEstancia($estancia);
             $reserva->setServicio($idServicio);
             $reserva->setTemporada(1);
-            $reserva->setUsuario(Auth::user()->id);
         }
-
-        $reserva->setUsuario(Auth::user()->id);
+        error_log($usuario);
+        if ($usuario == "") {
+            $reserva->setUsuario(Auth::user()->id);
+        } else if ($usuario == "anonimo") {
+            //$reserva->setUsuario(Auth::user()->id);
+        } else {
+            $reserva->setUsuario($usuario);
+        }
         $tarifaBase = Estancia::find($estancia)->getTarifaBase();
         $tarifaServicio = Servicio::find($idServicio)->getTarifa();
 

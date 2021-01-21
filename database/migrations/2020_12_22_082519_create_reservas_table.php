@@ -18,7 +18,7 @@ class CreateReservasTable extends Migration
             $table->unsignedBigInteger('estancia_id');
             $table->unsignedBigInteger('servicio_id');
             $table->unsignedBigInteger('temporada_id');
-            $table->unsignedBigInteger('usuario_id');
+            $table->unsignedBigInteger('usuario_id')->nullable();
             $table->dateTime('fecha_inicio');
             $table->dateTime('fecha_fin');
             $table->integer('precio_total');

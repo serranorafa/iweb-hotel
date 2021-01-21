@@ -60,10 +60,26 @@
                                         <option value="TI">Todo incluido</option>
                                     </select>                          
                                 </div>
-                            <label class="col-md-8 col-12" id="descripcion" style="text-align: left"></label>
+                                <label class="col-md-8 col-12" id="descripcion" style="text-align: left"></label>
                             </div>
                             <div style="clear: both; height: 2vh">
                             </div>
+                            @if(Auth::user()->rol == "RECEPCIONISTA" || Auth::user()->rol == "WEBMASTER")
+                            <hr />
+                            <h4 class="pb-3 mt-5" style="text-align: center">{{__('Usuario')}}</h4>
+                            <div class="row" style="text-align: center">
+                                <div class="col-12" style="text-align: center">
+                                    <select class="form-control" id="usuario" name="usuario" style="width: 40%; display: inline" autofocus>
+                                        <option value="" selected>-</option>
+                                        <option value="anonimo">Anónimo</option>
+                                        @foreach($usuarios as $usuario)
+                                            <option value="{{$usuario->getId()}}">{{$usuario->getEmail()}}</option>
+                                        @endforeach
+                                    </select>                          
+                                </div>
+                            </div>
+                            <br>
+                            @endif
                             <div class="form-group row" style="text-align: center">
                                 <div class="col-md-12">
                                     <button type="button" onclick="hacerReserva()" class="btn btn-primary btn-lg mb-2">
@@ -169,13 +185,14 @@
             var _fecha_inicio = document.getElementById('fecha_inicio').value;
             var _fecha_fin = document.getElementById('fecha_fin').value;
             var servicio = document.getElementById('pension').value;
+            var usuario = document.getElementById('usuario').value;
 
             var i = 0;
             habitaciones.forEach(habitacion => {            
                 if (i != 0) {               
                     var estancia = habitacion.getAttribute("id").slice(4);
                     var token = '{{csrf_token()}}';
-                    var data = { fecha_inicio: _fecha_inicio, fecha_fin: _fecha_fin, estancia_id: estancia, servicio: servicio, _token: token };
+                    var data = { fecha_inicio: _fecha_inicio, fecha_fin: _fecha_fin, estancia_id: estancia, servicio: servicio, usuario: usuario, _token: token };
 
                     $.ajax({
                         type: "post",
@@ -209,6 +226,11 @@
     }
 
     function buscarHabitaciones() {
+        if (document.getElementById('fecha_inicio').value == '' ||
+            document.getElementById('fecha_fin').value == '') {
+            alert("Faltan fechas por rellenar");
+            return;
+        }
         document.getElementById('filasBusqueda').innerHTML = "";
         var fecha_inicio = document.getElementById('fecha_inicio').value;
         var fecha_fin = document.getElementById('fecha_fin').value;

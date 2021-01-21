@@ -33,7 +33,7 @@
                         </div>
                         <br>
                         <div class="form-group row">
-                            <label for="hora_inicio" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Fecha inicio') }}</label>
+                            <label for="hora_inicio" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Hora inicio') }}</label>
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
                                 <input id="hora_inicio" class="form-control" type="time" name="hora_inicio" autocomplete="hora_inicio" autofocus required >
                                 @error('hora_inicio')
@@ -42,7 +42,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <label for="hora_fin" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Fecha fin') }}</label>
+                            <label for="hora_fin" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Hora fin') }}</label>
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
                                 <input id="hora_fin" class="form-control" type="time" name="hora_fin" autocomplete="hora_fin" autofocus required>
                                 @error('hora_fin')
@@ -82,6 +82,22 @@
                                     </div>
                                     <label class="col-md-8 col-12" id="descripcion" style="text-align: left"></label>
                                 </div>
+                                @if(Auth::user()->rol == "RECEPCIONISTA" || Auth::user()->rol == "WEBMASTER")
+                                <hr />
+                                <h4 class="pb-3 mt-5" style="text-align: center">{{__('Usuario')}}</h4>
+                                <div class="row" style="text-align: center">
+                                    <div class="col-12" style="text-align: center">
+                                        <select class="form-control" id="usuario" name="usuario" style="width: 40%; display: inline" autofocus>
+                                            <option value="" selected>-</option>
+                                            <option value="anonimo">Anónimo</option>
+                                            @foreach($usuarios as $usuario)
+                                                <option value="{{$usuario->getId()}}">{{$usuario->getEmail()}}</option>
+                                            @endforeach
+                                        </select>                          
+                                    </div>
+                                </div>
+                                <br>
+                                @endif
                                 <div style="clear: both; height: 2vh">
                                 </div>
                                 <div class="form-group row" style="text-align: center">
@@ -96,8 +112,9 @@
                         <br>
                         <div class="form-group row" style="text-align: center">
                             <label for="aforo" class="text-md-right">{{ __('Aforo mínimo') }}</label>
-                            <div class="col-md-5 col-6" style="text-align: center">
-                                <input id="aforo" class="form-control" type="number" name="aforo" autocomplete="aforo" autofocus>
+                            <div><br></div>
+                            <div class="col-12" style="text-align: center">
+                                <input id="aforo" class="form-control" style="width: 17%; display: inline" type="number" name="aforo" autocomplete="aforo" autofocus>
                             </div>
                         </div>
                         <div style="clear: both; height: 2vh">
@@ -186,10 +203,11 @@
             var _hora_inicio = document.getElementById('hora_inicio').value;
             var _hora_fin = document.getElementById('hora_fin').value;
             var servicio = document.getElementById('servicio').value;
+            var usuario = document.getElementById('usuario').value;
 
             var estancia = sala.getAttribute("id").slice(4);
             var token = '{{csrf_token()}}';
-            var data = { fecha_inicio: _fecha_inicio, fecha_fin: _fecha_fin, hora_inicio: _hora_inicio, hora_fin: _hora_fin, estancia_id: estancia, servicio: servicio, _token: token };
+            var data = { fecha_inicio: _fecha_inicio, fecha_fin: _fecha_fin, hora_inicio: _hora_inicio, hora_fin: _hora_fin, estancia_id: estancia, servicio: servicio, usuario: usuario, _token: token };
 
             $.ajax({
                 type: "post",
@@ -223,6 +241,13 @@
     function buscarSalas() {
         if (document.getElementById('misala').style.display == 'block') {
             alert("Ya hay una sala elegida");
+            return;
+        }
+        if (document.getElementById('fecha_inicio').value == '' ||
+            document.getElementById('fecha_fin').value == '' ||
+            document.getElementById('hora_inicio').value == '' ||
+            document.getElementById('hora_fin').value == '') {
+            alert("Faltan fechas por rellenar");
             return;
         }
         document.getElementById('filasBusqueda').innerHTML = "";

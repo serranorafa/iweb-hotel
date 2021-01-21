@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Servicio extends Model
 {
-    public function getReservas() { 
-        return $this->belongsToMany('App\Reserva');
+    public function getReservas() {
+        return $this->hasMany('App\Reserva');
     }
 
     public function getId() {

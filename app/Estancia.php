@@ -81,4 +81,24 @@ class Estancia extends Model
     public function setTarifaBase($tarifa_base) {
         $this->tarifa_base = $tarifa_base;
     }
+
+    public function getReservas() {
+        return $this->hasMany('App\Reserva');
+    }
+
+    public function disponible($fecha_inicio, $fecha_fin) {
+        foreach($this->Bloqueos() as $bloqueo) {
+            if ($fecha_inicio <= $bloqueo->fecha_fin && $fecha_fin >= $bloqueo->fecha_inicio) {
+                return false;
+            }
+        }
+
+        foreach($this->getReservas() as $reserva) {
+            if ($fecha_inicio <= $reserva->fecha_fin && $fecha_fin >= $reserva->fecha_inicio) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

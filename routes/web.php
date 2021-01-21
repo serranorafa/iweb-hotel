@@ -42,6 +42,7 @@ Route::post('/bloqueos', 'BloqueoController@index')->middleware('auth', 'recepci
 Route::get('/servicios', 'ServicioController@index')->middleware('auth', 'webmaster');
 Route::get('/servicios/create', 'ServicioController@createForm')->middleware('auth', 'webmaster');
 Route::get('/servicios/{id}', 'ServicioController@details')->middleware('auth', 'webmaster');
+Route::get('/servicios/{nombre}/descripcion', 'ServicioController@descripcion')->middleware('auth');
 Route::get('/servicios/{id}/edit', 'ServicioController@edit')->middleware('auth', 'webmaster');
 Route::post('/serviciocreado', 'ServicioController@created')->middleware('auth', 'webmaster');
 Route::post('/servicioeditado', 'ServicioController@edited')->middleware('auth', 'webmaster');
@@ -66,13 +67,16 @@ Route::get('/borrarestancia/{id}', 'EstanciaController@delete')->middleware('aut
 Route::post('/estancias', 'EstanciaController@index')->middleware('auth', 'webmaster');
 
 Route::get('/reservas', 'ReservaController@index')->middleware('auth');
-Route::get('/reservas/create', 'ReservaController@createForm')->middleware('auth');
+Route::get('/reservas/habitacion', 'ReservaController@createRoomForm')->middleware('auth');
 Route::get('/reservas/{id}', 'ReservaController@details')->middleware('auth'); //middleware para si soy CLIENTE, comprobar si es mía
 Route::get('/reservas/{id}/edit', 'ReservaController@edit')->middleware('auth', 'recepcionista'); 
 Route::post('/reservacreada', 'ReservaController@created')->middleware('auth');
 Route::post('/reservaeditada', 'ReservaController@edited')->middleware('auth', 'recepcionista');
 Route::get('/borrarreserva/{id}', 'ReservaController@delete')->middleware('auth', 'recepcionista');
 Route::post('/reservas', 'ReservaController@index')->middleware('auth', 'webmaster');
+//Route::get('/reservas/habitacion', 'ReservaController@createRoomForm')->middleware('auth');
+Route::post('/reservas/habitacion', 'ReservaController@buscarHabitacionesPRUEBA')->middleware('auth');
+Route::post('/reservas/buscarhabitacion', 'ReservaController@buscarHabitacionesAjax')->middleware('auth');
 
 Route::get('/informes', 'InformeController@index')->middleware('auth', 'webmaster');
 Route::post('/informes', 'InformeController@index')->middleware('auth', 'webmaster');

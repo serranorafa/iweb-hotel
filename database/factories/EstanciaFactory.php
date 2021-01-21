@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Estancia::class, function (Faker $faker) {
     $tipoAux = $faker->boolean(20);
     $tipo = $tipoAux?"SALA":"HABITACION";
-    $vistas = array("Vistas al mar", "Vistas a la piscina", "Vistas al aparcamiento", "Vistas al jardin");
+    $vistas = array("Vistas al mar", "Vistas a piscina", "Vistas al aparcamiento", "Vistas al jardin");
     return [
         'numero' => $faker->numberBetween($min = 1, $max = 10000),
         'tipo' => $tipo,

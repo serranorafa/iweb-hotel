@@ -37,5 +37,16 @@ class UsersTableSeeder extends Seeder
             'rol' => "RECEPCIONISTA",
             'remember_token' => Str::random(10),
         ]);
+
+        DB::table('users')->insert([
+            'nombre' => 'cliente',
+            'apellidos' => 'García Smith',
+            'email' => 'cliente@iweb.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('123'),
+            'telefono' => '666666666',
+            'rol' => "CLIENTE",
+            'remember_token' => Str::random(10),
+        ]);
     }
 }

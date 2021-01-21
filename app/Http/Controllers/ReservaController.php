@@ -39,8 +39,9 @@ class ReservaController extends Controller
     public function createRoomForm() 
     {
         $usuarios = User::orderBy('email', 'ASC')->get();
+        $reserva = new Reserva();
 
-        return view('reservas.createRoom', ['usuarios' => $usuarios]);
+        return view('reservas.createRoom', ['usuarios' => $usuarios, 'reserva' => $reserva]);
     }
 
     public function createHallForm() 
@@ -223,8 +224,6 @@ class ReservaController extends Controller
 
             $dateTimeInicio = date('Y-m-d 17:00:00', strtotime("$fechaInicio"));
             $dateTimeFin = date('Y-m-d 12:00:00', strtotime("$fechaFin"));
-
-            
             
             $reserva->setFechaInicio($dateTimeInicio);
             $reserva->setFechaFin($dateTimeFin);
@@ -263,7 +262,6 @@ class ReservaController extends Controller
             $reserva->setServicio($idServicio);
             $reserva->setTemporada(1);
         }
-        error_log($usuario);
         if ($usuario == "") {
             $reserva->setUsuario(Auth::user()->id);
         } else if ($usuario == "anonimo") {
@@ -274,7 +272,7 @@ class ReservaController extends Controller
         $tarifaBase = Estancia::find($estancia)->getTarifaBase();
         $tarifaServicio = Servicio::find($idServicio)->getTarifa();
 
-        if (count($array) == 5) {
+        if (count($array) == 6) {
             $precioTotal = $numDias * ($tarifaBase + $tarifaServicio) * $modTemporada;
         } else {
             $precioTotal = $numHoras * ($tarifaBase + $tarifaServicio);
@@ -282,6 +280,56 @@ class ReservaController extends Controller
         $reserva->setPrecioTotal($precioTotal);
 
         $reserva->save();
+    }
+
+    public function calcularModTemporada(Request $request) 
+    {
+        $contenido = $request->getContent();
+        $array = explode("&", $contenido);
+        $fechaInicio = explode("=", $array[0])[1];
+        $fechaFin = explode("=", $array[1])[1];
+        $numHoras = 0;
+
+        if (count($array) == 4) {
+            $horaInicio = explode("=", $array[2])[1];
+            $horaFin = explode("=", $array[3])[1];
+
+            $horaInicioHora = explode("%3A", $horaInicio)[0];
+            $horaFinHora = explode("%3A", $horaFin)[0];
+
+            $horaInicioMinuto = explode("%3A", $horaInicio)[1];
+            $horaFinMinuto = explode("%3A", $horaFin)[1];
+
+            $horaInicioFinal = $horaInicioHora . ":" . $horaInicioMinuto;
+            $horaFinFinal = $horaFinHora . ":" . $horaFinMinuto;
+
+            $dateTimeInicio = date('Y-m-d H:i:s', strtotime("$fechaInicio $horaInicioFinal"));
+            $dateTimeFin = date('Y-m-d H:i:s', strtotime("$fechaFin $horaFinFinal"));
+
+            $dateTimeInicioFecha = strtotime($dateTimeInicio);
+            $dateTimeFinFecha = strtotime($dateTimeFin);
+
+            $numHoras = ($dateTimeFinFecha - $dateTimeInicioFecha) / (60 * 60);
+        }
+
+        $fechaInicioComparacion = "2020" . substr($fechaInicio, 4);
+        $fechaInicioComparacionDate = new DateTime($fechaInicioComparacion);
+        $temporadas = Temporada::all();
+
+        foreach ($temporadas as $temporada) {
+            if (($fechaInicioComparacionDate->format('Y-m-d') >= $temporada->getFechaInicio()) && ($fechaInicioComparacionDate->format('Y-m-d') <= $temporada->getFechaFin())) {
+                $temporadaReserva = $temporada->getId();
+            }
+        }
+
+        $FI = strtotime($fechaInicio);
+        $FF = strtotime($fechaFin);
+
+        $numDias = ($FF - $FI) / (60 * 60 * 24);
+
+        $modTemporada = Temporada::find($temporadaReserva)->getModificador();
+
+        return response()->json(['modTemporada' => $modTemporada, 'numDias' => $numDias, 'numHoras' => $numHoras]);
     }
 
     public function details($id)

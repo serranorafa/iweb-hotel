@@ -18,5 +18,6 @@ $factory->define(User::class, function (Faker $faker) {
         'telefono' => $faker->phoneNumber,
         'rol' => $rol[rand(0, 2)],
         'remember_token' => Str::random(10),
+        'created_at' => $faker->dateTimeBetween($startDate = '-13 month', $endDate = 'now', $timezone = null)
     ];
 });

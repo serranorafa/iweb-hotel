@@ -78,4 +78,7 @@ Route::post('/reservas/habitacion', 'ReservaController@buscarHabitacionesPRUEBA'
 Route::post('/reservas/buscarhabitacion', 'ReservaController@buscarHabitacionesAjax')->middleware('auth');
 Route::post('/reservas/buscarsala', 'ReservaController@buscarSalasAjax')->middleware('auth');
 
+Route::get('/informes', 'InformeController@index')->middleware('auth', 'webmaster');
+Route::post('/informes', 'InformeController@index')->middleware('auth', 'webmaster');
+
 Auth::routes();

@@ -88,7 +88,7 @@
                         <div class="form-group row">
                             <label for="descripcion" class="col-md-4 col-form-label text-md-right">{{ __('Descripción') }}</label>
                             <div class="col-md-6">
-                                <textarea id="descripcion" class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" value="{{ old('descripcion') }}" required autocomplete="descripcion" autofocus></textarea>
+                                <textarea id="descripcion" class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" required autocomplete="descripcion" autofocus>{{ old('descripcion') }}</textarea>
                                 @error('descripcion')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

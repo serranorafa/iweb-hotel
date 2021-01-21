@@ -286,21 +286,6 @@ class ReservaController extends Controller
         return view('reservas.details', ['reserva' => $reserva]);
     }
 
-    public function edit($id)
-    {
-        $reserva = Reserva::find($id);
-        return view('reservas.edit', ['reserva' => $reserva]);
-    }
-
-    public function edited(Request $request)
-    {
-        $reserva = Reserva::find($request->input('id'));
-
-        
-
-        return redirect()->action('ReservaController@index', ['reservas' => Reserva::whereNotNull('id')->paginate(5)]);
-    }
-
     public function delete($id)
     {
         $reserva = Reserva::find($id);

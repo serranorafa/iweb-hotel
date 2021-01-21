@@ -119,7 +119,7 @@
                             </li>
                         @elseif (Auth::user()->rol == "WEBMASTER")
                             <li class="nav-item active" style="width:100%">
-                                <a class="nav-link" href="#">Informes</a>
+                                <a class="nav-link" href="/informes">Informes</a>
                             </li>
                             <li class="d-none d-md-block">
                                 <a class="nav-link">|</a>

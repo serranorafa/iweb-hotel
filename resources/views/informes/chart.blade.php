@@ -9,7 +9,7 @@
     function drawChart() {
       // Define the chart to be drawn.
       var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Mes');
+      data.addColumn('string', @if($label != "% de ocupación") 'Mes' @else 'Día' @endif);
       data.addColumn('number', '{{$label}}');
       data.addRows([
         @foreach($entradas as $mes => $valor)
@@ -19,7 +19,11 @@
 
       // Instantiate and draw the chart.
       var chart = new google.charts.Bar(document.getElementById('informe'));
-      chart.draw(data, {bars: 'vertical'});
+      @if($label != "")
+      chart.draw(data, google.charts.Bar.convertOptions({bars: 'vertical',
+        vAxis: {format: 'decimal'},
+        height: 500,}));
+      @endif
     }
   </script>
 
@@ -35,8 +39,8 @@
                         <div class="form-group row">
                             <label for="tipo" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Tipo') }}</label>
                             <div class="col-lg-4 col-12" style="padding-right: 10%">
-                                <select id="tipo" name="tipo" class="form-control" autofocus>
-                                    <option value="RESERVAS"   <?php if(isset($_POST['tipo']) && $_POST['tipo'] == "RESERVAS"){ echo "selected"; } ?>>Beneficio mensual</option>
+                                <select id="tipo" name="tipo" class="form-control" autofocus onchange="cambiarTipo()">
+                                    <option value="RESERVAS"   <?php if(isset($_POST['tipo']) && $_POST['tipo'] == "RESERVAS"){ echo "selected"; } ?>>Beneficio (meses)</option>
                                     <option value="OCUPACION"  <?php if(isset($_POST['tipo']) && $_POST['tipo'] == "OCUPACION"){ echo "selected"; } ?>>% de ocupación mensual</option>
                                     <option value="REGISTROS"  <?php if(isset($_POST['tipo']) && $_POST['tipo'] == "REGISTROS"){ echo "selected"; } ?>>Nuevos usuarios mensuales</option>
                                 </select>
@@ -64,12 +68,13 @@
                             <div class="col-lg-2 col-12" style="padding-right: 10%">
                                 <select id="anyo_inicio" name="anyo_inicio" class="form-control" autofocus>
                                     @for ($i = 1970; $i <= date("Y"); $i++)
-                                        <option value={{$i}} <?php if(isset($_POST['anyo_inicio']) && $_POST['anyo_inicio'] == $i){ echo "selected";} ?>>{{$i}}</option>
+                                        <option value={{$i}} <?php if(isset($_POST['anyo_inicio']) && $_POST['anyo_inicio'] == $i){ echo "selected";} elseif(!isset($_POST['anyo_inicio']) && date("Y") == $i ) { echo "selected";}?>>{{$i}}</option>
                                     @endfor
                                 </select>
                             </div>
-                            <label for="fecha_fin" class="col-lg-2 col-12 col-form-label text-md-right">{{ __('Fecha de fin') }}</label>
-                            <div class="col-lg-2 col-12">
+                            <div class="col-lg-6 col-12 row" id="anual" <?php if(isset($_POST['tipo']) && $_POST['tipo'] == "OCUPACION") { echo "style=\"visibility:hidden\"";}?>>
+                            <label for="fecha_fin" class="col-lg-4 col-12 col-form-label text-md-right">{{ __('Fecha de fin') }}</label>
+                            <div class="col-lg-4 col-12">
                                 <select id="mes_fin" name="mes_fin" class="form-control" autofocus>
                                     <option value="01" <?php if(isset($_POST['mes_fin']) && $_POST['mes_fin'] == "01"){ echo "selected";} ?>>Enero</option>
                                     <option value="02" <?php if(isset($_POST['mes_fin']) && $_POST['mes_fin'] == "02"){ echo "selected";} ?>>Febrero</option>
@@ -85,12 +90,13 @@
                                     <option value="12" <?php if(isset($_POST['mes_fin']) && $_POST['mes_fin'] == "12"){ echo "selected";} ?>>Diciembre</option>
                                 </select>
                             </div>
-                            <div class="col-lg-2 col-12" style="padding-right: 10%">
+                            <div class="col-lg-4 col-12" style="padding-right: 10%">
                                 <select id="anyo_fin" name="anyo_fin" class="form-control" autofocus>
                                     @for ($i = 1970; $i <= date("Y"); $i++)
-                                        <option value={{$i}} <?php if(isset($_POST['anyo_fin']) && $_POST['anyo_fin'] == $i){ echo "selected";} ?>>{{$i}}</option>
+                                        <option value={{$i}} <?php if(isset($_POST['anyo_fin']) && $_POST['anyo_fin'] == $i){ echo "selected";} elseif(!isset($_POST['anyo_fin']) && date("Y") == $i) { echo "selected";}?>>{{$i}}</option>
                                     @endfor
                                 </select>
+                            </div>
                             </div>
                         </div>
                         <br>
@@ -103,18 +109,21 @@
                         </div>
                     </form>
                 </div>
-                <div id="informe" style="margin-top: 10vh"></div>
+                <div class="container" id="informe" style="margin-top: 10vh; margin-bottom: 2vh"></div>
             </div>
             <br>
         </div>
     </div>
 </div>
 <script>
-    function confirmar(bloqueo) {
-        if (confirm("¿Confirmar el borrado?")) {
-            window.location.href = "/borrarbloqueo/" + bloqueo;
-        } else {
+    function cambiarTipo() {
+        var tipo = document.getElementById("tipo").value;
+        if (tipo == "OCUPACION") {
+            document.getElementById("anual").style.visibility = "hidden";
         }
-    }   
+        else if (tipo != "OCUPACION") {
+            document.getElementById("anual").style.visibility = "visible";
+        }
+    }
 </script>
 @endsection

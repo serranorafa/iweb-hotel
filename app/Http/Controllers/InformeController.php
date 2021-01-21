@@ -23,7 +23,7 @@ class InformeController extends Controller
         $entradas = array();
         if(request()->input('anyo_inicio')){
             $begin = new DateTime(request()->input('anyo_inicio') . "-" . request()->input('mes_inicio') . "-01");
-            $beginm = $begin;
+            $beginm = new DateTime(request()->input('anyo_inicio') . "-" . request()->input('mes_inicio') . "-01");;
             $beginm->add(DateInterval::createFromDateString('1 month'));
             $end = new DateTime(request()->input('anyo_fin') . "-" . request()->input('mes_fin') . "-01");
             $end = $end->modify('+1 month');
@@ -31,10 +31,6 @@ class InformeController extends Controller
             $intervalm = DateInterval::createFromDateString('1 day');
             $period = new DatePeriod($begin, $interval, $end);
             $periodm = new DatePeriod($begin, $intervalm, $beginm);
-            /*
-            foreach ($period as $dt) {
-                echo $dt->format("l Y-m-d H:i:s\n");
-            }*/
             if(request()->input('tipo') == "RESERVAS"){
                 foreach ($period as $dt) {
                     $label = "Euros";
@@ -45,17 +41,14 @@ class InformeController extends Controller
             }
             else if(request()->input('tipo') == "OCUPACION"){
                 $label = "% de ocupación";
-                error_log($begin->format('d m Y') . " " . $beginm->format('d m Y'));
-                /*
                 foreach ($periodm as $dt) {
-                    $numReservasHoy = Reserva::where('fecha_inicio', '>=', $dt)
-                    ->where('fecha_fin', '<=', $dt)
+                    $numReservasHoy = Reserva::where('fecha_inicio', '<=', $dt)
+                    ->where('fecha_fin', '>=', $dt)
                     ->count();
                     error_log($dt->format('d m Y'));
                     $porcentajeOcupadoDiaActual = $numReservasHoy / Estancia::all()->count() * 100;
                     $entradas[$dt->format('d M Y')] = $porcentajeOcupadoDiaActual;
                 }
-                */
                 return view('informes.chart', ['entradas' => $entradas, 'label' => $label]);
     
             }else if(request()->input('tipo') == "REGISTROS"){

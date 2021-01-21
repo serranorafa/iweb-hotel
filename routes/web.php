@@ -74,4 +74,7 @@ Route::post('/reservaeditada', 'ReservaController@edited')->middleware('auth', '
 Route::get('/borrarreserva/{id}', 'ReservaController@delete')->middleware('auth', 'recepcionista');
 Route::post('/reservas', 'ReservaController@index')->middleware('auth', 'webmaster');
 
+Route::get('/informes', 'InformeController@index')->middleware('auth', 'webmaster');
+Route::post('/informes', 'InformeController@index')->middleware('auth', 'webmaster');
+
 Auth::routes();

@@ -20,7 +20,8 @@ class UserController extends Controller
         'digits' => 'El teléfono debe contener 9 números.',
         'required' => 'Campo obligatorio.',
         'max' => 'Ha sobrepasado el número máximo de caracteres.',
-        'email' => 'Introduzca una dirección de correo válida'
+        'email' => 'Introduzca una dirección de correo válida',
+        'unique' => 'Ya existe un usuario con este correo electrónico.'
     ];
 
     /**
@@ -65,7 +66,7 @@ class UserController extends Controller
             'telefono' => ['required', 'string', 'max:30'],
             'nombre' => ['required', 'string', 'max:255'],
             'apellidos' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255']
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
         ];
 
         $this->validate($request, $rules, $this->customMessages);

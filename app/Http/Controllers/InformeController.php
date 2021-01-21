@@ -19,17 +19,18 @@ class InformeController extends Controller
      */
     public function index()
     {
+        $label = "";
         $entradas = array();
         if(request()->input('anyo_inicio')){
             $begin = new DateTime(request()->input('anyo_inicio') . "-" . request()->input('mes_inicio') . "-01");
-            $beginm = date('Y-m-d 00:00:00', strtotime("+1 month", strtotime($begin->format('Y-m-d'))));
+            $beginm = $begin;
+            $beginm->add(DateInterval::createFromDateString('1 month'));
             $end = new DateTime(request()->input('anyo_fin') . "-" . request()->input('mes_fin') . "-01");
             $end = $end->modify('+1 month');
             $interval = DateInterval::createFromDateString('1 month');
             $intervalm = DateInterval::createFromDateString('1 day');
             $period = new DatePeriod($begin, $interval, $end);
             $periodm = new DatePeriod($begin, $intervalm, $beginm);
-            $label = "";
             /*
             foreach ($period as $dt) {
                 echo $dt->format("l Y-m-d H:i:s\n");
@@ -43,15 +44,18 @@ class InformeController extends Controller
                 return view('informes.chart', ['entradas' => $entradas, 'label' => $label]);
             }
             else if(request()->input('tipo') == "OCUPACION"){
+                $label = "% de ocupación";
+                error_log($begin->format('d m Y') . " " . $beginm->format('d m Y'));
+                /*
                 foreach ($periodm as $dt) {
-                    $label = "% de ocupación";
-                    error_log($dt->format('d M Y'));
-                    $entradas[$dt->format('d M Y')] = ((Estancia::whereIn('id', function($query) use($dt) {
-                        $query->from('reservas')
-                            ->select('estancia_id')
-                            ->where('fecha_inicio', '<=', $dt)
-                            ->where('fecha_fin', '>=', $dt);})->count())/Estancia::all()->count())*100;
+                    $numReservasHoy = Reserva::where('fecha_inicio', '>=', $dt)
+                    ->where('fecha_fin', '<=', $dt)
+                    ->count();
+                    error_log($dt->format('d m Y'));
+                    $porcentajeOcupadoDiaActual = $numReservasHoy / Estancia::all()->count() * 100;
+                    $entradas[$dt->format('d M Y')] = $porcentajeOcupadoDiaActual;
                 }
+                */
                 return view('informes.chart', ['entradas' => $entradas, 'label' => $label]);
     
             }else if(request()->input('tipo') == "REGISTROS"){
@@ -63,6 +67,6 @@ class InformeController extends Controller
                 return view('informes.chart', ['entradas' => $entradas, 'label' => $label]);
             }
         }
-        return view('informes.chart', ['entradas' => $entradas]);
+        return view('informes.chart', ['entradas' => $entradas, 'label' => $label]);
     }
 }

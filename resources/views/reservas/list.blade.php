@@ -57,7 +57,8 @@
             <br>
             @if(Auth::user()->rol == "WEBMASTER")
             <div style="text-align: center">
-               <a href="/reservas/create" class="btn btn-secondary">+ Nueva reserva</a>
+               <a href="/reservas/habitacion" class="btn btn-secondary">+ Nueva reserva habitación</a>
+               <a href="/reservas/sala" class="btn btn-secondary">+ Nueva reserva sala</a>
             </div>
             <br>
             @endif

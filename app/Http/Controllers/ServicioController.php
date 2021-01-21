@@ -53,6 +53,11 @@ class ServicioController extends Controller
         return redirect()->action('ServicioController@index', ['servicios' => Servicio::whereNotNull('id')->paginate(5)]);
     }
 
+    public function descripcion($nombre) 
+    {
+        return Servicio::where('nombre', $nombre)->firstOrFail();
+    }
+
     public function edit($id)
     {
         $servicio = Servicio::find($id);

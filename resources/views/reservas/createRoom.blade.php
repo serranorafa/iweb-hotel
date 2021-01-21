@@ -229,7 +229,7 @@
         return false;
     }
 
-    function fechasFinDespues() {
+    function fechaFinDespues() {
         var fecha_inicio = document.getElementById('fecha_inicio').value;
         var fecha_fin = document.getElementById('fecha_fin').value;
         return fecha_inicio <= fecha_fin;
@@ -253,7 +253,7 @@
             alert("Faltan fechas por rellenar.");
             return;
         }
-        if (!fechasFinDespues()) {
+        if (!fechaFinDespues()) {
             alert("La fecha de salida debe ser posterior a la de entrada.");
             return;
         }

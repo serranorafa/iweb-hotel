@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 
 class EstanciaController extends Controller
 {
+    /**
+     * Mensajes de error
+     */
+    public $customMessages = [
+        'image' => 'Las fotos deben ser archivos con formato de imagen (jpeg, png, bmp, gif, svg o webp).',
+        'mimes' => 'Las fotos deben ser archivos con formato de imagen (jpeg, png, bmp, gif, svg o webp).',
+        'unique' => 'Ya existe una habitación con el número indicado.'
+    ];
+
     public function index(Request $request) 
     {
         $listaResultado = Estancia::whereNotNull('id')
@@ -39,6 +48,12 @@ class EstanciaController extends Controller
 
     public function created(Request $request) 
     {
+        $rules = [
+            'fotos.*' => 'mimes:jpg,png,jpeg,gif,svg,webp',
+            'numero' => 'unique:estancias'
+        ];
+        $this->validate($request, $rules, $this->customMessages);
+        
         $estancia = new Estancia();
 
         $tipo = $request->input('tipo');
@@ -97,6 +112,15 @@ class EstanciaController extends Controller
 
         $tipo = $request->input('tipo');
         $estancia->setTipo($tipo);
+
+        // Comprueba que el número nuevo no está en la BD
+        $ruleNumero = [
+            'numero' => ['unique:estancias']
+        ];
+        if ($estancia->numero != $request->input('numero')) {
+            $this->validate($request, $ruleNumero, $this->customMessages);
+        }
+
         $estancia->setNumero($request->input('numero'));
         $estancia->setDescripcion($request->input('descripcion'));
         $estancia->setTarifaBase($request->input('tarifa_base'));

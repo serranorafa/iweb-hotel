@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1 style="text-align: center">{{ __('Editar bloqueo') }} {{$bloqueo->id}}</h1>
             <div class="card">
+                <h1 class="card-header" style="text-align: center">{{ __('Editar bloqueo') }} {{$bloqueo->id}}</h1>
                 <div class="card-body" style="text-align: left">
                     <form action="{{url('bloqueoeditado')}}" method="POST">
                         @csrf
@@ -14,7 +14,7 @@
                             <label for="estancia_id" class="col-md-4 col-form-label text-md-right">{{ __('Número de estancia') }}</label>
 
                             <div class="col-md-6">
-                            <select id="estancia_id" name="estancia_id" autofocus>
+                            <select id="estancia_id" name="estancia_id" autofocus required>
                                 @foreach($estancias as $estancia)
                                     @if($bloqueo->getEstancia->id === $estancia->id)
                                     <option value="{{$estancia->id}}" selected>{{$estancia->numero}}</option>

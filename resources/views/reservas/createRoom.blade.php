@@ -33,14 +33,14 @@
                         </div>
                         <br><hr />
                         <!-- HABITACIONES -->
-                        <h4 class="pb-3" style="text-align: center">{{__('Mis habitaciones')}}</h4>
+                        <h4 id="mishabitaciones" class="pb-3" style="text-align: center; display: none">{{__('Mis habitaciones')}}</h4>
                         <div id="habitacionesElegidas" style="display: none">
                             <table id="listaHabitacionesElegidas" class="table">
                                 <thead>
                                     <tr>   
                                     <th></th>
                                     <th scope="col">Planta</th> 
-                                    <th scope="col">Tarifa base/noche</th> 
+                                    <th scope="col">Tarifa base/noche</th>
                                     <th scope="col">Plazas</th> 
                                     <th></th>
                                     <th></th>
@@ -50,7 +50,6 @@
                                 </tbody>
                             </table>
                             <h4 class="pb-3 mt-5" style="text-align: center">{{__('Elige pensión')}}</h4>
-                            
                             <div class="row" style="text-align: center">
                                 <div class="col-md-4 col-12">
                                     <select class="form-control" id="pension" name="pension" autofocus onchange="descripcionPension()">
@@ -61,10 +60,26 @@
                                         <option value="TI">Todo incluido</option>
                                     </select>                          
                                 </div>
-                            <label class="col-md-8 col-12" id="descripcion" style="text-align: left"></label>
+                                <label class="col-md-8 col-12" id="descripcion" style="text-align: left"></label>
                             </div>
                             <div style="clear: both; height: 2vh">
                             </div>
+                            @if(Auth::user()->rol == "RECEPCIONISTA" || Auth::user()->rol == "WEBMASTER")
+                            <hr />
+                            <h4 class="pb-3 mt-5" style="text-align: center">{{__('Usuario')}}</h4>
+                            <div class="row" style="text-align: center">
+                                <div class="col-12" style="text-align: center">
+                                    <select class="form-control" id="usuario" name="usuario" style="width: 40%; display: inline" autofocus>
+                                        <option value="" selected>-</option>
+                                        <option value="anonimo">Anónimo</option>
+                                        @foreach($usuarios as $usuario)
+                                            <option value="{{$usuario->getId()}}">{{$usuario->getEmail()}}</option>
+                                        @endforeach
+                                    </select>                          
+                                </div>
+                            </div>
+                            <br>
+                            @endif
                             <div class="form-group row" style="text-align: center">
                                 <div class="col-md-12">
                                     <button type="button" onclick="hacerReserva()" class="btn btn-primary btn-lg mb-2">
@@ -134,6 +149,7 @@
 
         var tabla = document.getElementById('filasHabitaciones');
         document.getElementById('habitacionesElegidas').style.display = 'block';
+        document.getElementById('mishabitaciones').style.display = 'block';
         document.getElementById(objHabitacion.id).style.display = 'none';
 
         var fila = tabla.insertRow(-1); 
@@ -159,35 +175,43 @@
 
         if (document.getElementById('filasHabitaciones').childNodes.length == 1) {
             document.getElementById('habitacionesElegidas').style.display = 'none'
+            document.getElementById('mishabitaciones').style.display = 'none'
         }
     }
 
     async function hacerReserva() {
-        var habitaciones = document.getElementById('filasHabitaciones').childNodes;
-        var _fecha_inicio = document.getElementById('fecha_inicio').value;
-        var _fecha_fin = document.getElementById('fecha_fin').value;
-        var servicio = document.getElementById('pension').value;
+        if (confirm("¿Confirmar la reserva?")) {
+            var habitaciones = document.getElementById('filasHabitaciones').childNodes;
+            var _fecha_inicio = document.getElementById('fecha_inicio').value;
+            var _fecha_fin = document.getElementById('fecha_fin').value;
+            var servicio = document.getElementById('pension').value;
+            @if(Auth::user()->rol == "RECEPCIONISTA" || Auth::user()->rol == "WEBMASTER")
+                var usuario = document.getElementById('usuario').value;
+            @else
+                var usuario = "";
+            @endif
 
-        var i = 0;
-        habitaciones.forEach(habitacion => {            
-            if (i != 0) {               
-                var estancia = habitacion.getAttribute("id").slice(4);
-                var token = '{{csrf_token()}}';
-                var data = { fecha_inicio: _fecha_inicio, fecha_fin: _fecha_fin, estancia_id: estancia, servicio: servicio, _token: token };
+            var i = 0;
+            habitaciones.forEach(habitacion => {            
+                if (i != 0) {               
+                    var estancia = habitacion.getAttribute("id").slice(4);
+                    var token = '{{csrf_token()}}';
+                    var data = { fecha_inicio: _fecha_inicio, fecha_fin: _fecha_fin, estancia_id: estancia, servicio: servicio, usuario: usuario, _token: token };
 
-                $.ajax({
-                    type: "post",
-                    url: "{{url('reservacreada')}}",
-                    data: data,
-                    success: function(msg) {
-                        console.log('asdf')
-                    },
-                    async: false
-                })
-            }
-            i++;
-        })
-        window.location.href = "/reservas/habitacion";
+                    $.ajax({
+                        type: "post",
+                        url: "{{url('reservacreada')}}",
+                        data: data,
+                        success: function(msg) {
+                            console.log('asdf')
+                        },
+                        async: false
+                    })
+                }
+                i++;
+            })
+            window.location.href = "/reservas/habitacion";
+        }
     }
 
     function habitacionElegida(id) {
@@ -205,7 +229,38 @@
         return false;
     }
 
+    function fechaFinDespues() {
+        var fecha_inicio = document.getElementById('fecha_inicio').value;
+        var fecha_fin = document.getElementById('fecha_fin').value;
+        return fecha_inicio <= fecha_fin;
+    }
+
+    Date.prototype.toDateInputValue = (function() {
+        var local = new Date(this);
+        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+        return local.toJSON().slice(0,10);
+    });
+
+    function fechaInicioPosteriorAHoy() {
+        var fecha_inicio = document.getElementById('fecha_inicio').value;
+        var hoy = new Date().toDateInputValue();
+        return fecha_inicio >= hoy;
+    }
+
     function buscarHabitaciones() {
+        if (document.getElementById('fecha_inicio').value == '' ||
+            document.getElementById('fecha_fin').value == '') {
+            alert("Faltan fechas por rellenar.");
+            return;
+        }
+        if (!fechaFinDespues()) {
+            alert("La fecha de salida debe ser posterior a la de entrada.");
+            return;
+        }
+        if (!fechaInicioPosteriorAHoy()) {
+            alert("La fecha de entrada debe ser posterior a hoy.");
+            return;
+        }
         document.getElementById('filasBusqueda').innerHTML = "";
         var fecha_inicio = document.getElementById('fecha_inicio').value;
         var fecha_fin = document.getElementById('fecha_fin').value;
@@ -266,5 +321,12 @@
             }
         })
     }
+
+    function confirmar() {
+        if (confirm("¿Confirmar la reserva?")) {
+            window.location.href = "/reservas/habitacion";
+        } else {
+        }
+    }  
 </script>
 @endsection

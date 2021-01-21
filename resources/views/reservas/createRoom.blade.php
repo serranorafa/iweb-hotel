@@ -122,8 +122,7 @@
                     <h4 id="eligehabitaciones" class="pb-3" style="text-align: center; display: none">{{__('Elige habitaciones')}}</h4>
                     <table id="listaHabitaciones" class="table" style="display: none">
                         <thead>
-                            <tr>   
-                            <th scope="col">ID</th>                        
+                            <tr>                      
                             <th scope="col">Planta</th>
                             <th scope="col">Plazas</th>
                             <th scope="col">Precio/noche</th>
@@ -318,15 +317,13 @@
                     _response.habitaciones.forEach(habitacion => {
                         var fila = tabla.insertRow(-1); 
                         fila.setAttribute("id", habitacion.id)
-                        var idHabitacion = fila.insertCell(0);
-                        var plantaHabitacion = fila.insertCell(1);
-                        var plazasHabitacion = fila.insertCell(2);
-                        var tarifaHabitacion = fila.insertCell(3);
-                        var vistasHabitacion = fila.insertCell(4);
-                        var btnDetalles = fila.insertCell(5);
-                        var btnAynadir = fila.insertCell(6);
+                        var plantaHabitacion = fila.insertCell(0);
+                        var plazasHabitacion = fila.insertCell(1);
+                        var tarifaHabitacion = fila.insertCell(2);
+                        var vistasHabitacion = fila.insertCell(3);
+                        var btnDetalles = fila.insertCell(4);
+                        var btnAynadir = fila.insertCell(5);
 
-                        idHabitacion.innerHTML = habitacion.id;
                         plantaHabitacion.innerHTML = habitacion.planta;
                         plazasHabitacion.innerHTML = habitacion.plazas;
                         tarifaFinal = habitacion.tarifa_base * modTemporada;

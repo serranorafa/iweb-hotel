@@ -14,8 +14,6 @@ class ServiciosTableSeeder extends Seeder
     {
         DB::table('servicios')->delete();
 
-        //factory(App\Servicio::class, 10)->create();
-
         DB::table('servicios')->insert([
             'nombre' => 'SA', 
             'descripcion' => 'Alojamiento en el hotel sin desayunos, comidas o cenas incluidas',

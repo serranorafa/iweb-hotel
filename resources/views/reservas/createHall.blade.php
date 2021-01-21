@@ -132,8 +132,7 @@
                     <h4 id="eligeSala" class="pb-3" style="text-align: center; display: none">{{__('Elige sala')}}</h4>
                     <table id="listaSalas" class="table" style="display: none">
                         <thead>
-                            <tr>   
-                            <th scope="col">ID</th>                        
+                            <tr>                        
                             <th scope="col">Planta</th>
                             <th scope="col">Aforo</th>
                             <th scope="col">Tarifa base/hora</th>                
@@ -335,14 +334,12 @@
                     _response.salas.forEach(sala => {
                         var fila = tabla.insertRow(-1); 
                         fila.setAttribute("id", sala.id)
-                        var idSala = fila.insertCell(0);
-                        var plantaSala = fila.insertCell(1);
-                        var aforoSala = fila.insertCell(2);
-                        var tarifaSala = fila.insertCell(3);
-                        var btnDetalles = fila.insertCell(4);
-                        var btnAynadir = fila.insertCell(5);
+                        var plantaSala = fila.insertCell(0);
+                        var aforoSala = fila.insertCell(1);
+                        var tarifaSala = fila.insertCell(2);
+                        var btnDetalles = fila.insertCell(3);
+                        var btnAynadir = fila.insertCell(4);
 
-                        idSala.innerHTML = sala.id;
                         plantaSala.innerHTML = sala.planta;
                         aforoSala.innerHTML = sala.aforo;
                         tarifaSala.innerHTML = sala.tarifa_base + "€";

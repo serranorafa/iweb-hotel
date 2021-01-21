@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
         <div class="card">
-            <h1 class="card-head" style="text-align: center">{{$estancia->numero}}</h1>
+            <h1 class="card-header" style="text-align: center">{{$estancia->numero}}</h1>
                 <div class="row card-body" style="text-align: center">
                     <div class="row">
                         @foreach($estancia->fotos as $foto)

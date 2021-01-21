@@ -229,10 +229,36 @@
         return false;
     }
 
+    function fechasFinDespues() {
+        var fecha_inicio = document.getElementById('fecha_inicio').value;
+        var fecha_fin = document.getElementById('fecha_fin').value;
+        return fecha_inicio <= fecha_fin;
+    }
+
+    Date.prototype.toDateInputValue = (function() {
+        var local = new Date(this);
+        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+        return local.toJSON().slice(0,10);
+    });
+
+    function fechaInicioPosteriorAHoy() {
+        var fecha_inicio = document.getElementById('fecha_inicio').value;
+        var hoy = new Date().toDateInputValue();
+        return fecha_inicio >= hoy;
+    }
+
     function buscarHabitaciones() {
         if (document.getElementById('fecha_inicio').value == '' ||
             document.getElementById('fecha_fin').value == '') {
-            alert("Faltan fechas por rellenar");
+            alert("Faltan fechas por rellenar.");
+            return;
+        }
+        if (!fechasFinDespues()) {
+            alert("La fecha de salida debe ser posterior a la de entrada.");
+            return;
+        }
+        if (!fechaInicioPosteriorAHoy()) {
+            alert("La fecha de entrada debe ser posterior a hoy.");
             return;
         }
         document.getElementById('filasBusqueda').innerHTML = "";

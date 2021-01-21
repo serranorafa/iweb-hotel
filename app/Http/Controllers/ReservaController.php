@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 class ReservaController extends Controller
 {
     public function index()
-    {
+    {    
         $listaResultado = Reserva::whereNotNull('id')
             ->when(request()->input('id'), function($query) {
                 $query->where('id', request()->input('id'));
@@ -27,9 +27,13 @@ class ReservaController extends Controller
             })
             ->when(request()->input('fecha_fin'), function($query) {
                 $query->whereDate('fecha_fin', request()->input('fecha_fin'));
-            })->paginate(5);
+            });
+        
+        if (request()->user()->rol == "CLIENTE") {
+            $listaResultado->where('usuario_id', request()->user()->id);
+        }
 
-        return view('reservas.list', ['reservas' => $listaResultado]);
+        return view('reservas.list', ['reservas' => $listaResultado->paginate(5)]);
     }
 
     public function createRoomForm() 

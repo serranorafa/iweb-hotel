@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class EstanciaController extends Controller
 {
+    /**
+     * Mensajes de error
+     */
+    public $customMessages = [
+        'image' => 'Las fotos deben ser archivos con formato de imagen (jpeg, png, bmp, gif, svg o webp).',
+        'mimes' => 'Las fotos deben ser archivos con formato de imagen (jpeg, png, bmp, gif, svg o webp).'
+    ];
+
     public function index(Request $request) 
     {
         $listaResultado = Estancia::whereNotNull('id')
@@ -39,6 +47,11 @@ class EstanciaController extends Controller
 
     public function created(Request $request) 
     {
+        $rules = [
+            'fotos.*' => 'mimes:jpg,png,jpeg,gif,svg,webp',
+        ];
+        $this->validate($request, $rules, $this->customMessages);
+        
         $estancia = new Estancia();
 
         $tipo = $request->input('tipo');

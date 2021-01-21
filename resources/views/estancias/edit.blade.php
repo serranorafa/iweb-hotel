@@ -25,7 +25,7 @@
                         <div class="form-group row">
                             <label for="tipo" class="col-md-4 col-form-label text-md-right">{{ __('Tipo') }}</label>
                             <div class="col-md-6">
-                                <select id="tipo" name="tipo" autofocus onchange="cambiarVisibilidad()">
+                                <select id="tipo" class="form-control" name="tipo" autofocus onchange="cambiarVisibilidad()">
                                     <option value="HABITACION" @if($estancia->tipo === "HABITACION") selected @endif>Habitación</option>
                                     <option value="SALA" @if($estancia->tipo === "SALA") selected @endif>Sala</option>
                                 </select>
@@ -59,7 +59,12 @@
                         <div class="form-group row habitacion" style="@if($estancia->tipo === 'HABITACION')visibility: visible @else visibility: hidden @endif">
                             <label for="vistas" class="col-md-4 col-form-label text-md-right">{{ __('Vistas') }}</label>
                             <div class="col-md-6">
-                                <input id="vistas" type="text" class="form-control @error('vistas') is-invalid @enderror" name="vistas" value="{{$estancia->vistas}}" autocomplete="vistas" autofocus>
+                            <select id="vistas" class="form-control" name="vistas" autofocus>
+                                    <option value="Vistas a piscina">Vistas a piscina</option>
+                                    <option value="Vistas al jardin">Vistas al jardin</option>
+                                    <option value="Vistas al mar">Vistas al mar</option>
+                                    <option value="Vistas al aparcamiento">Vistas al aparcamiento</option>
+                                </select>
                                 @error('vistas')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

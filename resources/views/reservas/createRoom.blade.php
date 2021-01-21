@@ -185,7 +185,11 @@
             var _fecha_inicio = document.getElementById('fecha_inicio').value;
             var _fecha_fin = document.getElementById('fecha_fin').value;
             var servicio = document.getElementById('pension').value;
-            var usuario = document.getElementById('usuario').value;
+            @if(Auth::user()->rol == "RECEPCIONISTA" || Auth::user()->rol == "WEBMASTER")
+                var usuario = document.getElementById('usuario').value;
+            @else
+                var usuario = "";
+            @endif
 
             var i = 0;
             habitaciones.forEach(habitacion => {            

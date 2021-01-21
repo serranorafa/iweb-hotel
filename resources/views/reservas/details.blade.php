@@ -22,7 +22,25 @@
                     </div>
                     <div class="col-md-3 col-12" style="text-align: left">
                             {{$reserva->getEstancia->numero}}
-                    </div>                    
+                    </div>     
+
+                    <div class="col-md-3 col-12" style="text-align: left">
+                        <h4 style="font-weight: 900">
+                            Tipo estancia:
+                        </h4>
+                    </div>
+                    <div class="col-md-3 col-12" style="text-align: left">
+                            {{$reserva->getEstancia->tipo}}
+                    </div>
+                    <div class="col-md-3 col-12" style="text-align: left">
+                        <h4 style="font-weight: 900">
+                            Planta:
+                        </h4>
+                    </div>
+                    <div class="col-md-3 col-12" style="text-align: left">
+                            {{$reserva->getEstancia->planta}}
+                    </div> 
+
                     <div class="col-md-3 col-12" style="text-align: left">
                         <h4 style="font-weight: 900">
                             Fecha de inicio:
@@ -106,6 +124,16 @@
                     </div>
                     <div class="col-md-3 col-12" style="text-align: left">
                         {{date('H:i', strtotime($reserva->created_at))}}
+                    </div>
+                    <!-- PRECIO -->
+                    <hr>
+                    <div class="col-md-3 col-12" style="text-align: left">
+                        <h4 style="font-weight: 900">
+                            Precio:
+                        </h4>
+                    </div>
+                    <div class="col-md-3 col-12" style="text-align: left">
+                            {{$reserva->precio_total}} €
                     </div>
 
 

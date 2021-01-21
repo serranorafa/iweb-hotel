@@ -83,7 +83,7 @@ class EstanciaController extends Controller
 
                 $nuevaFoto = new Foto();
                 $nuevaFoto->setEstancia($estancia->getId());
-                $nuevaFoto->setRuta($foto->getClientOriginalName());
+                $nuevaFoto->setRuta("/estancias/" . $foto->getClientOriginalName());
 
                 $nuevaFoto->save();
             }
@@ -95,7 +95,7 @@ class EstanciaController extends Controller
     {
         $estancia = Estancia::find($id);
 
-        $dir = '/img/estancias/';
+        $dir = '/img';
 
         return view('estancias.details', ['estancia' => $estancia, 'dir' => $dir]);
     }

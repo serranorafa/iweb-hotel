@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class EstanciasTableSeeder extends Seeder
+class FotosTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,8 +12,8 @@ class EstanciasTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('estancias')->delete();
+        DB::table('fotos')->delete();
 
-        factory(App\Estancia::class, 250)->create();
+        factory(App\Foto::class, 1000)->create();
     }
 }

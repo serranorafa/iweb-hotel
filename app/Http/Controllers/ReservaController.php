@@ -285,12 +285,13 @@ class ReservaController extends Controller
     public function calcularModTemporada(Request $request) 
     {
         $contenido = $request->getContent();
+        
         $array = explode("&", $contenido);
         $fechaInicio = explode("=", $array[0])[1];
         $fechaFin = explode("=", $array[1])[1];
         $numHoras = 0;
 
-        if (count($array) == 4) {
+        if (count($array) == 5) {
             $horaInicio = explode("=", $array[2])[1];
             $horaFin = explode("=", $array[3])[1];
 

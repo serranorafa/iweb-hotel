@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->delete();
 
-        factory(App\User::class, 50)->create();
+        factory(App\User::class, 1000)->create();
 
         DB::table('users')->insert([
             'nombre' => 'admin',

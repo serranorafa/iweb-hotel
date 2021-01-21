@@ -4,7 +4,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
+            @if(Auth::user()->rol == "RECEPCIONISTA" || Auth::user()->rol == "WEBMASTER")
             <h1 style="text-align: center">{{ __('Reservas') }}</h1>
+            @else
+            <h1 style="text-align: center">{{ __('Mis reservas') }}</h1>
+            @endif
             <div class="card" style="text-align: left">
                 <h4 class="card-header" style="text-align: center">{{ __('Búsqueda') }}</h4>
                 <div class="card-body">
@@ -73,7 +77,9 @@
                     <th scope="col">Precio</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
+                    @if(Auth::user()->rol == "RECEPCIONISTA" || Auth::user()->rol == "WEBMASTER")
                     <th scope="col"></th>
+                    @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -86,8 +92,9 @@
                         <td>{{date('H:i', strtotime($reserva->fecha_fin))}}</td>
                         <td>{{$reserva->precio_total}}€</td>
                         <td><a href="/reservas/{{$reserva->id}}">Detalles</a></td>
-                        <td><a href="/reservas/{{$reserva->id}}/edit">Editar</a></td>
+                        @if(Auth::user()->rol == "RECEPCIONISTA" || Auth::user()->rol == "WEBMASTER")
                         <td><a onclick="confirmar('{{ $reserva->id }}')" href="#">Eliminar</a></td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>

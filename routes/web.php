@@ -77,5 +77,6 @@ Route::post('/reservas', 'ReservaController@index')->middleware('auth', 'webmast
 Route::post('/reservas/habitacion', 'ReservaController@buscarHabitacionesPRUEBA')->middleware('auth');
 Route::post('/reservas/buscarhabitacion', 'ReservaController@buscarHabitacionesAjax')->middleware('auth');
 Route::post('/reservas/buscarsala', 'ReservaController@buscarSalasAjax')->middleware('auth');
+Route::post('/reservas/modificador', 'ReservaController@calcularModTemporada')->middleware('auth');
 
 Auth::routes();

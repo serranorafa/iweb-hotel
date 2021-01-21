@@ -102,7 +102,7 @@
                                 </div>
                                 <div class="form-group row" style="text-align: center">
                                     <div class="col-md-12">
-                                        <button type="button" onclick="hacerReserva()" class="btn btn-primary btn-lg mb-2">
+                                        <button id="btnReserva" type="button" onclick="hacerReserva()" class="btn btn-primary btn-lg mb-2">
                                             {{ __('Hacer reserva') }}
                                         </button>
                                     </div>
@@ -152,10 +152,19 @@
     </div>
 </div>
 <script>
+    var precioTotal = 0;
+    var precioServicio = 0;
+    var numHoras = 0;
+    var tarifaSala = 0;
+
     document.addEventListener("DOMContentLoaded", descripcionServicio());
 
     function anyadirSala(sala) {
         var objSala = sala;
+
+        tarifaSala = objSala.tarifa_base;
+        precioTotal = (numHoras * (tarifaSala + precioServicio));
+        document.getElementById('btnReserva').innerHTML = "Hacer reserva por " + precioTotal.toFixed(2) + "€";
 
         var tabla = document.getElementById('filasSalas');
         document.getElementById('barra').style.display = 'none';
@@ -183,6 +192,8 @@
     }
 
     function eliminarSala(id) {
+        tarifaSala = 0;
+        precioTotal = 0;
         document.getElementById('fila' + id).remove();
         document.getElementById(id).style.display = 'table-row';
 
@@ -209,12 +220,14 @@
             var token = '{{csrf_token()}}';
             var data = { fecha_inicio: _fecha_inicio, fecha_fin: _fecha_fin, hora_inicio: _hora_inicio, hora_fin: _hora_fin, estancia_id: estancia, servicio: servicio, usuario: usuario, _token: token };
 
+            var precioTotal = 0;
+
             $.ajax({
                 type: "post",
                 url: "{{url('reservacreada')}}",
                 data: data,
-                success: function(msg) {
-                    console.log('asdf')
+                success: function(precio) {
+                    precioTotal = precio;
                 },
                 async: false
             })
@@ -252,13 +265,28 @@
         }
         document.getElementById('filasBusqueda').innerHTML = "";
         var fecha_inicio = document.getElementById('fecha_inicio').value;
+        document.getElementById('fecha_inicio').setAttribute("disabled", true);
         var fecha_fin = document.getElementById('fecha_fin').value;
+        document.getElementById('fecha_fin').setAttribute("disabled", true);
         var hora_inicio = document.getElementById('hora_inicio').value;
+        document.getElementById('hora_inicio').setAttribute("disabled", true);
         var hora_fin = document.getElementById('hora_fin').value;
+        document.getElementById('hora_fin').setAttribute("disabled", true);
         var aforo = document.getElementById('aforo').value;
         var token = '{{csrf_token()}}';
+        var data = { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, hora_inicio: hora_inicio, hora_fin: hora_fin, _token: token };
 
-        var data = { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, hora_inicio: hora_inicio, hora_fin: hora_fin, aforo: aforo, _token: token };
+        $.ajax({
+            type: "post",
+            url: "{{url('reservas/modificador')}}",
+            data: data,
+            success: function (_response) {
+                numHoras = _response.numHoras;
+                console.log(numHoras)
+            }
+        })
+
+        data = { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, hora_inicio: hora_inicio, hora_fin: hora_fin, aforo: aforo, _token: token };
 
         $.ajax({
             type: "post",
@@ -307,6 +335,9 @@
             type: "get",
             url: "{{url('servicios')}}" + '/' + servicio + '/descripcion',
             success: function(_response) {
+                precioServicio = _response.tarifa;
+                precioTotal = (numHoras * (tarifaSala + precioServicio));
+                document.getElementById('btnReserva').innerHTML = "Hacer reserva por " + precioTotal.toFixed(2) + "€";
                 document.getElementById('descripcion').innerHTML = _response.descripcion + " (+" + _response.tarifa + "€/hora)";
             }
         })

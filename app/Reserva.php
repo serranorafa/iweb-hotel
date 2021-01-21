@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
+use DateTime;
 
 class Reserva extends Model
 {
@@ -65,5 +65,9 @@ class Reserva extends Model
 
     public function setEstancia($estancia_id) {
         $this->estancia_id = $estancia_id;
+    }
+
+    public static function prueba($texto) {
+        return $texto;
     }
 }

@@ -82,11 +82,12 @@
                             @endif
                             <div class="form-group row" style="text-align: center">
                                 <div class="col-md-12">
-                                    <button type="button" onclick="hacerReserva()" class="btn btn-primary btn-lg mb-2">
+                                    <button id="btnReserva" type="button" onclick="hacerReserva()" class="btn btn-primary btn-lg mb-2">
                                         {{ __('Hacer reserva') }}
                                     </button>
                                 </div>
                             </div>
+                            <label id="precioTotal"></label>
                             <hr>
                         </div>
                         <br>
@@ -142,10 +143,18 @@
     </div>
 </div>
 <script>
+    var precioTotal = 0;
+    var modTemporada = 0;
+    var numDias = 0;
+    var precioServicio = 0;
+    var tarifaHabitaciones = 0;
     document.addEventListener("DOMContentLoaded", descripcionPension());
 
     function anyadirHabitacion(habitacion) {
         var objHabitacion = habitacion;
+        tarifaHabitaciones += objHabitacion.tarifa_base;
+        precioTotal += (numDias * (objHabitacion.tarifa_base + precioServicio) * modTemporada);
+        document.getElementById('btnReserva').innerHTML = "Hacer reserva por " + precioTotal.toFixed(2) + "€";
 
         var tabla = document.getElementById('filasHabitaciones');
         document.getElementById('habitacionesElegidas').style.display = 'block';
@@ -166,12 +175,18 @@
         tarifa.innerHTML = objHabitacion.tarifa_base + "€";
         planta.innerHTML = objHabitacion.planta;
         btnDetalles.innerHTML = '<a href="/estancias/' + objHabitacion.id + '" target="_blank" rel="noopener noreferrer">Detalles</a>';
-        btnEliminar.innerHTML = '<a href="#" onclick="eliminarHabitacion(' + objHabitacion.id + ')">Eliminar</a>';
+        btnEliminar.innerHTML = '<a href="#">Eliminar</a>';
+        btnEliminar.onclick = function() {
+            eliminarHabitacion(objHabitacion);
+        }
     }
 
-    function eliminarHabitacion(id) {
-        document.getElementById('fila' + id).remove();
-        document.getElementById(id).style.display = 'table-row';
+    function eliminarHabitacion(habitacion) {
+        tarifaHabitaciones -= habitacion.tarifa_base;
+        precioTotal -= (numDias * (habitacion.tarifa_base + precioServicio) * modTemporada);
+        document.getElementById('btnReserva').innerHTML = "Hacer reserva por " + precioTotal.toFixed(2) + "€";
+        document.getElementById('fila' + habitacion.id).remove();
+        document.getElementById(habitacion.id).style.display = 'table-row';
 
         if (document.getElementById('filasHabitaciones').childNodes.length == 1) {
             document.getElementById('habitacionesElegidas').style.display = 'none'
@@ -183,12 +198,14 @@
         if (confirm("¿Confirmar la reserva?")) {
             var habitaciones = document.getElementById('filasHabitaciones').childNodes;
             var _fecha_inicio = document.getElementById('fecha_inicio').value;
+            document.getElementById('fecha_inicio').setAttribute("disabled", true);
             var _fecha_fin = document.getElementById('fecha_fin').value;
+            document.getElementById('fecha_fin').setAttribute("disabled", true);
             var servicio = document.getElementById('pension').value;
             var usuario = document.getElementById('usuario').value;
 
             var i = 0;
-            habitaciones.forEach(habitacion => {            
+            habitaciones.forEach(habitacion => { 
                 if (i != 0) {               
                     var estancia = habitacion.getAttribute("id").slice(4);
                     var token = '{{csrf_token()}}';
@@ -237,8 +254,19 @@
         var plazas = document.getElementById('plazas').value;
         var vistas = document.getElementById('vistas').value;
         var token = '{{csrf_token()}}';
+        var data = { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, _token: token };
 
-        var data = { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, plazas: plazas, vistas: vistas, _token: token };
+        $.ajax({
+            type: "post",
+            url: "{{url('reservas/modificador')}}",
+            data: data,
+            success: function (_response) {
+                modTemporada = _response.modTemporada;
+                numDias = _response.numDias;
+            }
+        })
+
+        data = { fecha_inicio: fecha_inicio, fecha_fin: fecha_fin, plazas: plazas, vistas: vistas, _token: token };
 
         $.ajax({
             type: "post",
@@ -288,6 +316,10 @@
             url: "{{url('servicios')}}" + '/' + pension + '/descripcion',
             success: function(_response) {
                 document.getElementById('descripcion').innerHTML = _response.descripcion + " (+" + _response.tarifa + "€/noche)";
+                precioServicio = _response.tarifa;
+                precioTotal = (numDias * (tarifaHabitaciones + precioServicio) * modTemporada);
+                
+                document.getElementById('btnReserva').innerHTML = "Hacer reserva por " + precioTotal.toFixed(2) + "€";
             }
         })
     }

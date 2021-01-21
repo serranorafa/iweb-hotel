@@ -21,7 +21,7 @@ class UserController extends Controller
         'required' => 'Campo obligatorio.',
         'max' => 'Ha sobrepasado el número máximo de caracteres.',
         'email' => 'Introduzca una dirección de correo válida',
-        'unique' => 'Ya existe un usuario con este correo electrónico.'
+        'unique' => 'Ya existe un usuario con el correo electrónico indicado.'
     ];
 
     /**
@@ -112,6 +112,15 @@ class UserController extends Controller
 
         $usuario->setNombre($request->input('nombre'));
         $usuario->setApellidos($request->input('apellidos'));
+
+        // Comprueba que el email nuevo no está en la BD
+        $ruleEmail = [
+            'email' => ['unique:users']
+        ];
+        if ($usuario->email != $request->input('email')) {
+            $this->validate($request, $ruleEmail, $this->customMessages);
+        }
+        
         $usuario->setEmail($request->input('email'));
         $usuario->setPassword(Hash::make($request->input('password')));
         $usuario->setTelefono($request->input('telefono'));

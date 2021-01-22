@@ -12,6 +12,7 @@ return [
     | and used as needed; however, this mailer will be used by default.
     |
     */
+    'driver' => env('MAIL_DRIVER', 'smtp'),
 
     'default' => env('MAIL_MAILER', 'smtp'),
 
@@ -36,7 +37,7 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+            'host' => env('MAIL_HOST', 'smtp.gmail.com'),
             'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),
@@ -83,8 +84,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'no.reply.iweb.biblio@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'No.Reply.IWEB'),
     ],
 
     /*
@@ -105,5 +106,10 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
+    'host' => env('MAIL_HOST', 'smtp.gmail.org'),
+    'port' => env('MAIL_PORT', 587),
+    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+    'username' => env('MAIL_USERNAME'),
+    'password' => env('MAIL_PASSWORD'),
 
 ];

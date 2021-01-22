@@ -223,7 +223,6 @@
                         url: "{{url('reservacreada')}}",
                         data: data,
                         success: function(msg) {
-                            console.log('asdf')
                         },
                         async: false
                     })

@@ -35,25 +35,24 @@ class InformeController extends Controller
                 foreach ($period as $dt) {
                     $label = "Euros";
                     $dtend = date('Y-m-d 00:00:00', strtotime("+1 month", strtotime($dt->format('Y-m-d'))));
-                    $entradas[$dt->format('M Y')] = Reserva::where('created_at', '>=', $dt)->where('created_at', '<=', $dtend)->sum('precio_total');
+                    $entradas[$dt->format('M Y')] = Reserva::where('fecha_inicio', '>=', $dt)->where('fecha_inicio', '<=', $dtend)->sum('precio_total');
                 }
                 return view('informes.chart', ['entradas' => $entradas, 'label' => $label]);
             }
             else if(request()->input('tipo') == "OCUPACION"){
-                $label = "% de ocupación";
                 foreach ($periodm as $dt) {
+                    $label = "% de ocupación";
                     $numReservasHoy = Reserva::where('fecha_inicio', '<=', $dt)
                     ->where('fecha_fin', '>=', $dt)
                     ->count();
-                    error_log($dt->format('d m Y'));
                     $porcentajeOcupadoDiaActual = $numReservasHoy / Estancia::all()->count() * 100;
                     $entradas[$dt->format('d M Y')] = $porcentajeOcupadoDiaActual;
                 }
                 return view('informes.chart', ['entradas' => $entradas, 'label' => $label]);
     
             }else if(request()->input('tipo') == "REGISTROS"){
-                $label = "Usuarios registrados";
                 foreach ($period as $dt) {
+                    $label = "Usuarios registrados";
                     $dtend = date('Y-m-d 00:00:00', strtotime("+1 month", strtotime($dt->format('Y-m-d'))));
                     $entradas[$dt->format('M Y')] = User::where('created_at', '>=', $dt)->where('created_at', '<=', $dtend)->count();
                 }

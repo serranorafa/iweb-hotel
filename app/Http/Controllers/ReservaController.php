@@ -145,7 +145,6 @@ class ReservaController extends Controller
         $reserva = new Reserva();
 
         $contenido = $request->getContent();
-        error_log($contenido);
         $array = explode("&", $contenido);
 
         $fechaInicio = explode("=", $array[0])[1];

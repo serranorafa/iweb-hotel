@@ -56,7 +56,7 @@
                             <label for="mod_temporada" class="col-md-4 col-form-label text-md-right">{{ __('Modificador de temporada') }}</label>
 
                             <div class="col-md-6">
-                                <input id="mod_temporada" type="number" class="form-control @error('mod_temporada') is-invalid @enderror" name="mod_temporada" value="{{$temporada->mod_temporada}}" required autocomplete="mod_temporada" autofocus>
+                                <input id="mod_temporada" type="number" step="0.01" class="form-control @error('mod_temporada') is-invalid @enderror" name="mod_temporada" value="{{$temporada->mod_temporada}}" required autocomplete="mod_temporada" autofocus>
 
                                 @error('mod_temporada')
                                     <span class="invalid-feedback" role="alert">

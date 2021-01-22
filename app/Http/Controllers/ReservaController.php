@@ -51,53 +51,6 @@ class ReservaController extends Controller
         return view('reservas.createHall', ['usuarios' => $usuarios]);
     }
 
-    public function buscarHabitaciones() 
-    {
-        $habitaciones = Estancia::whereNotNull('id')
-                            ->where('tipo', 'HABITACION')
-                            ->when(request()->input('plazas'), function($query) {
-                                $query->where('plazas', request()->input('plazas'));
-                            })
-                            ->when(request()->input('vistas'), function($query) {
-                                $query->where('vistas', request()->input('vistas'));
-                            })->paginate(10);
-
-        return view('reservas.createRoom', ['habitaciones' => $habitaciones]);
-    }
-
-    public function buscarHabitacionesPRUEBA() 
-    {
-        $fechaInicio = request()->input('fecha_inicio');
-        $fechaFin = request()->input('fecha_fin');
-
-        $dateTimeInicio = date('Y-m-d 17:00:00', strtotime("$fechaInicio"));
-        $dateTimeFin = date('Y-m-d 12:00:00', strtotime("$fechaFin"));
-
-        $habitaciones = Estancia::whereNotNull('id')
-                            ->where('tipo', 'HABITACION')
-                            ->when(request()->input('plazas'), function($query) {
-                                $query->where('plazas', request()->input('plazas'));
-                            })
-                            ->when(request()->input('vistas'), function($query) {
-                                $query->where('vistas', request()->input('vistas'));
-                            })
-                            ->whereNotIn('id', function($query) use($dateTimeInicio, $dateTimeFin) {
-                                $query->from('bloqueos')
-                                    ->select('estancia_id')
-                                    ->where('fecha_inicio', '<=', $dateTimeFin)
-                                    ->where('fecha_fin', '>=', $dateTimeInicio);
-                            })
-                            ->whereNotIn('id', function($query) use($dateTimeInicio, $dateTimeFin) {
-                                $query->from('reservas')
-                                    ->select('estancia_id')
-                                    ->where('fecha_inicio', '<=', $dateTimeFin)
-                                    ->where('fecha_fin', '>=', $dateTimeInicio);
-                            })
-                            ->get();
-
-        return view('reservas.createRoom', ['habitaciones' => $habitaciones]);
-    }
-
     public function buscarHabitacionesAjax(Request $request) 
     {
         $contenido = $request->getContent();
@@ -151,7 +104,7 @@ class ReservaController extends Controller
         $fechaFin = explode("=", $array[1])[1];
         $horaInicio = explode('=', $array[2])[1];
         $horaFin = explode('=', $array[3])[1];
-        $aforo = explode('=', $array[3])[1];
+        $aforo = explode('=', $array[4])[1];
 
         $horaInicioHora = explode("%3A", $horaInicio)[0];
         $horaFinHora = explode("%3A", $horaFin)[0];

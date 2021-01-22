@@ -43,16 +43,16 @@
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-@lang('Regards'),<br>
-{{ config('app.name') }}
+@lang('Saludos'),<br>
+{{ __('Dirección de IWEB-Hotel') }}
 @endif
 
 {{-- Subcopy --}}
 @isset($actionText)
 @slot('subcopy')
 @lang(
-    "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\n".
-    'into your web browser:',
+    "Si tienes problemas pulsando el \":actionText\" botón, copia y pega la URL de debajo\n".
+    'en tu navegador:',
     [
         'actionText' => $actionText,
     ]

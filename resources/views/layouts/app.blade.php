@@ -26,7 +26,7 @@
 <body style="background-color: rgb(245,245,245)">
     <div id="app">
         <div class="jumbotron">
-            <div style="float: right;margin-right: 10%; margin-top:0.5%;text-align: center">
+            <div class="d-md-block d-none" style="float: right;margin-right: 10%; margin-top:0.5%;text-align: center">
             @guest
                 <a class="btn btn-secondary" style="width:100%" href="{{ route('login') }}">{{ __('Iniciar sesión') }}</a>
                 @if (Route::has('register'))
@@ -52,7 +52,7 @@
             <div class="container" style="width:max-content">
             <h1 class="display-1" style="margin-left: 1%; margin-top:1%; padding-top:1%"><a href="/" style="color: black;text-decoration: none">IWEBHotel</a></h1>
             </div>
-            <div style="clear: both"></div>
+            <div style="clear: both; margin-bottom: 2vh"></div>
         </div>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -166,6 +166,31 @@
                                 <a class="nav-link" href="/bloqueos">Bloqueos</a>
                             </li>
                         @endif
+                        
+                        <div class="d-block d-md-none" style="margin-top:0.5%;text-align: center">
+                        @guest
+                            <a class="btn btn-secondary" style="width:100%" href="{{ route('login') }}">{{ __('Iniciar sesión') }}</a>
+                            @if (Route::has('register'))
+                            <br>
+                            <br>
+                            <a class="btn btn-secondary" style="width:100%" href="{{ route('register') }}">{{ __('Registro') }}</a>
+                            @endif
+                        @else
+                            <a class="btn btn-secondary" style="width:100%;pointer-events: none">
+                                                                {{ Auth::user()->nombre }}
+                            </a>
+                            <br>
+                            <br>
+                            <a class="btn btn-secondary" style="width:100%" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                                            document.getElementById('logout-form').submit();">
+                                                                {{ __('Cerrar sesión') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                             @csrf
+                             </form>
+        @endguest
+            </div>
+
                     </ul>
                 </div>
             </div>

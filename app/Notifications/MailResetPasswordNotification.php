@@ -43,9 +43,13 @@ class MailResetPasswordNotification extends Notification
         $link = url( "/password/reset/" . $this->token );
 
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', $link)
-                    ->line('Thank you for using our application!');
+            ->from('no.reply.iweb.biblio', 'IWEB-Hotel')
+            ->subject('Cambio de contraseña de IWEB-Hotel')
+            ->greeting('¡Hola!')
+            ->from('no.reply.iweb.biblio@gmail.com')
+            ->line('Este correo electrónico se ha enviado porque se ha solicitado una recuperacion de contraseña de tu cuenta.')
+            ->action('Reiniciar contraseña', $link)
+            ->line('Si no has solicitado el reinicio de tu contraseña, no hagas nada');
     }
 
     /**

@@ -93,6 +93,7 @@
                     </div>
                     <div style="clear: both; height: 2vh">
                     </div>
+                    @if(Auth::user()->rol == "WEBMASTER")
                     <div class="col-12" style="text-align: center">
                         <a onclick="confirmar('{{ $estancia->id }}')" class="btn btn-danger" style="text-align: center">
                             {{ __('Eliminar') }}
@@ -101,6 +102,7 @@
                             {{ __('Editar') }}
                         </a>
                     </div>
+                    @endif
                 </div>
             </div>
             <br />  

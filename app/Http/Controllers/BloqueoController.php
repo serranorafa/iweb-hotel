@@ -50,7 +50,7 @@ class BloqueoController extends Controller
 
     public function createForm()
     {
-        return view('bloqueos.create', ['estancias' => Estancia::whereNotNull('id')->get()]);
+        return view('bloqueos.create', ['estancias' => Estancia::whereNotNull('id')->orderBy('numero', 'ASC')->get()]);
     }
 
     public function created(Request $request) 
@@ -82,7 +82,7 @@ class BloqueoController extends Controller
     public function edit($id)
     {
         $bloqueo = Bloqueo::find($id);
-        return view('bloqueos.edit', ['bloqueo' => $bloqueo, 'estancias' => Estancia::whereNotNull('id')->get()]);
+        return view('bloqueos.edit', ['bloqueo' => $bloqueo, 'estancias' => Estancia::whereNotNull('id')->orderBy('numero', 'ASC')->get()]);
     }
 
     public function edited(Request $request)

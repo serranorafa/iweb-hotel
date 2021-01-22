@@ -61,7 +61,7 @@
                                         <tr>   
                                         <th></th>
                                         <th scope="col">Planta</th> 
-                                        <th scope="col">Tarifa base/noche</th>
+                                        <th scope="col">Tarifa base/hora</th>
                                         <th scope="col">Aforo</th> 
                                         <th></th>
                                         <th></th>
@@ -212,7 +212,11 @@
             var _hora_inicio = document.getElementById('hora_inicio').value;
             var _hora_fin = document.getElementById('hora_fin').value;
             var servicio = document.getElementById('servicio').value;
-            var usuario = document.getElementById('usuario').value;
+            @if(Auth::user()->rol == "RECEPCIONISTA" || Auth::user()->rol == "WEBMASTER")
+                var usuario = document.getElementById('usuario').value;
+            @else
+                var usuario = "";
+            @endif
 
             var estancia = sala.getAttribute("id").slice(4);
             var token = '{{csrf_token()}}';

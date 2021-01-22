@@ -14,7 +14,7 @@ return [
     */
 
     'reset' => 'Tu contraseña ha sido cambiada',
-    'sent' => 'Te hemos enviado un correo con en enlace de reinicio de contraseña',
+    'sent' => 'Te hemos enviado un correo con el enlace de reinicio de contraseña',
     'throttled' => 'Por favor, espera antes de probar otra vez',
     'token' => 'El token de reinicio es inválido',
     'user' => "No existe ningún usuario con ese email",

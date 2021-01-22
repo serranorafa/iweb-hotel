@@ -14,6 +14,6 @@ class EstanciasTableSeeder extends Seeder
     {
         DB::table('estancias')->delete();
 
-        factory(App\Estancia::class, 50)->create();
+        factory(App\Estancia::class, 250)->create();
     }
 }

@@ -14,6 +14,6 @@ class BloqueosTableSeeder extends Seeder
     {
         DB::table('bloqueos')->delete();
 
-        factory(App\Bloqueo::class, 50)->create();
+        factory(App\Bloqueo::class, 150)->create();
     }
 }

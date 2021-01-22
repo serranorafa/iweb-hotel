@@ -7,7 +7,7 @@
             <h1 style="text-align: center">{{ __('Temporadas') }}</h1>
             <br>
             <div style="text-align: center">
-               <a class="btn btn-secondary">+ Nueva temporada</a>
+               <a href="/temporadas/create" class="btn btn-secondary">+ Nueva temporada</a>
             </div>
             <br>
             <table class="table">
@@ -20,6 +20,7 @@
                     <th scope="col">Modificación del precio</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,8 +31,9 @@
                         <td>{{date('j F', strtotime($temporada->fecha_inicio))}}</td>
                         <td>{{date('j F', strtotime($temporada->fecha_fin))}}</td>
                         <td>{{$temporada->mod_temporada}}</td>
-                        <td><a href="#">Detalles</a></td>
-                        <td><a href="#">Eliminar</a></td>
+                        <td><a href="/temporadas/{{$temporada->id}}">Detalles</a></td>
+                        <td><a href="/temporadas/{{$temporada->id}}/edit">Editar</a></td>
+                        <td><a onclick="confirmar('{{ $temporada->id }}')" href="#">Eliminar</a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -44,4 +46,12 @@
         </div>
     </div>
 </div>
+<script>
+    function confirmar(temporada) {
+        if (confirm("¿Confirmar el borrado?")) {
+            window.location.href = "/borrartemporada/" + temporada;
+        } else {
+        }
+    }   
+</script>
 @endsection

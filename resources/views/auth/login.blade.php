@@ -3,9 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h1 style="text-align: center">{{ __('Inicio de sesión') }}</h1>
-            <div class="card" style="text-align: center">
+        <div class="col-md-8">            
+            <div class="card">
+            <h1 class="card-header" style="text-align: center">{{ __('Inicio de sesión') }}</h1>
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -45,7 +45,7 @@
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                     <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
+                                        {{ __('Recuérdame') }}
                                     </label>
                                 </div>
                             </div>
@@ -56,13 +56,11 @@
                                 <button type="submit" class="btn btn-secondary" style="text-align: center"> 
                                     {{ __('Iniciar sesión') }}
                                 </button>
-                                <!--
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
+                                        {{ __('¿Has olvidado tu contraseña?') }}
                                     </a>
                                 @endif
-                                -->
                             </div>
                         </div>
                     </form>

@@ -57,7 +57,7 @@ class TemporadasTableSeeder extends Seeder
         ]);
 
         $fechaInicio = DateTime::createFromFormat('j-m-Y', '20-12-2020');
-        $fechaFin = DateTime::createFromFormat('j-m-Y', '07-01-2021');
+        $fechaFin = DateTime::createFromFormat('j-m-Y', '07-01-2020');
 
         DB::table('temporadas')->insert([
             'nombre' => 'Navidad', 
@@ -66,8 +66,8 @@ class TemporadasTableSeeder extends Seeder
             'mod_temporada' => 1.7
         ]);
 
-        $fechaInicio = DateTime::createFromFormat('j-m-Y', '07-01-2021');
-        $fechaFin = DateTime::createFromFormat('j-m-Y', '30-05-2021');
+        $fechaInicio = DateTime::createFromFormat('j-m-Y', '07-01-2020');
+        $fechaFin = DateTime::createFromFormat('j-m-Y', '30-05-2020');
 
         DB::table('temporadas')->insert([
             'nombre' => 'Primavera', 

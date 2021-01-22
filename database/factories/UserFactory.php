@@ -7,8 +7,9 @@ use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker) {
-    //$rolAux = $faker->boolean(10);
-    $rol = array("WEBMASTER", "RECEPCIONISTA", "CLIENTE");
+    $rolAux = $faker->boolean(7);
+    $rol = $rolAux?"RECEPCIONISTA":"CLIENTE";
+    //$rol = array("WEBMASTER", "RECEPCIONISTA", "CLIENTE");
     return [
         'nombre' => $faker->name,
         'apellidos' => $faker->lastName,
@@ -16,7 +17,8 @@ $factory->define(User::class, function (Faker $faker) {
         'email_verified_at' => now(),
         'password' => bcrypt($faker->password(10)), // password,
         'telefono' => $faker->phoneNumber,
-        'rol' => $rol[rand(0, 2)],
+        'rol' => $rol,
         'remember_token' => Str::random(10),
+        'created_at' => $faker->dateTimeBetween($startDate = '-13 month', $endDate = 'now', $timezone = null)
     ];
 });

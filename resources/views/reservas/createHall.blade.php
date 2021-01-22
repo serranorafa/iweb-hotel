@@ -317,7 +317,6 @@
             data: data,
             success: function (_response) {
                 numHoras = _response.numHoras;
-                console.log(numHoras)
             }
         })
 
